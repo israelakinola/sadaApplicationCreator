@@ -1,0 +1,115 @@
+package org.sada.pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class HouseholdIncome extends BasePage {
+
+    public final By pageTitle = By.id("household-income.page.title");
+
+    // CPP Disability
+    private final By cppDisabilityCheckbox =
+            By.cssSelector("#CPPQPPPaymentPanel_DisabilityPayment00");
+
+    // CPP Retirement
+    private final By cppRetirementCheckbox =
+            By.cssSelector("#CPPQPPPaymentPanel_RetirementPayment00");
+
+    // CPP Surviving Spouse Pension
+    private final By cppSurvivingSpouseCheckbox =
+            By.cssSelector("#CPPQPPPaymentPanel_SurvivingSpousePensionPayment00");
+
+    // WSIB Loss of Income
+    private final By wsibLossOfIncomeCheckbox =
+            By.cssSelector("#WSIBPaymentPanel_LossOfIncomePayment00");
+
+    // WSIB Other
+    private final By wsibOtherCheckbox =
+            By.cssSelector("#WSIBPaymentPanel_OtherPayment00");
+
+    // =========================
+    // INSURANCE PAYMENTS
+    // =========================
+
+    // Insurance Loss of Income
+    private final By insurancePaymentCheckbox =
+            By.cssSelector("#InsurancePaymentPanel_InsurancePayment00");
+
+
+    // =========================
+    // GOVERNMENT PAYMENTS
+    // =========================
+
+    // Old Age Security (OAS)
+    private final By oldAgeSecurityCheckbox =
+            By.cssSelector("#GovernmentPaymentPanel_OldAgeSecurity00");
+
+    // Guaranteed Income Supplement (GIS)
+    private final By guaranteedIncomeSupplementCheckbox =
+            By.cssSelector("#GovernmentPaymentPanel_GuaranteedIncomeSupplement00");
+
+    // Spousal Allowance
+    private final By spousalAllowanceCheckbox =
+            By.cssSelector("#GovernmentPaymentPanel_SpousalAllowance00");
+
+    // Allowance for the Survivor Program
+    private final By survivorAllowanceCheckbox =
+            By.cssSelector("#GovernmentPaymentPanel_SurvivorAllowanceProgram00");
+
+
+    // =========================
+    // GAINS
+    // =========================
+
+    // Guaranteed Annual Income System
+    private final By gainsPaymentCheckbox =
+            By.cssSelector("#GainsPaymentPanel_GainsPayment00");
+
+    // =========================
+    // EMPLOYMENT INSURANCE
+    // =========================
+
+    // Employment Insurance (EI)
+    private final By employmentInsuranceCheckbox =
+            By.cssSelector("#EIPaymentPanel_EIPayment00");
+
+
+    // =========================
+    // STUDENT LOANS
+    // =========================
+
+    // OSAP Living Allowance
+    private final By osapLivingAllowanceCheckbox =
+            By.cssSelector("#StudentLoanPaymentPanel_OSAPPayment00");
+
+    // Other Student Loan (Living Allowance)
+    private final By otherStudentLoanCheckbox =
+            By.cssSelector("#StudentLoanPaymentPanel_OtherStudentLoanPayment00");
+
+    // =========================
+    // OTHER INCOME
+    // =========================
+
+    // Other Income Sources
+    private final By otherIncomeCheckbox =
+            By.cssSelector("#OtherIncomePanel_OtherIncome00");
+
+
+    // =========================
+    // NONE OF THE ABOVE
+    // =========================
+
+    // None of the above
+    private final By noneOfTheAboveCheckbox =
+            By.cssSelector("label[for='NoneOfAbove0']");
+
+
+
+    public HouseholdIncome(WebDriver driver) {
+        super(driver);
+    }
+
+    public void setHHIncome(){
+        utility.click(noneOfTheAboveCheckbox);
+    }
+}
