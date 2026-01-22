@@ -11,7 +11,7 @@ public class Declaration extends BasePage{
 
     public void createDeclaration(){
         System.out.println("Creating ConsentForm");
-        if(applicantInfo.ODSP){
+        if(applicantInfo.ODSP && !applicantInfo.multiProgram){
             utility.clickCheckbox(By.id("consent.declaration-checkbox-option1"), By.cssSelector("label[for='consent.declaration-checkbox-option1']"));
         }else{
             utility.click(By.cssSelector("label[for='consent.EoReferral.consent-checkbox-checkbox-option1']"));

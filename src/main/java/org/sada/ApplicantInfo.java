@@ -3,13 +3,16 @@ package org.sada;
 public class ApplicantInfo {
     //Application Information
     public boolean ODSP = true;
+    public boolean multiProgram = true;
     public boolean hasMyB = false;
 
     //Person Information
-    public String fitstName = "ewew".trim();
-    public String lastName = "Duredsdlo".trim();
-    public String SIN = "101 296 218";
-    public String phoneNumber = "647 422 3333";
+    public String fitstName = "Lawal".trim();
+    public String lastName = "Maru".trim();
+    public String SIN = "127 578 839";
+    public String phoneNumber = "647 422 2135";
+
+
 
 
     //Spouce Information

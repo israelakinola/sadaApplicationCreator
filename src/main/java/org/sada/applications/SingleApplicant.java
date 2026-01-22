@@ -120,9 +120,12 @@ public class SingleApplicant {
         //Program recommendation
         if(utility.isElementPresent(By.id("program-recommendation.page.title"))) {
             System.out.println("Creating program-recommendation");
-            utility.click(By.id("program-recommendation-save-continue-button"));
+            if(applicantInfo.multiProgram){
+                utility.click(By.id("onwods-radio-button-option-label"));
+            }
 
             //Confirm Submmision
+            utility.click(By.id("program-recommendation-save-continue-button"));
             utility.click(By.id("dialog-button"));
 
             System.out.println("Created program-recommendation");
