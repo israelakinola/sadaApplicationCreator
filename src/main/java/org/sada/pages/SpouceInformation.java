@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.sada.ApplicantInfo;
 import org.sada.util.Utility;
 
 import java.util.Objects;
@@ -115,6 +116,30 @@ public class SpouceInformation {
     public void setHealthStatus(String visibleText) {
         WebElement selectEl = utility.scrollIntoView(healthStatusSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
+    }
+
+    public void createSpouceInformation(ApplicantInfo applicantInfo) {
+        System.out.println("SP");
+        this.setFirstName(applicantInfo.fitstNameSpouce);
+        this.setLastName(applicantInfo.lastNameSpouce);
+
+        this.setDOBYear(applicantInfo.DOBYearSpouce);
+        this.setDOBMonth(applicantInfo.DOBMonthSpouce);
+        this.setDOBDay(applicantInfo.DOBDaySpouce);
+
+        //Sex at Birth
+        this.setSexMale();
+
+
+        this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
+
+        this.setSIN(applicantInfo.SINSpouce);
+        this.setEmail(applicantInfo.emailSpouce);
+        this.setNoLangHelp();
+        this.setHealthStatus(applicantInfo.healthStatus);
+
+        this.clickContinueButton();
+
     }
 
     public void clickContinueButton() {

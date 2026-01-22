@@ -68,14 +68,14 @@ public class Utility {
 
     }
 
-    public void clickCheckbox(By inputLocator, By clickableLocator) {
+    public void clickCheckbox(By inputLocator, By labelLocator) {
         WebElement input = driver.findElement(inputLocator); // wait for the actual checkbox input
-        WebElement clickable = scrollIntoView(clickableLocator);
+        WebElement clickable = scrollIntoView(labelLocator);
 
         // Only click if not already selected
         if (!input.isSelected()) {
             try {
-                waitClickable(clickableLocator).click();
+                waitClickable(labelLocator).click();
             } catch (TimeoutException | ElementClickInterceptedException e) {
                 // Fallback to JS click
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickable);

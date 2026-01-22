@@ -40,6 +40,8 @@ public class BeforeYouApply {
             By.id("start-two.receivedSocialAssistanceInPast-radio-button-option-1");
 
 
+
+
     // Radio: Do you have a disability?
     private final By hasDisabilityYes =
             By.id("start-two.hasDisability-radio-button-option-0");

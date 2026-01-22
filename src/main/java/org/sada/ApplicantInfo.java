@@ -6,19 +6,20 @@ public class ApplicantInfo {
     public boolean multiProgram = true;
     public boolean hasMyB = false;
 
-    //Person Information
-    public String fitstName = "Lawal".trim();
-    public String lastName = "Maru".trim();
-    public String SIN = "127 578 839";
-    public String phoneNumber = "647 422 2135";
+    public String maritalStatus = "Single"; //Options : Single,Married
 
+    //Person Information
+    public String fitstName = "JohnBalo".trim();
+    public String lastName = "Teeru".trim();
+    public String SIN = "926 398 488";
+    public String phoneNumber = "647 422 2188";
 
 
 
     //Spouce Information
-    public String fitstNameSpouce = "Christian".trim();
+    public String fitstNameSpouce = "Wife".trim();
     public String lastNameSpouce = this.lastName;
-    public String SINSpouce = "228 723 953";
+    public String SINSpouce = "114 455 447";
 
 
     public String emailSpouce = fitstNameSpouce + lastNameSpouce + "@yopmail.com";;
@@ -36,7 +37,6 @@ public class ApplicantInfo {
     public String streetName = "Main Street East";
     public String city = "Hamilton";
     public  String postalCode = "L8N 3T9";
-    public String maritalStatus = "Single";
     public String DOBYear = "1960";
     public String DOBMonth = "01";
     public String DOBDay = "01";

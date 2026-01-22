@@ -14,10 +14,10 @@ public class SingleApplicant {
     Utility utility;
     ApplicantInfo applicantInfo;
 
-    public SingleApplicant(WebDriver driver) {
+    public SingleApplicant(WebDriver driver, ApplicantInfo applicantInfo) {
         this.driver = driver;
         this.utility = new Utility(driver);
-        this.applicantInfo = new ApplicantInfo();
+        this.applicantInfo = applicantInfo;
     }
 
 
@@ -62,7 +62,7 @@ public class SingleApplicant {
             additionalInformation.createAdditionalInformationSingle();
         }
 
-
+        //Address Information
         if(utility.isElementPresent(By.id("address-information.page.title"))) {
             AddressInformationPage addressInformationPage = new AddressInformationPage(driver);
             System.out.println("Creating Address Information");
@@ -168,12 +168,12 @@ public class SingleApplicant {
 
 
         //Signature
-//        if(utility.isElementPresent(By.id("eid-page.page.title"))) {
-//            System.out.println("Creating Signature");
+        if(utility.isElementPresent(By.id("eid-page.page.title"))) {
+            System.out.println("Creating Signature");
 //            utility.click(By.id("continue-button")); // Take me to sign Application
 //            Signature signature = new Signature(driver);
 //            signature.SignApplication();
-//        }
+        }
 
 
     }

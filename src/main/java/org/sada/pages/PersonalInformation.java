@@ -153,30 +153,30 @@ public class PersonalInformation {
 
     public void createPersonalInformation(ApplicantInfo primaryApplicant) {
         Utility.copyToClipboard(primaryApplicant.email);
-        PersonalInformation personalInformation = new PersonalInformation(driver);
-        personalInformation.setFirstName(primaryApplicant.fitstName);
-        personalInformation.setLastName(primaryApplicant.lastName);
+        this.setFirstName(primaryApplicant.fitstName);
+        this.setLastName(primaryApplicant.lastName);
 
-        personalInformation.setDOBYear(primaryApplicant.DOBYear);
-        personalInformation.setDOBMonth(primaryApplicant.DOBMonth);
-        personalInformation.setDOBDay(primaryApplicant.DOBDay);
+        this.setDOBYear(primaryApplicant.DOBYear);
+        this.setDOBMonth(primaryApplicant.DOBMonth);
+        this.setDOBDay(primaryApplicant.DOBDay);
 
         //Set at Birth
-        personalInformation.setSexMale();
+        this.setSexMale();
 
-        personalInformation.setMaritalStatus(primaryApplicant.maritalStatus);
-        personalInformation.setChildrenNO();
-        personalInformation.setStatusInCanadaSelect(primaryApplicant.statusinCanadaSelect);
+        this.setMaritalStatus(primaryApplicant.maritalStatus);
+        this.setChildrenNO();
+        this.setStatusInCanadaSelect(primaryApplicant.statusinCanadaSelect);
 
-        personalInformation.setSIN(primaryApplicant.SIN);
-        personalInformation.setPhoneNumber(primaryApplicant.phoneNumber);
-        personalInformation.setEmail(primaryApplicant.email);
-        personalInformation.setLangEnglish();
-        personalInformation.setNoLangHelp();
-        personalInformation.setHealthStatus(primaryApplicant.healthStatus);
+        this.setSIN(primaryApplicant.SIN);
+        this.setPhoneNumber(primaryApplicant.phoneNumber);
+        this.setEmail(primaryApplicant.email);
+        this.setLangEnglish();
+        this.setNoLangHelp();
+        this.setHealthStatus(primaryApplicant.healthStatus);
 
-        personalInformation.clickContinueButton();
+        this.clickContinueButton();
     }
+
 
 
 

@@ -108,10 +108,14 @@ public class AddressInformationPage extends BasePage {
         this.inputAddress(steetNUmber, StreetName, cityName, postalCodeAddy);
 
         utility.click(By.id("address-information-continue-button"));
-        if(utility.isElementPresent(By.id("acceptSuggestedBtn"))){
-            utility.click(By.id("acceptSuggestedBtn"));
+        if(utility.isElementPresent(By.id("address-review-title"))) {
+            if (utility.isElementPresent(By.id("acceptSuggestedBtn"))) {
+                utility.click(By.id("acceptSuggestedBtn"));
+            }
         }
-        utility.click(By.id("confirm-address-save-continue-button"));
+        if(utility.isElementPresent(By.id("address-summary-title"))){
+            utility.click(By.id("confirm-address-save-continue-button"));
+        }
 
 
 

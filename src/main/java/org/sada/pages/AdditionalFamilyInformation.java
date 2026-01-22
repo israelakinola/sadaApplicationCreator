@@ -3,6 +3,7 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.sada.ApplicantInfo;
 
 public class AdditionalFamilyInformation extends BasePage {
 
@@ -107,6 +108,7 @@ public class AdditionalFamilyInformation extends BasePage {
     }
 
     public void setEmploymentServicesSupport(boolean yes) {
+        System.out.println("EmploymentServicesSupport");
         utility.click(yes ? employmentServicesYesLabel : employmentServicesNoLabel);
     }
 
@@ -115,7 +117,17 @@ public class AdditionalFamilyInformation extends BasePage {
     }
 
     public void setDisabilityInFamily(boolean yes) {
-        utility.click(yes ? disabilityYesLabel : disabilityNoLabel);
+                By noDSO = By.cssSelector("label[for='personWithDisabilityInFamilyCheckboxPanelApplicant_developmentServicesOntario0-radio-button-option-2']");
+                if(yes){
+                    utility.click(disabilityYesLabel);
+                    if(utility.isElementPresent10(noDSO)){
+                        utility.click(noDSO);
+                    }
+                }else{
+                    utility.click(disabilityNoLabel);
+                }
+
+
     }
 
     public void setImmediateNeedMoney(boolean yes) {
@@ -141,6 +153,33 @@ public class AdditionalFamilyInformation extends BasePage {
     public void clickSaveAndExit() {
         utility.click(saveAndExitBtn);
     }
+
+
+    public void createAdditionalFamilyInformation(ApplicantInfo applicantInfo){
+        // Answer all radio questions (adjust true/false to your test needs)
+        this.setReceivedSocialAssistancePast(false);         // Has anyone received social assistance in the past?
+        this.setResidingInInstitution(false);               // Living in an institution?
+        this.setCurrentlyIncarcerated(false);               // In jail/prison/detention?
+        this.setAccommodationServicesNeeded(false);         // Need support accessing services?
+        this.setEmploymentServicesSupport(false);           // Getting job-program/service support?
+        this.setSpecialDietMedicalCondition(false);         // Need special diet due to medical condition?
+        this.setDisabilityInFamily(applicantInfo.ODSP);                  // Person with disability in family?
+        this.setImmediateNeedMoney(false);                  // Need money for immediate needs?
+        this.setPregnantOrBreastfeeding(false);             // Pregnant or breastfeeding?
+        this.setFullTimeStudent(false);                     // Full-time student?
+        this.setCaringForChild(false);                      // Caring for someone else’s child?
+
+        // Save and Continue
+        By saveContinueBtn = By.id("additional-information-save-continue-button");
+        if (utility.isElementPresent(saveContinueBtn)) {
+            utility.clickButton(saveContinueBtn);
+        } else {
+            // Optional: small wait + fallback in case of async render
+            utility.waitClickable(saveContinueBtn);
+            utility.clickButton(saveContinueBtn);
+        }
+    }
+
 
 
 }

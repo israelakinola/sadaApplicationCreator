@@ -11,6 +11,9 @@ public class EarnedIncome extends BasePage {
     private final By receiveIncomeYes = By.cssSelector("label[for='earned-income-applicant-receive-income-radio-button-option-0']");
     private final By receiveIncomeNo = By.cssSelector("label[for='earned-income-applicant-receive-income-radio-button-option-1']");
 
+    private final By receiveIncomeAnyOneNoneInput = By.id("earned-income.anyone.receive.income-checkbox-option3");
+    private final By receiveIncomeAnyOneNoneLabel = By.cssSelector("label[for='earned-income.anyone.receive.income-checkbox-option3']");
+
     public EarnedIncome(WebDriver driver) {
         super(driver);
     }
@@ -22,5 +25,15 @@ public class EarnedIncome extends BasePage {
         }else{
             utility.click(receiveIncomeNo);
         }
+    }
+
+    public void setEarnedIncomeFamily(boolean earnedIncome) {
+        if (earnedIncome) {
+            //
+        }else{
+            System.out.println("Income Family None");
+            utility.clickCheckbox(receiveIncomeAnyOneNoneInput,receiveIncomeAnyOneNoneLabel);
+        }
+
     }
 }
