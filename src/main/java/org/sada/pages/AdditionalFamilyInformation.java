@@ -18,20 +18,14 @@ public class AdditionalFamilyInformation extends BasePage {
     // -----------------------------
 
     // Has anyone received social assistance in Ontario in the past?
-    private final By receivedSocialAssistancePastYesInput = By.id("familyReceivedSocialAssistanceInPast-radio-button-option-0");
-    private final By receivedSocialAssistancePastNoInput  = By.id("familyReceivedSocialAssistanceInPast-radio-button-option-1");
     private final By receivedSocialAssistancePastYesLabel = By.cssSelector("label[for='familyReceivedSocialAssistanceInPast-radio-button-option-0']");
     private final By receivedSocialAssistancePastNoLabel  = By.cssSelector("label[for='familyReceivedSocialAssistanceInPast-radio-button-option-1']");
 
     // Living in an institution?
-    private final By residingInInstitutionYesInput = By.id("familyMembersResidingInInstitution-radio-button-option-0");
-    private final By residingInInstitutionNoInput  = By.id("familyMembersResidingInInstitution-radio-button-option-1");
     private final By residingInInstitutionYesLabel = By.cssSelector("label[for='familyMembersResidingInInstitution-radio-button-option-0']");
     private final By residingInInstitutionNoLabel  = By.cssSelector("label[for='familyMembersResidingInInstitution-radio-button-option-1']");
 
-    // In jail/prison/overnight detention centre?
-    private final By currentlyIncarceratedYesInput = By.id("familyMembersCurrentlyIncarcerated-radio-button-option-0");
-    private final By currentlyIncarceratedNoInput  = By.id("familyMembersCurrentlyIncarcerated-radio-button-option-1");
+
     private final By currentlyIncarceratedYesLabel = By.cssSelector("label[for='familyMembersCurrentlyIncarcerated-radio-button-option-0']");
     private final By currentlyIncarceratedNoLabel  = By.cssSelector("label[for='familyMembersCurrentlyIncarcerated-radio-button-option-1']");
 

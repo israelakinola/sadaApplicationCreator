@@ -61,9 +61,10 @@ public class Utility {
     }
 
     public void clearAndType(By locator, String text) {
-        WebElement el = scrollIntoView(locator);
-        el = waitVisible(locator);
-        el.clear();
+        WebElement el = waitVisible(locator);
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});", el);
+
         el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         el.sendKeys(Keys.DELETE);
         el.sendKeys(text);
