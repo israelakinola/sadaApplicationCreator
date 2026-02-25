@@ -2,10 +2,15 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.sada.util.Logger;
 
 public class EarnedIncome extends BasePage {
 
     public By pageTitle =  By.id("earned-income.page.title");
+
+    /* -----------------------------
+       Locators (class properties)
+     ----------------------------- */
 
     //Will you receive income from a job, a training program, or self-employment in January 2026?
     private final By receiveIncomeYes = By.cssSelector("label[for='earned-income-applicant-receive-income-radio-button-option-0']");
@@ -31,7 +36,7 @@ public class EarnedIncome extends BasePage {
         if (earnedIncome) {
             //
         }else{
-            System.out.println("Income Family None");
+            Logger.info("Income Family None");
             utility.clickCheckbox(receiveIncomeAnyOneNoneInput,receiveIncomeAnyOneNoneLabel);
         }
 

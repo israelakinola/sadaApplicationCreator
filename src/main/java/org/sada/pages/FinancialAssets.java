@@ -9,6 +9,10 @@ public class FinancialAssets extends BasePage {
         super(driver);
     }
 
+    /* -----------------------------
+       Locators (class properties)
+     ----------------------------- */
+
     // Cryptocurrency
     private final By cryptocurrencyCheckbox =
             By.cssSelector("input#FACryptocurrency0");
@@ -58,6 +62,10 @@ public class FinancialAssets extends BasePage {
     // Has anyone sold or given away assets? - NO
     private final By soldOrGivenAwayAssetsNoLabel =
             By.cssSelector("label[for='FASoldOrGiveAwayAssets-radio-button-option-1']");
+
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
 
     public void setGivenAwayAssets(boolean givenAwayAssets){
         if(givenAwayAssets){

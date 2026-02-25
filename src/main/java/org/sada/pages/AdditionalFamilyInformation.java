@@ -4,12 +4,17 @@ package org.sada.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 
 public class AdditionalFamilyInformation extends BasePage {
+    public AdditionalFamilyInformation(WebDriver driver) {
+        super(driver);
+    }
 
     public final By pageTitle = By.cssSelector("h1[data-e2e='pageTitle']");
+
     // -----------------------------
-    // Locators (radio inputs + labels)
+    // Locators
     // -----------------------------
 
     // Has anyone received social assistance in Ontario in the past?
@@ -37,44 +42,34 @@ public class AdditionalFamilyInformation extends BasePage {
     private final By accommodationServicesNoLabel  = By.cssSelector("label[for='additionalFamilyAccommodationServices-radio-button-option-1']");
 
     // Getting employment program/service support?
-    private final By employmentServicesYesInput = By.id("additionalFamilyEmploymentServices-radio-button-option-0");
-    private final By employmentServicesNoInput  = By.id("additionalFamilyEmploymentServices-radio-button-option-1");
     private final By employmentServicesYesLabel = By.cssSelector("label[for='additionalFamilyEmploymentServices-radio-button-option-0']");
     private final By employmentServicesNoLabel  = By.cssSelector("label[for='additionalFamilyEmploymentServices-radio-button-option-1']");
 
     // Special diet due to medical condition?
-    private final By specialDietYesInput = By.id("specialDietOrMedicalConditionInFamily-radio-button-option-0");
-    private final By specialDietNoInput  = By.id("specialDietOrMedicalConditionInFamily-radio-button-option-1");
     private final By specialDietYesLabel = By.cssSelector("label[for='specialDietOrMedicalConditionInFamily-radio-button-option-0']");
     private final By specialDietNoLabel  = By.cssSelector("label[for='specialDietOrMedicalConditionInFamily-radio-button-option-1']");
 
     // Person with disability in family?
-    private final By disabilityYesInput = By.id("personWithDisabilityInFamily-radio-button-option-0");
-    private final By disabilityNoInput  = By.id("personWithDisabilityInFamily-radio-button-option-1");
+
     private final By disabilityYesLabel = By.cssSelector("label[for='personWithDisabilityInFamily-radio-button-option-0']");
     private final By disabilityNoLabel  = By.cssSelector("label[for='personWithDisabilityInFamily-radio-button-option-1']");
 
     // Need money for immediate needs?
-    private final By immediateNeedMoneyYesInput = By.id("moneyForImmediateNeedInFamily-radio-button-option-0");
-    private final By immediateNeedMoneyNoInput  = By.id("moneyForImmediateNeedInFamily-radio-button-option-1");
+
     private final By immediateNeedMoneyYesLabel = By.cssSelector("label[for='moneyForImmediateNeedInFamily-radio-button-option-0']");
     private final By immediateNeedMoneyNoLabel  = By.cssSelector("label[for='moneyForImmediateNeedInFamily-radio-button-option-1']");
 
     // Pregnant or breastfeeding (additional nutritional needs)?
-    private final By pregnantOrBreastfeedingYesInput = By.id("pregnantOrBreastFeedingInFamily-radio-button-option-0");
-    private final By pregnantOrBreastfeedingNoInput  = By.id("pregnantOrBreastFeedingInFamily-radio-button-option-1");
+
     private final By pregnantOrBreastfeedingYesLabel = By.cssSelector("label[for='pregnantOrBreastFeedingInFamily-radio-button-option-0']");
     private final By pregnantOrBreastfeedingNoLabel  = By.cssSelector("label[for='pregnantOrBreastFeedingInFamily-radio-button-option-1']");
 
     // Full-time student?
-    private final By fullTimeStudentYesInput = By.id("fullTimeStudentInFamily-radio-button-option-0");
-    private final By fullTimeStudentNoInput  = By.id("fullTimeStudentInFamily-radio-button-option-1");
     private final By fullTimeStudentYesLabel = By.cssSelector("label[for='fullTimeStudentInFamily-radio-button-option-0']");
     private final By fullTimeStudentNoLabel  = By.cssSelector("label[for='fullTimeStudentInFamily-radio-button-option-1']");
 
     // Caring for someone else’s child temporarily? (optional)
-    private final By caringForChildYesInput = By.id("caringForChild-radio-button-option-0");
-    private final By caringForChildNoInput  = By.id("caringForChild-radio-button-option-1");
+
     private final By caringForChildYesLabel = By.cssSelector("label[for='caringForChild-radio-button-option-0']");
     private final By caringForChildNoLabel  = By.cssSelector("label[for='caringForChild-radio-button-option-1']");
 
@@ -82,9 +77,7 @@ public class AdditionalFamilyInformation extends BasePage {
     private final By saveAndContinueBtn = By.id("additional-information-save-continue-button"); // or: By.cssSelector("button[data-e2e='saveContinueBtn']")
     private final By saveAndExitBtn     = By.id("additional-information-save-exit-button");     // or: By.cssSelector("button[data-e2e='saveExitBtn']")
 
-    public AdditionalFamilyInformation(WebDriver driver) {
-        super(driver);
-    }
+
 
     // -----------------------------
     // Actions (public API)
@@ -108,7 +101,7 @@ public class AdditionalFamilyInformation extends BasePage {
     }
 
     public void setEmploymentServicesSupport(boolean yes) {
-        System.out.println("EmploymentServicesSupport");
+        Logger.info("EmploymentServicesSupport");
         utility.click(yes ? employmentServicesYesLabel : employmentServicesNoLabel);
     }
 
@@ -163,7 +156,7 @@ public class AdditionalFamilyInformation extends BasePage {
         this.setAccommodationServicesNeeded(false);         // Need support accessing services?
         this.setEmploymentServicesSupport(false);           // Getting job-program/service support?
         this.setSpecialDietMedicalCondition(false);         // Need special diet due to medical condition?
-        this.setDisabilityInFamily(applicantInfo.ODSP);                  // Person with disability in family?
+        this.setDisabilityInFamily(applicantInfo.isODSP());                  // Person with disability in family?
         this.setImmediateNeedMoney(false);                  // Need money for immediate needs?
         this.setPregnantOrBreastfeeding(false);             // Pregnant or breastfeeding?
         this.setFullTimeStudent(false);                     // Full-time student?

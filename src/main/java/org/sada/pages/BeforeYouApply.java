@@ -4,22 +4,28 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.sada.util.Utility;
 
+import javax.swing.text.Utilities;
 import java.time.Duration;
 
-public class BeforeYouApply {
+public class BeforeYouApply extends BasePage {
 
-    WebDriver driver;
     public final By pageTitle = By.id("before-you-apply.page.title");
- /* -----------------------------
+    public BeforeYouApply(WebDriver driver) {
+       super(driver);
+    }
+
+
+    /* -----------------------------
        Locators (class properties)
-       ----------------------------- */
+     ----------------------------- */
 
     // Radio: Are you in an emergency or crisis...?
     private final By receivingMoneyForReasonYes =
             By.id("start-two.receivingMoneyForReason-radio-button-option-0");
     private final By receivingMoneyForReasonNo  =
-            By.id("start-two.receivingMoneyForReason-radio-button-option-1");
+           By.id("start-two.receivingMoneyForReason-radio-button-option-1");
 
     // Radio: Are you currently getting money from OW or ODSP?
     private final By receivingMoneyFromExistingProgramYes =
@@ -75,20 +81,17 @@ public class BeforeYouApply {
     private final By continueButton =
             By.id("before-you-apply-continue-button");
 
-
-    public BeforeYouApply(WebDriver driver) {
-        this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-    }
-
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
 
     protected void setEmergencyAsNo(){
-        driver.findElement(receivingMoneyForReasonNo).click();
+        utility.findElement(receivingMoneyForReasonNo).click();
     }
 
     protected void setGetiingMoneyAsNo(){
         //Are you currently getting money from Ontario Works or the Ontario Disability Support Program?
-        driver.findElement(receivingMoneyFromExistingProgramNo).click();
+        utility.findElement(receivingMoneyFromExistingProgramNo).click();
     }
 
     protected void setMoneyForImmediateNeedNo(){
@@ -96,15 +99,15 @@ public class BeforeYouApply {
     }
 
     protected void setReceivedSocialAssistanceInPastNo(){
-        driver.findElement(receivedSocialAssistanceInPastNo).click();
+        utility.findElement(receivedSocialAssistanceInPastNo).click();
     }
 
     protected void setHasDisabilityNo(){
-        driver.findElement(hasDisabilityNo).click();
+        utility.findElement(hasDisabilityNo).click();
     }
 
     protected void setHasDisabilityYes(){
-        driver.findElement(hasDisabilityYes).click();
+        utility.findElement(hasDisabilityYes).click();
     }
 
     protected void setStatusInCanadaSelect(String visibleText){
@@ -116,7 +119,7 @@ public class BeforeYouApply {
         driver.findElement(releasedFromInstitutionNo).click();
     }
     protected void setLivingOnFirstNationsReserveLandNo(){
-        driver.findElement(livingOnFirstNationsReserveLandNo).click();
+        utility.findElement(livingOnFirstNationsReserveLandNo).click();
     }
 
     protected void setApplyingForYourselfYes(){

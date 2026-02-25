@@ -2,18 +2,17 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.sada.ApplicantInfo;
 
 public class AdditionalInformation extends BasePage {
 
     public AdditionalInformation(WebDriver driver) {
         super(driver);
-
     }
 
-        /* -----------------------------------------
-           Locators (prefer labels bound via "for")
-           ----------------------------------------- */
-
+    // -----------------------------
+    // Locators
+    // -----------------------------
     // Are you living in an institution ... ?
     private final By currentlyResidingGroup = By.id("additionalCurrentlyResidingInAnInstitution_radio");
     private final By currentlyResidingYesLabel = By.cssSelector(
@@ -80,9 +79,9 @@ public class AdditionalInformation extends BasePage {
 
 
 
-        /* -----------------------------------------
-           Public API (click/select methods)
-           ----------------------------------------- */
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
 
     public void setCurrentlyResidingInInstitution(boolean yes) {
         utility.waitVisible(currentlyResidingGroup);
@@ -129,13 +128,13 @@ public class AdditionalInformation extends BasePage {
         utility.click(yes ? caringForChildYesLabel : caringForChildNoLabel);
     }
 
-    public void createAdditionalInformationSingle(){
+    public void createAdditionalInformationSingle(ApplicantInfo applicantInfo){
         setCurrentlyResidingInInstitution(false);
         setAccommodationServices(false);
         setEmploymentServices(false);
         setSpecialDietOrMedicalCondition(false);
         setPersonWithDisability(false);
-        if(applicantInfo.ODSP){
+        if(applicantInfo.isODSP()){
             setPersonWithDisability(true);
         }else{
             setPersonWithDisability(false);

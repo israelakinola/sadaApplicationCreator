@@ -17,15 +17,25 @@ public class Utility {
 
     private WebDriver driver;
     private final WebDriverWait wait;
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     public Utility (WebDriver driver) {
         this.driver = Objects.requireNonNull(driver, "driver must not be null");
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
+    // -----------------------------
+    // Selenium Based Utilities
+    // -----------------------------
 
-    public  WebDriverWait useWait(){
-        return this.wait;
+
+    public WebElement findElement(By by){
+        try{
+            return driver.findElement(by);
+        }catch(NoSuchElementException ex){
+            Logger.error("Element not found: " + by);
+            throw new NoSuchElementException("Element not found: " + by, ex);
+        }
     }
     public WebElement waitPresent(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -36,7 +46,11 @@ public class Utility {
     }
 
     public WebElement waitClickable(By locator) {
-        return wait.until(ExpectedConditions.elementToBeClickable(waitVisible(locator)));
+        try{
+            return wait.until(ExpectedConditions.elementToBeClickable(waitVisible(locator)));
+        }catch (TimeoutException e){
+            throw new TimeoutException(e.getMessage());
+        }
     }
 
     public WebElement scrollIntoView(By locator) {
@@ -55,19 +69,24 @@ public class Utility {
         el.sendKeys(text);
     }
 
-    public void click(By locator) {
-        WebElement el = scrollIntoView(locator);
-
-        // Try normal click first
+    public boolean click(By locator) {
         try {
-            waitClickable(locator).click();
-        } catch (TimeoutException | ElementClickInterceptedException e) {
-            // Fallback: JS click if overlay/styling intercepts
-            ((JavascriptExecutor)driver).executeScript("arguments[0].click();", el);
+            WebElement el = scrollIntoView(locator);
+
+            try {
+                waitClickable(locator).click();
+            } catch (TimeoutException | ElementClickInterceptedException e) {
+                ((JavascriptExecutor) driver)
+                        .executeScript("arguments[0].click();", el);
+            }
+
+            return true;
+
+        } catch (TimeoutException | NoSuchElementException e) {
+            Logger.error("Element not found: " + locator);
+            return false;
         }
-
     }
-
     public void clickCheckbox(By inputLocator, By labelLocator) {
         WebElement input = driver.findElement(inputLocator); // wait for the actual checkbox input
         WebElement clickable = scrollIntoView(labelLocator);
@@ -83,35 +102,13 @@ public class Utility {
         }
     }
 
-    static public String askForInput(String msg){
-        Scanner myObj = new Scanner(System.in);
-        System.out.println(msg);
-        String userName = myObj.nextLine();  // Read user input
-        return msg;
-    }
+
 
     public void clickButton(By btnID){
         this.click(btnID);
     }
 
-    public void type(By locator, String value) {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
-        // Ensure the element is in view
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({behavior:'instant',block:'center'});", element);
-
-        // Give focus (Angular/Material needs real focus)
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].focus();", element);
-
-        // Clear existing value safely
-        element.click();
-        element.clear();
-
-        // Type value
-        element.sendKeys(value);
-    }
 
     public void setCheckbox(By locator, boolean value){
 
@@ -143,10 +140,36 @@ public class Utility {
             WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
             return element != null;
         } catch (Exception e) {
+            Logger.error(e.getMessage());
             return false; // timeout or other exceptions
         }
     }
 
+
+
+
+    public String getValue(By by) {
+        WebElement element = waitPresent(by);
+        return element.getDomProperty("value");
+    }
+
+    // -----------------------------
+    // Internal helper: input click with label fallback
+    // -----------------------------
+    public void clickRadio(By inputBy, By labelBy) {
+        try {
+            this.click(inputBy); // prefer clicking the actual input
+        } catch (Exception e) {
+            // Fallback to clicking the label (bigger target and often not obstructed)
+            this.click(labelBy);
+        }
+    }
+
+
+
+    // -----------------------------
+    // UI Based Utilities
+    // -----------------------------
     public static void copyToClipboard(String content) {
         try {
 
@@ -166,30 +189,17 @@ public class Utility {
             // Set the content of the clipboard.
             clipboard.setContents(stringSelection, null);
 
-            System.out.println("Content successfully copied to clipboard: \"" + content + "\"");
+            Logger.info("Content successfully copied to clipboard: \"" + content + "\"");
 
         } catch (Exception e) {
-            System.err.println("Error copying to clipboard: " + e.getMessage());
+            Logger.error("Error copying to clipboard: " + e.getMessage());
             // Handle exceptions such as if the AWT environment is not available (e.g., in a headless server environment).
         }
     }
 
-
-    public String getValue(By by) {
-        WebElement element = waitPresent(by);
-        return element.getDomProperty("value");
-    }
-
-    // -----------------------------
-    // Internal helper: input click with label fallback
-    // -----------------------------
-    public void clickRadio(By inputBy, By labelBy) {
-        try {
-            this.click(inputBy); // prefer clicking the actual input
-        } catch (Exception e) {
-            // Fallback to clicking the label (bigger target and often not obstructed)
-            this.click(labelBy);
-        }
+    public static String askForInput(String msg){
+        System.out.print(msg);
+        return SCANNER.nextLine().trim();  // Read and Return user input
     }
 
 }

@@ -7,8 +7,12 @@ public class Signature extends BasePage {
     public Signature(WebDriver driver) {
         super(driver);
     }
-    private final By infoBtn =  By.xpath("//a[normalize-space()='OK']");
 
+    /* -----------------------------
+       Locators (class properties)
+     ----------------------------- */
+
+    private final By infoBtn =  By.xpath("//a[normalize-space()='OK']");
     // 1st signature
     By firstSignature = By.xpath(
             "(//span[normalize-space()='Signature']/ancestor::div[contains(@class,'img--wrapper')])[1]"
@@ -36,7 +40,9 @@ public class Signature extends BasePage {
     By signBtn = By.cssSelector("span[data-msgid='TERMS_CONDITIONS_AGREE_SIGN']");
 
 
-
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
     protected void inputSignature(By signBox, By signInput, By saveBtn){
         utility.click(signBox);
         utility.clearAndType(signInput, "123");

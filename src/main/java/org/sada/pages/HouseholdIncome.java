@@ -5,7 +5,16 @@ import org.openqa.selenium.WebDriver;
 
 public class HouseholdIncome extends BasePage {
 
+    public HouseholdIncome(WebDriver driver) {
+        super(driver);
+    }
+
     public final By pageTitle = By.id("household-income.page.title");
+
+
+    /* -----------------------------
+       Locators (class properties)
+     ----------------------------- */
 
     // CPP Disability
     private final By cppDisabilityCheckbox =
@@ -105,9 +114,11 @@ public class HouseholdIncome extends BasePage {
 
 
 
-    public HouseholdIncome(WebDriver driver) {
-        super(driver);
-    }
+
+
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
 
     public void setHHIncome(){
         utility.click(noneOfTheAboveCheckbox);

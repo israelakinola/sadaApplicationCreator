@@ -6,6 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class DemographicInformation  extends BasePage{
+
+    /* -----------------------------
+       Locators (class properties)
+     ----------------------------- */
     public final By pageTitle = By.cssSelector("h1[data-e2e='pageTitle']");
     //What is your current housing situation?
     private final By gender = By.id("select-demographic-information.genderIdentity");
@@ -21,6 +25,11 @@ public class DemographicInformation  extends BasePage{
 
     //What is your language of choice
     private final By language = By.id("select-demographic-information.language");
+
+
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
 
     public DemographicInformation(WebDriver driver) {
         super(driver);

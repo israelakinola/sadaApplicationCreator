@@ -7,16 +7,18 @@ import org.sada.util.Utility;
 
 import java.util.Objects;
 
-public class PersonalInformation {
-    private final WebDriver driver;
-    private Utility utility;
+public class PersonalInformation extends BasePage {
+
     public final By pageTitle = By.id("personal-information.page.title");
 
 
     public PersonalInformation(WebDriver driver) {
-        this.driver = Objects.requireNonNull(driver, "driver must not be null");
-        this.utility = new Utility(driver);
+      super(driver);
     }
+
+    /* -----------------------------
+       Locators (class properties)
+     ----------------------------- */
 
     // Text inputs
     private final By firstNameInput = By.id("input-personal-information.firstName");
@@ -68,6 +70,9 @@ public class PersonalInformation {
     private final By continueButton = By.id("personal-information-continue-button");
 
 
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
 
     public void setFirstName(String s) {
         utility.clearAndType(firstNameInput, s);
@@ -98,6 +103,7 @@ public class PersonalInformation {
     }
 
 
+
     public void setMaritalStatus(String maritalStatus) {
         WebElement selectEl = utility.scrollIntoView(maritalStatusSelect);
         new Select(selectEl).selectByVisibleText(maritalStatus);
@@ -111,7 +117,6 @@ public class PersonalInformation {
         WebElement selectEl = utility.scrollIntoView(statusInCanadaSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
     }
-
 
     public void setSIN(String SIN) {
         String sin = System.getProperty("sin", SIN);
@@ -129,9 +134,6 @@ public class PersonalInformation {
 
     public void setEmail(String email) {
         utility.clearAndType(emailInput, email);
-//        WebElement el = utility.useWait().until(ExpectedConditions.visibilityOfElementLocated(emailInput));
-//        el.clear();
-//        el.sendKeys(email);
     }
 
     public void setLangEnglish() {
@@ -152,27 +154,27 @@ public class PersonalInformation {
     }
 
     public void createPersonalInformation(ApplicantInfo primaryApplicant) {
-        Utility.copyToClipboard(primaryApplicant.email);
-        this.setFirstName(primaryApplicant.fitstName);
-        this.setLastName(primaryApplicant.lastName);
+        Utility.copyToClipboard(primaryApplicant.getEmail());
+        this.setFirstName(primaryApplicant.getFirstName());
+        this.setLastName(primaryApplicant.getLastName());
 
-        this.setDOBYear(primaryApplicant.DOBYear);
-        this.setDOBMonth(primaryApplicant.DOBMonth);
-        this.setDOBDay(primaryApplicant.DOBDay);
+        this.setDOBYear(primaryApplicant.getDOBYear());
+        this.setDOBMonth(primaryApplicant.getDOBMonth());
+        this.setDOBDay(primaryApplicant.getDOBDay());
 
         //Set at Birth
         this.setSexMale();
 
-        this.setMaritalStatus(primaryApplicant.maritalStatus);
+        this.setMaritalStatus(primaryApplicant.getMaritalStatus());
         this.setChildrenNO();
-        this.setStatusInCanadaSelect(primaryApplicant.statusinCanadaSelect);
+        this.setStatusInCanadaSelect(primaryApplicant.getStatusinCanadaSelect());
 
-        this.setSIN(primaryApplicant.SIN);
-        this.setPhoneNumber(primaryApplicant.phoneNumber);
-        this.setEmail(primaryApplicant.email);
+        this.setSIN(primaryApplicant.getSIN());
+        this.setPhoneNumber(primaryApplicant.getPhoneNumber());
+        this.setEmail(primaryApplicant.getEmail());
         this.setLangEnglish();
         this.setNoLangHelp();
-        this.setHealthStatus(primaryApplicant.healthStatus);
+        this.setHealthStatus(primaryApplicant.getHealthStatus());
 
         this.clickContinueButton();
     }

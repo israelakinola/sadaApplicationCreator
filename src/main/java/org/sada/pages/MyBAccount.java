@@ -4,9 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.sada.util.Utility;
 
-public class MyBAccount {
-    WebDriver driver;
-    Utility utility;
+public class MyBAccount extends BasePage {
+
+
+    /* -----------------------------
+       Locators (class properties)
+     ----------------------------- */
 
     public final By pageTitle = By.id("create-account.page.title");
 
@@ -28,22 +31,22 @@ public class MyBAccount {
 
 
     public MyBAccount(WebDriver driver) {
-        this.driver = driver;
-        utility = new Utility(driver);
+        super(driver);
     }
 
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
 
     public void createMyB(boolean asMyB, String emailAddress, String password){
-        MyBAccount myB = new MyBAccount(this.driver);
 
         //Aggress to MyB Term
-        myB.aggressToTerm();
+        utility.click(term);
 
         if (!asMyB){
-            //Create an accoount
-            myB.createAnAccount(emailAddress, password);
+            createAnAccount(emailAddress, password);
         }else{
-            myB.signInToAnAccount(emailAddress, password);
+            signInToAnAccount(emailAddress, password);
         }
 
         //Get Permission to continue, when my MYB is done
@@ -55,9 +58,6 @@ public class MyBAccount {
         }
     }
 
-    protected void aggressToTerm(){
-        utility.click(term);
-    }
 
     protected  void createAnAccount(String emailAddress, String password){
         utility.click(createAccountBtn);

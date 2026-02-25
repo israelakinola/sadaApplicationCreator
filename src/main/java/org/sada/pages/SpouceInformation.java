@@ -9,14 +9,10 @@ import org.sada.util.Utility;
 
 import java.util.Objects;
 
-public class SpouceInformation {
-    private final WebDriver driver;
-    private Utility utility;
-
+public class SpouceInformation extends BasePage {
 
     public SpouceInformation(WebDriver driver) {
-        this.driver = Objects.requireNonNull(driver, "driver must not be null");
-        this.utility = new Utility(driver);
+      super(driver);
     }
 
     // Text inputs
@@ -87,7 +83,9 @@ public class SpouceInformation {
     }
 
 
-
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
     public void setStatusInCanadaSelect(String visibleText) {
         WebElement selectEl = utility.scrollIntoView(statusInCanadaSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
@@ -119,24 +117,23 @@ public class SpouceInformation {
     }
 
     public void createSpouceInformation(ApplicantInfo applicantInfo) {
-        System.out.println("SP");
-        this.setFirstName(applicantInfo.fitstNameSpouce);
-        this.setLastName(applicantInfo.lastNameSpouce);
+        this.setFirstName(applicantInfo.getFirstNameSpouce());
+        this.setLastName(applicantInfo.getLastName());
 
-        this.setDOBYear(applicantInfo.DOBYearSpouce);
-        this.setDOBMonth(applicantInfo.DOBMonthSpouce);
-        this.setDOBDay(applicantInfo.DOBDaySpouce);
+        this.setDOBYear(applicantInfo.getDOBYearSpouce());
+        this.setDOBMonth(applicantInfo.getDOBMonthSpouce());
+        this.setDOBDay(applicantInfo.getDOBDaySpouce());
 
         //Sex at Birth
         this.setSexMale();
 
 
-        this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
+        this.setStatusInCanadaSelect(applicantInfo.getStatusinCanadaSelect());
 
-        this.setSIN(applicantInfo.SINSpouce);
-        this.setEmail(applicantInfo.emailSpouce);
+        this.setSIN(applicantInfo.getSINSpouce());
+        this.setEmail(applicantInfo.getEmailSpouce());
         this.setNoLangHelp();
-        this.setHealthStatus(applicantInfo.healthStatus);
+        this.setHealthStatus(applicantInfo.getHealthStatus());
 
         this.clickContinueButton();
 

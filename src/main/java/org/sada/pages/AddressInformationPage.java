@@ -8,12 +8,16 @@ import org.openqa.selenium.support.ui.Select;
 
 
 public class AddressInformationPage extends BasePage {
+    public AddressInformationPage(WebDriver driver) {
+        super(driver);
+    }
+    // -----------------------------
+    // Locators
+    // -----------------------------
 
-    // --- Radio: "Do you live in an apartment building or multi-unit dwelling?" ---
-    // Inputs exist, but we use their labels as click targets:
+
     private final By apartmentYesLabel = By.cssSelector("label[for='home-apartment-radio-button-option-0']");
     private final By apartmentNoLabel  = By.cssSelector("label[for='home-apartment-radio-button-option-1']");
-
 
 
     // Toggle to manual entry (link inside <p id="home-toggle-auto">)
@@ -43,15 +47,12 @@ public class AddressInformationPage extends BasePage {
     private final By mailingAddressCheckbox = By.id("mailingAddressCheckbox");
     private final By mailingAddressLabel    = By.cssSelector("label[for='mailingAddressCheckbox']");
 
-    public AddressInformationPage(WebDriver driver) {
-        super(driver);
-    }
 
 
-    /**
-     * Set "Do you live in an apartment building or multi-unit dwelling?"
-     * @param isApartment true = Yes, false = No
-     */
+    // -----------------------------
+    // Actions (public API)
+    // -----------------------------
+
     public void setIsHomeApartment(boolean isApartment) {
         utility.scrollIntoView(isApartment ? apartmentYesLabel : apartmentNoLabel);
         utility.click(isApartment ? apartmentYesLabel : apartmentNoLabel);
@@ -59,10 +60,7 @@ public class AddressInformationPage extends BasePage {
 
 
 
-    /**
-     * Click the "enter your address" link to switch to manual address entry mode.
-     * (You can then interact with the manual address fields — not included in your snippet.)
-     */
+
     public void clickEnterAddressManually() {
         utility.scrollIntoView(enterAddressManuallyLink);
         utility.click(enterAddressManuallyLink);
@@ -80,10 +78,7 @@ public class AddressInformationPage extends BasePage {
     }
 
 
-    /**
-     * Set the "My mailing address is the same as my home address." checkbox to the desired state.
-     * @param same true = check, false = uncheck
-     */
+
     public void setMailingAddressSameAsHome(boolean same) {
         // If your Utility has setCheckbox(By, boolean), use that.
         utility.scrollIntoView(mailingAddressCheckbox);
@@ -98,11 +93,9 @@ public class AddressInformationPage extends BasePage {
             boolean isApartment,
             String steetNUmber, String StreetName, String cityName, String postalCodeAddy) {
 
-        // Apartment radio
         this.setIsHomeApartment(isApartment);
 
 
-        //clcik enter address manually
         this.clickEnterAddressManually();
 
         this.inputAddress(steetNUmber, StreetName, cityName, postalCodeAddy);
@@ -116,8 +109,6 @@ public class AddressInformationPage extends BasePage {
         if(utility.isElementPresent(By.id("address-summary-title"))){
             utility.click(By.id("confirm-address-save-continue-button"));
         }
-
-
 
     }
 
