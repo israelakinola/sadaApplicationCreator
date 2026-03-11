@@ -61,6 +61,28 @@ public class ApplicantInfo {
     private String DOBMonthSpouce = "01";
     private String DOBDaySpouce = "01";
 
+    //Additional Information
+    public boolean currentlyResidingInInstitution = false;
+    public boolean accommodationServices = false;
+    public boolean employmentServices = false;
+    public boolean specialDietOrMedicalCondition = false;
+    public boolean personWithDisability;
+    public boolean additionalNutritionalNeeds = false;
+    public boolean fullTimeStudent = false;
+    public boolean caringForChild = false;
+
+    //Additional Family Information
+    public boolean receivedSocialAssistancePast = false;      // Has anyone received social assistance in the past?
+    public boolean residingInInstitution = false;              // Living in an institution?
+    public boolean currentlyIncarcerated = false;              // In jail/prison/detention?
+    public boolean accommodationServicesNeeded = false;        // Need support accessing services?
+    public boolean employmentServicesSupport = false;          // Getting job-program/service support?
+    public boolean specialDietMedicalCondition = false;         // Need special diet due to medical condition?
+    public boolean disabilityInFamily = true;                        // Person with disability in family?
+    public boolean immediateNeedMoney = false;               // Need money for immediate needs?
+    public boolean pregnantOrBreastfeeding = false;           // Pregnant or breastfeeding?
+    public boolean additionalFamilyfullTimeStudent = false;                // Full-time student?
+    public boolean additionalFamilyCaringForChild = false;                    // Caring for someone else’s child?
 
 
     //Other Info

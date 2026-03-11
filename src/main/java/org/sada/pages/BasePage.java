@@ -11,17 +11,28 @@ import java.time.Duration;
 public class BasePage {
     WebDriver driver;
     Utility utility;
-    By newApplication = By.id("continue-button");
     protected ApplicantInfo applicantInfo;
 
-    public BasePage(WebDriver driver) {
+
+
+    /**
+     * Helper method for yes or no questions.
+     * @param yes
+     * @param yesLocator
+     * @param noLocator
+     */
+    protected void selectYesNo(boolean yes, By yesLocator, By noLocator) {
+        utility.click(yes ? yesLocator : noLocator);
+    }
+
+    protected BasePage(WebDriver driver) {
         this.driver = driver;
         utility = new Utility(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
-    public void startNewApplication(){
-        utility.findElement(newApplication).click();
-    }
+
+
+
 
 }

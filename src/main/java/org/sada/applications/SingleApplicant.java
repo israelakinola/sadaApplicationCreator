@@ -1,5 +1,6 @@
 package org.sada.applications;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.sada.ApplicantInfo;
@@ -10,13 +11,19 @@ import java.time.Duration;
 
 public class SingleApplicant extends Application {
 
+    //Buttons
+    By newApplicationBtn = By.id("continue-button");
+
     public SingleApplicant(WebDriver driver) {
         super(driver);
     }
+    private void startNewApplication(){
+        utility.click(newApplicationBtn);
+        Logger.info("HomePage: Creating Application");
+    }
 
     public void createApplication(ApplicantInfo applicantInfo){
-        Logger.info("HomePage: Creating Application");
-        new BasePage(driver).startNewApplication();
+        startNewApplication();
 
         Logger.info("Before You Apply Page: Creating Application");
         new BeforeYouApplyPage(driver).complete(applicantInfo);

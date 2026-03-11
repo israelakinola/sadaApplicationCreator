@@ -13,6 +13,14 @@ public class AdditionalInformationPage extends BasePage {
     // -----------------------------
     // Locators
     // -----------------------------
+    // Page Title
+    private final By pageTitle = By.id("additional-information.singleApplicant.page.title");
+
+    //Buttons
+    private final By saveAndContinueBtn =  By.id("additional-information-save-continue-button");
+//    private final By saveAndExitBtn     = By.id("additional-information-save-exit-button");
+
+
     // Are you living in an institution ... ?
     private final By currentlyResidingGroup = By.id("additionalCurrentlyResidingInAnInstitution_radio");
     private final By currentlyResidingYesLabel = By.cssSelector(
@@ -83,24 +91,25 @@ public class AdditionalInformationPage extends BasePage {
     // Actions (public API)
     // -----------------------------
 
+
     private void setCurrentlyResidingInInstitution(boolean yes) {
         utility.waitVisible(currentlyResidingGroup);
-        utility.click(yes ? currentlyResidingYesLabel : currentlyResidingNoLabel);
+        selectYesNo(yes,currentlyResidingYesLabel, currentlyResidingNoLabel );
     }
 
     private void setAccommodationServices(boolean yes) {
         utility.waitVisible(accommodationGroup);
-        utility.click(yes ? accommodationYesLabel : accommodationNoLabel);
+        selectYesNo(yes,accommodationYesLabel, accommodationNoLabel );
     }
 
     private void setEmploymentServices(boolean yes) {
         utility.waitVisible(employmentGroup);
-        utility.click(yes ? employmentYesLabel : employmentNoLabel);
+        selectYesNo(yes,employmentYesLabel, employmentNoLabel );
     }
 
     private void setSpecialDietOrMedicalCondition(boolean yes) {
         utility.waitVisible(specialDietGroup);
-        utility.click(yes ? specialDietYesLabel : specialDietNoLabel);
+        selectYesNo(yes,specialDietYesLabel, specialDietNoLabel );
     }
 
     private void setPersonWithDisability(boolean yes) {
@@ -115,36 +124,38 @@ public class AdditionalInformationPage extends BasePage {
 
     private void setAdditionalNutritionalNeeds(boolean yes) {
         utility.waitVisible(nutritionalNeedsGroup);
-        utility.click(yes ? nutritionalNeedsYesLabel : nutritionalNeedsNoLabel);
+        selectYesNo(yes,nutritionalNeedsYesLabel, nutritionalNeedsNoLabel );
     }
 
     private void setFullTimeStudent(boolean yes) {
         utility.waitVisible(fullTimeStudentGroup);
         utility.click(yes ? fullTimeStudentYesLabel : fullTimeStudentNoLabel);
+        selectYesNo(yes,currentlyResidingYesLabel, currentlyResidingNoLabel );
     }
 
     private void setCaringForChild(boolean yes) {
         utility.waitVisible(caringForChildGroup);
-        utility.click(yes ? caringForChildYesLabel : caringForChildNoLabel);
+        selectYesNo(yes,caringForChildYesLabel, caringForChildNoLabel );
     }
 
     public void complete(ApplicantInfo applicantInfo){
-        if(utility.isElementPresent(By.id("additional-information.singleApplicant.page.title"))) {
-            setCurrentlyResidingInInstitution(false);
-            setAccommodationServices(false);
-            setEmploymentServices(false);
-            setSpecialDietOrMedicalCondition(false);
-            setPersonWithDisability(applicantInfo.hasDisability);
-            setAdditionalNutritionalNeeds(false);
-            setFullTimeStudent(false);
-            setCaringForChild(false);
+        if(!utility.isElementPresent(pageTitle)) {
+            return;
+        }
 
-            //Save and Continue
-            By saveContinueBtn = By.id("additional-information-save-continue-button");
+        setCurrentlyResidingInInstitution(applicantInfo.currentlyResidingInInstitution);
+        setAccommodationServices(applicantInfo.accommodationServices);
+        setEmploymentServices(applicantInfo.employmentServices);
+        setSpecialDietOrMedicalCondition(applicantInfo.specialDietOrMedicalCondition);
+        setPersonWithDisability(applicantInfo.personWithDisability);
+        setAdditionalNutritionalNeeds(applicantInfo.additionalNutritionalNeeds);
+        setFullTimeStudent(applicantInfo.fullTimeStudent);
+        setCaringForChild(applicantInfo.caringForChild);
 
-            if (utility.isElementPresent(saveContinueBtn)) {
-                utility.clickButton(saveContinueBtn);
-            }
+
+
+        if (utility.isElementPresent(saveAndContinueBtn)) {
+            utility.clickButton(saveAndContinueBtn);
         }
     }
 

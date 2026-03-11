@@ -11,7 +11,10 @@ public class AdditionalFamilyInformationPage extends BasePage {
         super(driver);
     }
 
-    public final By pageTitle = By.cssSelector("h1[data-e2e='pageTitle']");
+    private final By pageTitle = By.cssSelector("h1[data-e2e='pageTitle']");
+    // Buttons
+    private final By saveAndContinueBtn = By.id("additional-information-save-continue-button");
+    private final By saveAndExitBtn     = By.id("additional-information-save-exit-button");
 
     // -----------------------------
     // Locators
@@ -67,9 +70,8 @@ public class AdditionalFamilyInformationPage extends BasePage {
     private final By caringForChildYesLabel = By.cssSelector("label[for='caringForChild-radio-button-option-0']");
     private final By caringForChildNoLabel  = By.cssSelector("label[for='caringForChild-radio-button-option-1']");
 
-    // Buttons
-    private final By saveAndContinueBtn = By.id("additional-information-save-continue-button"); // or: By.cssSelector("button[data-e2e='saveContinueBtn']")
-    private final By saveAndExitBtn     = By.id("additional-information-save-exit-button");     // or: By.cssSelector("button[data-e2e='saveExitBtn']")
+    //No DSO
+    By noDSO = By.cssSelector("label[for='personWithDisabilityInFamilyCheckboxPanelApplicant_developmentServicesOntario0-radio-button-option-2']");
 
 
 
@@ -77,34 +79,37 @@ public class AdditionalFamilyInformationPage extends BasePage {
     // Actions (public API)
     // -----------------------------
 
+
     public void setReceivedSocialAssistancePast(boolean yes) {
-        utility.click(yes ? receivedSocialAssistancePastYesLabel : receivedSocialAssistancePastNoLabel);
+        selectYesNo(yes, receivedSocialAssistancePastYesLabel, receivedSocialAssistancePastNoLabel);
+
     }
 
     public void setResidingInInstitution(boolean yes) {
-        utility.click(yes ? residingInInstitutionYesLabel : residingInInstitutionNoLabel);
+        selectYesNo(yes, residingInInstitutionYesLabel, residingInInstitutionNoLabel);
     }
 
     public void setCurrentlyIncarcerated(boolean yes) {
-        utility.click(yes ? currentlyIncarceratedYesLabel : currentlyIncarceratedNoLabel);
+        selectYesNo(yes, currentlyIncarceratedYesLabel, currentlyIncarceratedNoLabel);
+
     }
 
     public void setAccommodationServicesNeeded(boolean yes) {
-        utility.clickRadio(yes ? accommodationServicesYesInput : accommodationServicesNoInput,
-                yes ? accommodationServicesYesLabel : accommodationServicesNoLabel);
+        By input = yes ? accommodationServicesYesInput : accommodationServicesNoInput;
+        By label = yes ? accommodationServicesYesLabel : accommodationServicesNoLabel;
+        utility.clickRadio(input, label);
     }
 
     public void setEmploymentServicesSupport(boolean yes) {
-        Logger.info("EmploymentServicesSupport");
-        utility.click(yes ? employmentServicesYesLabel : employmentServicesNoLabel);
+        selectYesNo(yes, employmentServicesYesLabel, employmentServicesNoLabel);
     }
 
     public void setSpecialDietMedicalCondition(boolean yes) {
-        utility.click(yes ? specialDietYesLabel : specialDietNoLabel);
+        selectYesNo(yes, specialDietYesLabel, specialDietNoLabel);
     }
 
     public void setDisabilityInFamily(boolean yes) {
-                By noDSO = By.cssSelector("label[for='personWithDisabilityInFamilyCheckboxPanelApplicant_developmentServicesOntario0-radio-button-option-2']");
+
                 if(yes){
                     utility.click(disabilityYesLabel);
                     if(utility.isElementPresent10(noDSO)){
@@ -118,19 +123,20 @@ public class AdditionalFamilyInformationPage extends BasePage {
     }
 
     public void setImmediateNeedMoney(boolean yes) {
-        utility.click(yes ? immediateNeedMoneyYesLabel : immediateNeedMoneyNoLabel);
+        selectYesNo(yes, immediateNeedMoneyYesLabel, immediateNeedMoneyNoLabel);
     }
 
     public void setPregnantOrBreastfeeding(boolean yes) {
-        utility.click(yes ? pregnantOrBreastfeedingYesLabel : pregnantOrBreastfeedingNoLabel);
+        selectYesNo(yes, pregnantOrBreastfeedingYesLabel, pregnantOrBreastfeedingNoLabel);
+
     }
 
     public void setFullTimeStudent(boolean yes) {
-        utility.click(yes ? fullTimeStudentYesLabel : fullTimeStudentNoLabel);
+        selectYesNo(yes, fullTimeStudentYesLabel, fullTimeStudentNoLabel);
     }
 
     public void setCaringForChild(boolean yes) {
-        utility.click(yes ? caringForChildYesLabel : caringForChildNoLabel);
+        selectYesNo(yes, caringForChildYesLabel, caringForChildNoLabel);
     }
 
     public void clickSaveAndContinue() {
@@ -142,29 +148,25 @@ public class AdditionalFamilyInformationPage extends BasePage {
     }
 
 
-    public void createAdditionalFamilyInformation(ApplicantInfo applicantInfo){
-        // Answer all radio questions (adjust true/false to your test needs)
-        this.setReceivedSocialAssistancePast(false);         // Has anyone received social assistance in the past?
-        this.setResidingInInstitution(false);               // Living in an institution?
-        this.setCurrentlyIncarcerated(false);               // In jail/prison/detention?
-        this.setAccommodationServicesNeeded(false);         // Need support accessing services?
-        this.setEmploymentServicesSupport(false);           // Getting job-program/service support?
-        this.setSpecialDietMedicalCondition(false);         // Need special diet due to medical condition?
-        this.setDisabilityInFamily(applicantInfo.isODSP());                  // Person with disability in family?
-        this.setImmediateNeedMoney(false);                  // Need money for immediate needs?
-        this.setPregnantOrBreastfeeding(false);             // Pregnant or breastfeeding?
-        this.setFullTimeStudent(false);                     // Full-time student?
-        this.setCaringForChild(false);                      // Caring for someone else’s child?
+    public void complete(ApplicantInfo applicantInfo){
+        if(!utility.isElementPresent(this.pageTitle)){
+            return;
+        }
+        this.setReceivedSocialAssistancePast(applicantInfo.receivedSocialAssistancePast);         // Has anyone received social assistance in the past?
+        this.setResidingInInstitution(applicantInfo.residingInInstitution);               // Living in an institution?
+        this.setCurrentlyIncarcerated(applicantInfo.currentlyIncarcerated);               // In jail/prison/detention?
+        this.setAccommodationServicesNeeded(applicantInfo.accommodationServicesNeeded);         // Need support accessing services?
+        this.setEmploymentServicesSupport(applicantInfo.employmentServicesSupport);           // Getting job-program/service support?
+        this.setSpecialDietMedicalCondition(applicantInfo.specialDietMedicalCondition);         // Need special diet due to medical condition?
+        this.setDisabilityInFamily(applicantInfo.disabilityInFamily);                  // Person with disability in family?
+        this.setImmediateNeedMoney(applicantInfo.immediateNeedMoney);                  // Need money for immediate needs?
+        this.setPregnantOrBreastfeeding(applicantInfo.pregnantOrBreastfeeding);             // Pregnant or breastfeeding?
+        this.setFullTimeStudent(applicantInfo.additionalFamilyfullTimeStudent);                     // Full-time student?
+        this.setCaringForChild(applicantInfo.additionalFamilyCaringForChild);                      // Caring for someone else’s child?
 
         // Save and Continue
-        By saveContinueBtn = By.id("additional-information-save-continue-button");
-        if (utility.isElementPresent(saveContinueBtn)) {
-            utility.clickButton(saveContinueBtn);
-        } else {
-            // Optional: small wait + fallback in case of async render
-            utility.waitClickable(saveContinueBtn);
-            utility.clickButton(saveContinueBtn);
-        }
+        clickSaveAndContinue();
+
     }
 
 
