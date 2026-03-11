@@ -2,10 +2,11 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.sada.ApplicantInfo;
 
-public class HouseholdIncome extends BasePage {
+public class HouseholdIncomePage extends BasePage {
 
-    public HouseholdIncome(WebDriver driver) {
+    public HouseholdIncomePage(WebDriver driver) {
         super(driver);
     }
 
@@ -120,7 +121,14 @@ public class HouseholdIncome extends BasePage {
     // Actions (public API)
     // -----------------------------
 
-    public void setHHIncome(){
+    private void setHHIncome(){
         utility.click(noneOfTheAboveCheckbox);
+    }
+
+    public void complete(ApplicantInfo applicantInfo){
+        if(utility.isElementPresent(By.id("household-income.page.title"))) {
+            this.setHHIncome();
+            utility.click(By.id("household-income-save-continue-button"));
+        }
     }
 }

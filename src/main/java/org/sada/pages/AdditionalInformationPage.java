@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.sada.ApplicantInfo;
 
-public class AdditionalInformation extends BasePage {
+public class AdditionalInformationPage extends BasePage {
 
-    public AdditionalInformation(WebDriver driver) {
+    public AdditionalInformationPage(WebDriver driver) {
         super(driver);
     }
 
@@ -83,27 +83,27 @@ public class AdditionalInformation extends BasePage {
     // Actions (public API)
     // -----------------------------
 
-    public void setCurrentlyResidingInInstitution(boolean yes) {
+    private void setCurrentlyResidingInInstitution(boolean yes) {
         utility.waitVisible(currentlyResidingGroup);
         utility.click(yes ? currentlyResidingYesLabel : currentlyResidingNoLabel);
     }
 
-    public void setAccommodationServices(boolean yes) {
+    private void setAccommodationServices(boolean yes) {
         utility.waitVisible(accommodationGroup);
         utility.click(yes ? accommodationYesLabel : accommodationNoLabel);
     }
 
-    public void setEmploymentServices(boolean yes) {
+    private void setEmploymentServices(boolean yes) {
         utility.waitVisible(employmentGroup);
         utility.click(yes ? employmentYesLabel : employmentNoLabel);
     }
 
-    public void setSpecialDietOrMedicalCondition(boolean yes) {
+    private void setSpecialDietOrMedicalCondition(boolean yes) {
         utility.waitVisible(specialDietGroup);
         utility.click(yes ? specialDietYesLabel : specialDietNoLabel);
     }
 
-    public void setPersonWithDisability(boolean yes) {
+    private void setPersonWithDisability(boolean yes) {
         utility.click(disabilityGroup);
         if(yes) {
             utility.click(disabilityYesLabel);
@@ -113,43 +113,41 @@ public class AdditionalInformation extends BasePage {
         }
     }
 
-    public void setAdditionalNutritionalNeeds(boolean yes) {
+    private void setAdditionalNutritionalNeeds(boolean yes) {
         utility.waitVisible(nutritionalNeedsGroup);
         utility.click(yes ? nutritionalNeedsYesLabel : nutritionalNeedsNoLabel);
     }
 
-    public void setFullTimeStudent(boolean yes) {
+    private void setFullTimeStudent(boolean yes) {
         utility.waitVisible(fullTimeStudentGroup);
         utility.click(yes ? fullTimeStudentYesLabel : fullTimeStudentNoLabel);
     }
 
-    public void setCaringForChild(boolean yes) {
+    private void setCaringForChild(boolean yes) {
         utility.waitVisible(caringForChildGroup);
         utility.click(yes ? caringForChildYesLabel : caringForChildNoLabel);
     }
 
-    public void createAdditionalInformationSingle(ApplicantInfo applicantInfo){
-        setCurrentlyResidingInInstitution(false);
-        setAccommodationServices(false);
-        setEmploymentServices(false);
-        setSpecialDietOrMedicalCondition(false);
-        setPersonWithDisability(false);
-        if(applicantInfo.isODSP()){
-            setPersonWithDisability(true);
-        }else{
-            setPersonWithDisability(false);
-        }
-        setAdditionalNutritionalNeeds(false);
-        setFullTimeStudent(false);
-        setCaringForChild(false);
+    public void complete(ApplicantInfo applicantInfo){
+        if(utility.isElementPresent(By.id("additional-information.singleApplicant.page.title"))) {
+            setCurrentlyResidingInInstitution(false);
+            setAccommodationServices(false);
+            setEmploymentServices(false);
+            setSpecialDietOrMedicalCondition(false);
+            setPersonWithDisability(applicantInfo.hasDisability);
+            setAdditionalNutritionalNeeds(false);
+            setFullTimeStudent(false);
+            setCaringForChild(false);
 
-        //Save and Continue
-        By saveContinueBtn = By.id("additional-information-save-continue-button");
+            //Save and Continue
+            By saveContinueBtn = By.id("additional-information-save-continue-button");
 
-        if (utility.isElementPresent(saveContinueBtn)) {
-            utility.clickButton(saveContinueBtn);
+            if (utility.isElementPresent(saveContinueBtn)) {
+                utility.clickButton(saveContinueBtn);
+            }
         }
     }
+
 
 
 

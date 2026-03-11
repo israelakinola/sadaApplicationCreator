@@ -4,8 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 
-public class DemographicInformation  extends BasePage{
+public class DemographicInformationPage extends BasePage{
 
     /* -----------------------------
        Locators (class properties)
@@ -31,7 +33,7 @@ public class DemographicInformation  extends BasePage{
     // Actions (public API)
     // -----------------------------
 
-    public DemographicInformation(WebDriver driver) {
+    public DemographicInformationPage(WebDriver driver) {
         super(driver);
     }
 
@@ -57,4 +59,15 @@ public class DemographicInformation  extends BasePage{
             utility.click(By.id("continue-button"));
         }
     }
+
+    public void complete(ApplicantInfo applicantInfo){
+        //Demographic
+        if(utility.isElementPresent10(By.id("demographic-information.page.title"))) {//Wait for 10second when checking element
+            utility.click(By.id("continue-button"));
+            this.setDemographicsInformation(applicantInfo.demograhicGender, applicantInfo.demograhicIndigenouse, applicantInfo.demograhicRace,
+                    applicantInfo.demograhicVisibleMinority,  applicantInfo.demograhicLanguage);
+
+        }
+    }
 }
+

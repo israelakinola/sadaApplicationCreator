@@ -2,16 +2,18 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 import org.sada.util.Utility;
 
-public class MyBAccount extends BasePage {
+public class MyBAccountPage extends BasePage {
 
 
     /* -----------------------------
        Locators (class properties)
      ----------------------------- */
 
-    public final By pageTitle = By.id("create-account.page.title");
+    private final By pageTitle = By.id("create-account.page.title");
 
     //Term Element
     private final By term = By.cssSelector("input[id='create-account.termAndCondition-checkbox-option1']");
@@ -30,7 +32,7 @@ public class MyBAccount extends BasePage {
 
 
 
-    public MyBAccount(WebDriver driver) {
+    public MyBAccountPage(WebDriver driver) {
         super(driver);
     }
 
@@ -38,7 +40,7 @@ public class MyBAccount extends BasePage {
     // Actions (public API)
     // -----------------------------
 
-    public void createMyB(boolean asMyB, String emailAddress, String password){
+    private void createMyB(boolean asMyB, String emailAddress, String password){
 
         //Aggress to MyB Term
         utility.click(term);
@@ -59,7 +61,7 @@ public class MyBAccount extends BasePage {
     }
 
 
-    protected  void createAnAccount(String emailAddress, String password){
+    private  void createAnAccount(String emailAddress, String password){
         utility.click(createAccountBtn);
         utility.click(enrollEl);
         utility.clearAndType(emailInputEnroll, emailAddress);
@@ -68,12 +70,21 @@ public class MyBAccount extends BasePage {
         utility.click(createBtn);
     }
 
-    protected  void signInToAnAccount(String emailAddress, String password){
+    private  void signInToAnAccount(String emailAddress, String password){
         utility.click(signInToAnAccountBtn);
         utility.clearAndType(emailInputSignin, emailAddress);
         utility.clearAndType(passwordInputSignin, password);
         utility.click(signInBtn);
         By sendConfirmationEmail =  By.xpath("//button[normalize-space()='Send me an email']");;
         utility.click(sendConfirmationEmail);
+    }
+
+    public void complete(ApplicantInfo applicantInfo){
+        //Setup MyB
+        Utility.copyToClipboard(applicantInfo.getEmail());
+        if(utility.isElementPresent(this.pageTitle)) {
+            this.createMyB(applicantInfo.isHasMyB(), applicantInfo.getEmail(), applicantInfo.getPassword());
+            Logger.info("Done with MYB");
+        }
     }
 }

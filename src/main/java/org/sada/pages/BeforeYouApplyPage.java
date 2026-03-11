@@ -4,15 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.sada.util.Utility;
+import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 
-import javax.swing.text.Utilities;
-import java.time.Duration;
-
-public class BeforeYouApply extends BasePage {
+public class BeforeYouApplyPage extends BasePage {
 
     public final By pageTitle = By.id("before-you-apply.page.title");
-    public BeforeYouApply(WebDriver driver) {
+    public BeforeYouApplyPage(WebDriver driver) {
        super(driver);
     }
 
@@ -85,67 +83,97 @@ public class BeforeYouApply extends BasePage {
     // Actions (public API)
     // -----------------------------
 
-    protected void setEmergencyAsNo(){
-        utility.findElement(receivingMoneyForReasonNo).click();
+    private void setEmergency(Boolean inEmergency){
+        if(inEmergency){
+            utility.findElement(receivingMoneyForReasonYes).click();
+        }else{
+            utility.findElement(receivingMoneyForReasonNo).click();
+        }
     }
 
-    protected void setGetiingMoneyAsNo(){
+    private void setGetiingMoney(Boolean isGettingMoney){
         //Are you currently getting money from Ontario Works or the Ontario Disability Support Program?
-        utility.findElement(receivingMoneyFromExistingProgramNo).click();
+       if(isGettingMoney){
+           utility.findElement(receivingMoneyFromExistingProgramYes).click();
+       }else{
+           utility.findElement(receivingMoneyFromExistingProgramNo).click();
+       }
     }
 
-    protected void setMoneyForImmediateNeedNo(){
-        driver.findElement(moneyForImmediateNeedNo).click();
+    private void setMoneyForImmediateNeed(Boolean isMoneyForImmediateNeed){
+        if(isMoneyForImmediateNeed){
+            utility.findElement(moneyForImmediateNeedYes).click();
+        }else{
+            utility.findElement(moneyForImmediateNeedNo).click();
+        }
     }
 
-    protected void setReceivedSocialAssistanceInPastNo(){
-        utility.findElement(receivedSocialAssistanceInPastNo).click();
+    private void setReceivedSocialAssistanceInPast(Boolean isReceivedSocialAssistanceInPast){
+        if(isReceivedSocialAssistanceInPast){
+            utility.findElement(receivedSocialAssistanceInPastYes).click();
+        }else{
+            utility.findElement(receivedSocialAssistanceInPastNo).click();
+        }
     }
 
-    protected void setHasDisabilityNo(){
-        utility.findElement(hasDisabilityNo).click();
+    private void setHasDisability(Boolean hasDisability){
+       if(hasDisability){
+           utility.findElement(hasDisabilityYes).click();
+       }else{
+           utility.findElement(hasDisabilityNo).click();
+       }
     }
 
-    protected void setHasDisabilityYes(){
-        utility.findElement(hasDisabilityYes).click();
-    }
 
-    protected void setStatusInCanadaSelect(String visibleText){
+    private void setStatusInCanadaSelect(String visibleText){
         WebElement selectEl = driver.findElement(statusInCanadaSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
     }
 
-    protected void setReleasedFromInstitutionNo(){
-        driver.findElement(releasedFromInstitutionNo).click();
-    }
-    protected void setLivingOnFirstNationsReserveLandNo(){
-        utility.findElement(livingOnFirstNationsReserveLandNo).click();
-    }
-
-    protected void setApplyingForYourselfYes(){
-        driver.findElement(applyingForYourselfYes).click();
-    }
-
-    protected void clickContinueButton(){
-        driver.findElement(continueButton).click();
-    }
-
-    public void beforeYouApply(boolean ODSP, String status){
-        this.setEmergencyAsNo();
-        this.setGetiingMoneyAsNo();
-        this.setMoneyForImmediateNeedNo();
-        this.setReceivedSocialAssistanceInPastNo();
-        if(ODSP){
-            this.setHasDisabilityYes();
+    private void setReleasedFromInstitution(Boolean releasedFromInstitution){
+        if(releasedFromInstitution){
+            utility.findElement(releasedFromInstitutionYes).click();
         }else{
-            this.setHasDisabilityNo();
+            utility.findElement(releasedFromInstitutionNo).click();
         }
-        this.setStatusInCanadaSelect(status);
-        this.setReleasedFromInstitutionNo();
-        this.setLivingOnFirstNationsReserveLandNo();
-        this.setApplyingForYourselfYes();
-        this.clickContinueButton();
     }
+    private void setLivingOnFirstNationsReserveLand(Boolean livingOnFirstNationsReserveLand){
+        if(livingOnFirstNationsReserveLand){
+            utility.findElement(livingOnFirstNationsReserveLandYes).click();
+        }else{
+            utility.findElement(livingOnFirstNationsReserveLandNo).click();
+        }
+    }
+
+    private void setApplyingForYourself(Boolean applyingForYourself){
+        if(applyingForYourself){
+            utility.findElement(applyingForYourselfYes).click();
+        }else{
+            utility.findElement(applyingForSomeoneElse).click();
+        }
+    }
+
+    private void clickContinueButton(){
+        utility.findElement(continueButton).click();
+    }
+
+    public void complete(ApplicantInfo applicantInfo){
+        if(utility.isElementPresent(this.pageTitle)) {
+            this.setEmergency(applicantInfo.isEmergency);
+            this.setGetiingMoney(applicantInfo.isGettingMoney);
+            this.setMoneyForImmediateNeed(applicantInfo.isMoneyForImmediateNeed);
+            this.setReceivedSocialAssistanceInPast(applicantInfo.isReceivedSocialAssistanceInPast);
+            this.setHasDisability(applicantInfo.hasDisability);
+            this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
+            this.setReleasedFromInstitution(applicantInfo.releasedFromInstitution);
+            this.setLivingOnFirstNationsReserveLand(applicantInfo.livingOnFirstNationsReserveLand);
+            this.setApplyingForYourself(applicantInfo.applyingForYourself);
+            this.clickContinueButton();
+        }
+
+    }
+
+
 
 
 

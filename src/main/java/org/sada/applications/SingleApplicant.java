@@ -1,115 +1,70 @@
 package org.sada.applications;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.bidi.log.Log;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.sada.ApplicantInfo;
 import org.sada.pages.*;
-import org.sada.pages.*;
 import org.sada.util.Logger;
-import org.sada.util.Utility;
 
+import java.time.Duration;
 
-public class SingleApplicant extends Applicant {
-
-    ApplicantInfo applicantInfo;
+public class SingleApplicant extends Application {
 
     public SingleApplicant(WebDriver driver) {
         super(driver);
     }
+
     public void createApplication(ApplicantInfo applicantInfo){
-        createApplicationBase(applicantInfo);
+        Logger.info("HomePage: Creating Application");
+        new BasePage(driver).startNewApplication();
 
+        Logger.info("Before You Apply Page: Creating Application");
+        new BeforeYouApplyPage(driver).complete(applicantInfo);
 
-        //Additional Information
-        if(utility.isElementPresent(By.id("additional-information.singleApplicant.page.title"))){
-            AdditionalInformation additionalInformation = new AdditionalInformation(driver);
-            Logger.info("Creating Additional Information");
-            additionalInformation.createAdditionalInformationSingle(applicantInfo);
-        }
+        Logger.info("Informational Page: Creating Application");
+        new PersonalInformationPage(driver).complete(applicantInfo);
 
-        addressInformationPage();
+        Logger.info("MyB Account Page: Creating Application");
+        new MyBAccountPage(driver).complete(applicantInfo);
 
+        Logger.info("Additional Information Page: Creating Application");
+        new AdditionalInformationPage(driver).complete(applicantInfo);
 
-        if(utility.isElementPresent( By.id("housing-situation.page.title"))) {
-            Logger.info("Creating Hosuing Situation");
-            HousingSituation housingSituation = new HousingSituation(driver);
-            housingSituation.setCurrentHousingSituation(applicantInfo.getHousingSituation());
-            utility.click(By.id("housing-situation-save-continue-button"));
-        }
+        Logger.info("Address Information Page: Creating Application");
+        new AddressInformationPage(driver).complete(applicantInfo);
 
-        if(utility.isElementPresent(By.id("earned-income.page.title"))) {
-            EarnedIncome earnedIncome = new EarnedIncome(driver);
-            Logger.info("Creating Earned Income");
-            earnedIncome.setEarnedIncome(applicantInfo.isEarnedIncome());
-            utility.click(By.id("earned-income-save-continue-button"));
-        }
+        Logger.info("Housing Situation Page: Creating Application");
+        new HousingSituationPage(driver).complete(applicantInfo);
 
-        houseHoldIncomePage();
+        Logger.info("HomePage: Creating Application");
+        new EarnedIncomePage(driver).complete(applicantInfo);
 
-        financialAssetPage();
+        Logger.info("Household Income Page: Creating Application");
+        new HouseholdIncomePage(driver).complete(applicantInfo);
 
+        Logger.info("Finicial Asset Page: Creating Application");
+        new FinancialAssetsPage(driver).complete(applicantInfo);
 
+        Logger.info("Review Application Page: Creating Application");
+        new ReviewApplicationPage(driver).complete(applicantInfo);
 
-        bankDetailsPage();
+        Logger.info("Creating Application Page: Creating Application");
+        new BankDetailsPage(driver).complete(applicantInfo);
 
-        reviewApplicationPage();
+        Logger.info("Program Recommendation Page: Creating Application");
+        new ProgramRecommedationPage(driver).complete(applicantInfo);
 
-        //Program recommendation
-        if(utility.isElementPresent(By.id("program-recommendation.page.title"))) {
-            Logger.info("Creating program-recommendation");
-            if(applicantInfo.isMultiProgram()){
-                utility.click(By.id("onwods-radio-button-option-label"));
-            }
+        Logger.info("Demophraphics: Creating Application");
+        new DemographicInformationPage(driver).complete(applicantInfo);
 
-            //Confirm Submmision
-            utility.click(By.id("program-recommendation-save-continue-button"));
-            utility.click(By.id("dialog-button"));
+        Logger.info("Declearation Page: Creating Application");
+        new DeclarationPage(driver).complete(applicantInfo);
 
-            Logger.info("Created program-recommendation");
-        }
+        Logger.info("EID Page: Creating Application");
+        new EidPage(driver).complete(applicantInfo);
 
-
-
-        //Demographic
-        if(utility.isElementPresent10(By.id("demographic-information.page.title"))) {//Wait for 10second when checking element
-            Logger.info("Creating demographic-information");
-            utility.click(By.id("continue-button"));
-
-            DemographicInformation demographicInformation = new DemographicInformation(driver);
-            Logger.info("Creating Demographic");
-            demographicInformation.setDemographicsInformation("Prefer not to say","Prefer not to say", "Prefer not to say",
-                    "Prefer not to say", "English");
-
-            Logger.info("Created Demographic");
-        }
-
-
-
-        //Consent
-        if(utility.isElementPresent(By.id("consent.page.title"))) {
-            Logger.info("Creating declaration");
-            Declaration declaration = new Declaration(driver);
-            declaration.createDeclaration(applicantInfo);
-        }
-
-
-        //Confirm Idenity
-        if(utility.isElementPresent(By.id("eid-page.page.title"))) {
-            Logger.info("Confirming Identity");
-            utility.click(By.id("confirm-button"));
-            if(utility.isElementPresent10(By.id("submit-button"))){
-                utility.click(By.id("submit-button"));
-            }
-
-        }
-
-
-        //Signature
-        if(utility.isElementPresent(By.id("eid-page.page.title"))) {
-            Logger.info("Creating Signature");
-            utility.click(By.id("continue-button")); // Take me to sign Application
-        }
-
-
+        Logger.info("Signature Page: Creating Application");
+        new SignaturePage(driver).complete(applicantInfo);
     }
+
 }

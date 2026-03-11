@@ -2,10 +2,11 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.sada.ApplicantInfo;
 
-public class FinancialAssets extends BasePage {
+public class FinancialAssetsPage extends BasePage {
     public final By pageTitle = By.id("financial-assets.page.title");
-    public FinancialAssets(WebDriver driver) {
+    public FinancialAssetsPage(WebDriver driver) {
         super(driver);
     }
 
@@ -79,5 +80,12 @@ public class FinancialAssets extends BasePage {
         utility.clickCheckbox(noneOfTheAboveCheckboxInput, noneOfTheAboveCheckboxLabel);
     }
 
+    public void complete(ApplicantInfo applicantInfo){
+        if(utility.isElementPresent(By.id("financial-assets.page.title"))) {
+            this.setNoneOfTheAboveCheckbox();
+            this.setGivenAwayAssets(false);
+            utility.click(By.id("financial-assets-save-continue-button"));
+        }
+    }
 
 }

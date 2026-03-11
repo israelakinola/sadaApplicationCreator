@@ -3,16 +3,13 @@ package org.sada.pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.sada.ApplicantInfo;
-import org.sada.util.Utility;
 
-import java.util.Objects;
-
-public class PersonalInformation extends BasePage {
+public class PersonalInformationPage extends BasePage {
 
     public final By pageTitle = By.id("personal-information.page.title");
 
 
-    public PersonalInformation(WebDriver driver) {
+    public PersonalInformationPage(WebDriver driver) {
       super(driver);
     }
 
@@ -74,51 +71,54 @@ public class PersonalInformation extends BasePage {
     // Actions (public API)
     // -----------------------------
 
-    public void setFirstName(String s) {
+    private void setFirstName(String s) {
         utility.clearAndType(firstNameInput, s);
     }
 
-    public void setLastName(String s) {
+    private void setLastName(String s) {
         utility.clearAndType(lastNameInput, s);
     }
 
-    public void setDOBYear(String number) {
+    private void setDOBYear(String number) {
         utility.clearAndType(dobYearInput, number);
     }
 
-    public void setDOBMonth(String number) {
+    private void setDOBMonth(String number) {
         utility.clearAndType(dobMonthInput, number);
     }
 
-    public void setDOBDay(String number) {
+    private void setDOBDay(String number) {
         utility.clearAndType(dobDayInput, number);
     }
 
-    public void setSexMale() {
-        utility.click(sexMaleRadio);
+    private void isGenderMale(Boolean isMale) {
+        if(isMale){
+            utility.click(sexMaleRadio);
+        }else{
+            utility.click(sexFemaleRadio);
+        }
     }
 
-    public void setSexFemale() {
-        utility.click(sexFemaleRadio);
-    }
 
-
-
-    public void setMaritalStatus(String maritalStatus) {
+    private void setMaritalStatus(String maritalStatus) {
         WebElement selectEl = utility.scrollIntoView(maritalStatusSelect);
         new Select(selectEl).selectByVisibleText(maritalStatus);
     }
 
-    public void setChildrenNO() {
-        utility.click(childrenNoRadio);
+    private void isChildren(Boolean hasChildren) {
+        if(hasChildren){
+            utility.click(childrenYesRadio);
+        }else{
+            utility.click(childrenNoRadio);
+        }
     }
 
-    public void setStatusInCanadaSelect(String visibleText) {
+    private void setStatusInCanadaSelect(String visibleText) {
         WebElement selectEl = utility.scrollIntoView(statusInCanadaSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
     }
 
-    public void setSIN(String SIN) {
+    private void setSIN(String SIN) {
         String sin = System.getProperty("sin", SIN);
         utility.clearAndType(sinInput, sin);
         if(utility.isElementPresent(signExpiredNo)){
@@ -127,61 +127,60 @@ public class PersonalInformation extends BasePage {
     }
 
 
-    public void setPhoneNumber(String phoneNumber) {
+    private void setPhoneNumber(String phoneNumber) {
         String phone = System.getProperty("phone", phoneNumber);
         utility.clearAndType(phoneInput, phone);
     }
 
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         utility.clearAndType(emailInput, email);
     }
 
-    public void setLangEnglish() {
+    private void setLangEnglish() {
         utility.click(langEnglishRadio);
     }
 
-    public void setNoLangHelp() {
+    private void setNoLangHelp() {
         utility.click(langHelpNoGoodRadio);
     }
 
-    public void setHealthStatus(String visibleText) {
+    private void setHealthStatus(String visibleText) {
         WebElement selectEl = utility.scrollIntoView(healthStatusSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
     }
 
-    public void clickContinueButton() {
+    private void clickContinueButton() {
         utility.click(continueButton);
     }
 
-    public void createPersonalInformation(ApplicantInfo primaryApplicant) {
-        Utility.copyToClipboard(primaryApplicant.getEmail());
-        this.setFirstName(primaryApplicant.getFirstName());
-        this.setLastName(primaryApplicant.getLastName());
 
-        this.setDOBYear(primaryApplicant.getDOBYear());
-        this.setDOBMonth(primaryApplicant.getDOBMonth());
-        this.setDOBDay(primaryApplicant.getDOBDay());
+    public void complete(ApplicantInfo applicantInfo) {
+        if(utility.isElementPresent(this.pageTitle)){
+            this.setFirstName(applicantInfo.getFirstName());
+            this.setLastName(applicantInfo.getLastName());
 
-        //Set at Birth
-        this.setSexMale();
+            this.setDOBYear(applicantInfo.getDOBYear());
+            this.setDOBMonth(applicantInfo.getDOBMonth());
+            this.setDOBDay(applicantInfo.getDOBDay());
 
-        this.setMaritalStatus(primaryApplicant.getMaritalStatus());
-        this.setChildrenNO();
-        this.setStatusInCanadaSelect(primaryApplicant.getStatusinCanadaSelect());
+            //Set at Birth
+            this.isGenderMale(applicantInfo.isGenderMale);
 
-        this.setSIN(primaryApplicant.getSIN());
-        this.setPhoneNumber(primaryApplicant.getPhoneNumber());
-        this.setEmail(primaryApplicant.getEmail());
-        this.setLangEnglish();
-        this.setNoLangHelp();
-        this.setHealthStatus(primaryApplicant.getHealthStatus());
+            this.setMaritalStatus(applicantInfo.getMaritalStatus());
+            this.isChildren(applicantInfo.hasChildren);
+            this.setStatusInCanadaSelect(applicantInfo.getStatusinCanadaSelect());
 
-        this.clickContinueButton();
+            this.setSIN(applicantInfo.getSIN());
+            this.setPhoneNumber(applicantInfo.getPhoneNumber());
+            this.setEmail(applicantInfo.getEmail());
+            this.setLangEnglish();
+            this.setNoLangHelp();
+            this.setHealthStatus(applicantInfo.getHealthStatus());
+
+            this.clickContinueButton();
+        }
+
     }
-
-
-
-
 
 
 

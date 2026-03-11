@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.sada.ApplicantInfo;
 import org.sada.util.Logger;
 
-public class AdditionalFamilyInformation extends BasePage {
-    public AdditionalFamilyInformation(WebDriver driver) {
+public class AdditionalFamilyInformationPage extends BasePage {
+    public AdditionalFamilyInformationPage(WebDriver driver) {
         super(driver);
     }
 

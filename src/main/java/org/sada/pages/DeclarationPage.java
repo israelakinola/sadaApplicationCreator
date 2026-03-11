@@ -3,19 +3,18 @@ package org.sada.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.sada.ApplicantInfo;
-import org.sada.applications.Applicant;
 import org.sada.util.Logger;
 
-public class Declaration extends BasePage{
+public class DeclarationPage extends BasePage{
     public final By pageTitle = By.id("consent.page.title");
-    public Declaration(WebDriver driver) {
+    public DeclarationPage(WebDriver driver) {
         super(driver);
     }
 
     // -----------------------------
     // Actions (public API)
     // -----------------------------
-    public void createDeclaration(ApplicantInfo applicantInfo){
+    private void createDeclaration(ApplicantInfo applicantInfo){
         Logger.info("Creating ConsentForm");
         if(applicantInfo.isODSP() && !applicantInfo.isMultiProgram()){
             utility.clickCheckbox(By.id("consent.declaration-checkbox-option1"), By.cssSelector("label[for='consent.declaration-checkbox-option1']"));
@@ -25,5 +24,12 @@ public class Declaration extends BasePage{
         }
         utility.click(By.id("continue-button"));
         Logger.info("Created ConsentForm");
+    }
+
+    public void complete(ApplicantInfo applicantInfo){
+        //Consent
+        if(utility.isElementPresent(By.id("consent.page.title"))) {
+            this.createDeclaration(applicantInfo);
+        }
     }
 }

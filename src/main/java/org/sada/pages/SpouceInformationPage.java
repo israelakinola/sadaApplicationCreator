@@ -5,13 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.sada.ApplicantInfo;
-import org.sada.util.Utility;
 
-import java.util.Objects;
+public class SpouceInformationPage extends BasePage {
 
-public class SpouceInformation extends BasePage {
-
-    public SpouceInformation(WebDriver driver) {
+    public SpouceInformationPage(WebDriver driver) {
       super(driver);
     }
 

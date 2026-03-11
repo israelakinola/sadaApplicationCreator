@@ -3,16 +3,54 @@ package org.sada;
 public class ApplicantInfo {
 
     // Application Information
+    public Boolean multiProgram = false;
+
+    //Before you apply
+    public Boolean isEmergency = false;
+    public Boolean isGettingMoney = false;
+    public Boolean isMoneyForImmediateNeed = false;
+    public Boolean isReceivedSocialAssistanceInPast = false;
+    public Boolean hasDisability = false;
+    public Boolean releasedFromInstitution = false;
+    public Boolean livingOnFirstNationsReserveLand = false;
+    public Boolean applyingForYourself = true;
+
+
+    //Personal Information
     private String maritalStatus = "Single";
-    private boolean ODSP = false;
-    private boolean multiProgram = false;
-    private boolean hasMyB = false;
-    // Person Information
-    private String firstName;
-    private String lastName;
-    private String SIN;
+    private String firstName = "Aliw";
+    private String lastName = "Harskba";
+    private String SIN = "275 736 544" ;
     private String phoneNumber = "647 422 2188";
-    private String email;
+    public boolean isGenderMale = true;
+    public boolean hasChildren = false;
+
+    //MyB Information
+    private boolean hasMyB = false;
+    private String email = (firstName + lastName + "@yopmail.com");
+
+    // Address Information
+    public boolean isApartment = false;
+    public String streetNumber = "330";
+    public String streetName = "Main Street East";
+    public String city = "Hamilton";
+    public String postalCode = "L8N 3T9";
+
+    //Demographics Information
+    public String demograhicGender = "Prefer not to say";
+    public String demograhicIndigenouse = "Prefer not to say";
+    public String demograhicRace = "Prefer not to say";
+    public String demograhicVisibleMinority = "Prefer not to say";
+    public String demograhicLanguage = "Prefer not to say";
+
+
+
+    // Housing
+    private String housingSituation = "I am staying in an emergency hostel or shelter";
+
+    // Income
+    private boolean earnedIncome = false;
+
 
     // Spouse Information
     private String firstNameSpouce = "Wife".trim();
@@ -23,36 +61,19 @@ public class ApplicantInfo {
     private String DOBMonthSpouce = "01";
     private String DOBDaySpouce = "01";
 
-    // Standard Information
+
+
+    //Other Info
     private String password = "Password1++";
-    private String streetNumber = "330";
-    private String streetName = "Main Street East";
-    private String city = "Hamilton";
-    private String postalCode = "L8N 3T9";
     private String DOBYear = "1960";
     private String DOBMonth = "01";
     private String DOBDay = "01";
-    private String statusinCanadaSelect = "Canadian citizen born in Canada";
+    public String statusinCanadaSelect = "Canadian citizen born in Canada";
     private String healthStatus = "Excellent";
 
 
-    // Housing
-    private String housingSituation = "I am staying in an emergency hostel or shelter";
 
-    // Income
-    private boolean earnedIncome = false;
 
-    public ApplicantInfo(String maritalStatus, boolean isODSP,
-                         boolean isMultiProgram, boolean hasMyB, String primaryName, String primaryLastname,String SIN){
-        setMaritalStatus(maritalStatus);
-        setODSP(isODSP);
-        setMultiProgram(isMultiProgram);
-        setHasMyB(hasMyB);
-        setFirstName(primaryName);
-        setLastName(primaryLastname);
-        setSIN(SIN);
-        setEmail(firstName + lastName + "@yopmail.com");
-    }
     // ===== Getters and Setters =====
 
     public String getMaritalStatus() {
@@ -63,13 +84,6 @@ public class ApplicantInfo {
         this.maritalStatus = maritalStatus;
     }
 
-    public boolean isMultiProgram() {
-        return multiProgram;
-    }
-
-    public void setMultiProgram(boolean multiProgram) {
-        this.multiProgram = multiProgram;
-    }
 
     public boolean isHasMyB() {
         return hasMyB;
@@ -80,12 +94,9 @@ public class ApplicantInfo {
     }
 
     public boolean isODSP() {
-        return ODSP;
+        return hasDisability;
     }
 
-    public void setODSP(boolean ODSP) {
-        this.ODSP = ODSP;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -135,6 +146,9 @@ public class ApplicantInfo {
         this.lastNameSpouce = lastNameSpouce;
     }
 
+    public Boolean isMultiProgram(){
+        return multiProgram;
+    }
     public String getSINSpouce() {
         return SINSpouce;
     }

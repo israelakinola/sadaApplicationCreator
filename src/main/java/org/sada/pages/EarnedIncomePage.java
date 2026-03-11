@@ -2,9 +2,10 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.sada.ApplicantInfo;
 import org.sada.util.Logger;
 
-public class EarnedIncome extends BasePage {
+public class EarnedIncomePage extends BasePage {
 
     public By pageTitle =  By.id("earned-income.page.title");
 
@@ -19,12 +20,12 @@ public class EarnedIncome extends BasePage {
     private final By receiveIncomeAnyOneNoneInput = By.id("earned-income.anyone.receive.income-checkbox-option3");
     private final By receiveIncomeAnyOneNoneLabel = By.cssSelector("label[for='earned-income.anyone.receive.income-checkbox-option3']");
 
-    public EarnedIncome(WebDriver driver) {
+    public EarnedIncomePage(WebDriver driver) {
         super(driver);
     }
 
 
-    public void setEarnedIncome(boolean earnedIncome) {
+    private void setEarnedIncome(boolean earnedIncome) {
         if (earnedIncome) {
             utility.click(receiveIncomeYes);
         }else{
@@ -32,7 +33,7 @@ public class EarnedIncome extends BasePage {
         }
     }
 
-    public void setEarnedIncomeFamily(boolean earnedIncome) {
+    private void setEarnedIncomeFamily(boolean earnedIncome) {
         if (earnedIncome) {
             //
         }else{
@@ -41,4 +42,12 @@ public class EarnedIncome extends BasePage {
         }
 
     }
+
+    public void complete(ApplicantInfo applicantInfo){
+        if(utility.isElementPresent(By.id("earned-income.page.title"))) {
+            this.setEarnedIncome(applicantInfo.isEarnedIncome());
+            utility.click(By.id("earned-income-save-continue-button"));
+        }
+    }
+
 }

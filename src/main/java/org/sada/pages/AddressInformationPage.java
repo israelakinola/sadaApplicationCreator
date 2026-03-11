@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 
 
 public class AddressInformationPage extends BasePage {
@@ -89,27 +91,30 @@ public class AddressInformationPage extends BasePage {
 
 
 
-    public void createAddressInformation(
-            boolean isApartment,
-            String steetNUmber, String StreetName, String cityName, String postalCodeAddy) {
+    public void complete(ApplicantInfo applicantInfo) {
+        if(utility.isElementPresent(By.id("address-information.page.title"))) {
 
-        this.setIsHomeApartment(isApartment);
+            this.setIsHomeApartment(applicantInfo.isApartment);
 
 
-        this.clickEnterAddressManually();
+            this.clickEnterAddressManually();
 
-        this.inputAddress(steetNUmber, StreetName, cityName, postalCodeAddy);
+            this.inputAddress(applicantInfo.streetNumber, applicantInfo.streetName,
+                    applicantInfo.city, applicantInfo.postalCode);
 
-        utility.click(By.id("address-information-continue-button"));
-        if(utility.isElementPresent(By.id("address-review-title"))) {
-            if (utility.isElementPresent(By.id("acceptSuggestedBtn"))) {
-                utility.click(By.id("acceptSuggestedBtn"));
+            utility.click(By.id("address-information-continue-button"));
+            if (utility.isElementPresent(By.id("address-review-title"))) {
+                if (utility.isElementPresent(By.id("acceptSuggestedBtn"))) {
+                    utility.click(By.id("acceptSuggestedBtn"));
+                }
             }
-        }
-        if(utility.isElementPresent(By.id("address-summary-title"))){
-            utility.click(By.id("confirm-address-save-continue-button"));
+            if (utility.isElementPresent(By.id("address-summary-title"))) {
+                utility.click(By.id("confirm-address-save-continue-button"));
+            }
         }
 
     }
+
+
 
 }
