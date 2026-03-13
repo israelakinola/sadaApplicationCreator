@@ -158,18 +158,19 @@ public class BeforeYouApplyPage extends BasePage {
     }
 
     public void complete(ApplicantInfo applicantInfo){
-        if(utility.isElementPresent(this.pageTitle)) {
-            this.setEmergency(applicantInfo.isEmergency);
-            this.setGetiingMoney(applicantInfo.isGettingMoney);
-            this.setMoneyForImmediateNeed(applicantInfo.isMoneyForImmediateNeed);
-            this.setReceivedSocialAssistanceInPast(applicantInfo.isReceivedSocialAssistanceInPast);
-            this.setHasDisability(applicantInfo.hasDisability);
-            this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
-            this.setReleasedFromInstitution(applicantInfo.releasedFromInstitution);
-            this.setLivingOnFirstNationsReserveLand(applicantInfo.livingOnFirstNationsReserveLand);
-            this.setApplyingForYourself(applicantInfo.applyingForYourself);
-            this.clickContinueButton();
+        if(!utility.isElementPresent(this.pageTitle)) {
+          return;
         }
+        this.setEmergency(applicantInfo.isEmergency);
+        this.setGetiingMoney(applicantInfo.isGettingMoney);
+        this.setMoneyForImmediateNeed(applicantInfo.isMoneyForImmediateNeed);
+        this.setReceivedSocialAssistanceInPast(applicantInfo.isReceivedSocialAssistanceInPast);
+        this.setHasDisability(applicantInfo.hasDisability);
+        this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
+        this.setReleasedFromInstitution(applicantInfo.releasedFromInstitution);
+        this.setLivingOnFirstNationsReserveLand(applicantInfo.livingOnFirstNationsReserveLand);
+        this.setApplyingForYourself(applicantInfo.applyingForYourself);
+        this.clickContinueButton();
 
     }
 

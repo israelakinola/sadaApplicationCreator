@@ -13,6 +13,18 @@ public class AddressInformationPage extends BasePage {
     public AddressInformationPage(WebDriver driver) {
         super(driver);
     }
+
+    private final By pageTitle = By.id("address-information.page.title");
+    private final By addressReviewTitle = By.id("address-review-title");
+    private final By addressSummaryTitle = By.id("address-summary-title");
+
+    //Buttons
+    private final By acceptSuggestionBtn = By.id("acceptSuggestedBtn");
+    private final By addressInformationBtn = By.id("address-information-continue-button");
+    private final By confirmAddressSaveContBtn = By.id("confirm-address-save-continue-button");
+
+
+
     // -----------------------------
     // Locators
     // -----------------------------
@@ -68,12 +80,12 @@ public class AddressInformationPage extends BasePage {
         utility.click(enterAddressManuallyLink);
     }
 
-    public void inputAddress(String steetNUmber, String StreetName, String cityName, String postalCodeAddy){
+    public void inputAddress(String homeTypeValue,String steetNUmber, String StreetName, String streetTypeValue, String cityName, String postalCodeAddy){
         WebElement homeType = utility.scrollIntoView(typeHomeAddress);
-        new Select(homeType).selectByVisibleText("Standard street address");
+        new Select(homeType).selectByVisibleText(homeTypeValue);
         utility.clearAndType(homeStreetNumber, steetNUmber);
         utility.clearAndType(steetName, StreetName);
-        utility.clearAndType(streetType, "Street");
+        utility.clearAndType(streetType, streetTypeValue);
         utility.clearAndType(city, cityName);
         utility.clearAndType(postalCode, postalCodeAddy);
 
@@ -92,25 +104,25 @@ public class AddressInformationPage extends BasePage {
 
 
     public void complete(ApplicantInfo applicantInfo) {
-        if(utility.isElementPresent(By.id("address-information.page.title"))) {
+        if(!utility.isElementPresent(pageTitle)) {
+            return;
+        }
+        this.setIsHomeApartment(applicantInfo.isApartment);
 
-            this.setIsHomeApartment(applicantInfo.isApartment);
 
+        this.clickEnterAddressManually();
 
-            this.clickEnterAddressManually();
+        this.inputAddress(applicantInfo.homeTypeValue, applicantInfo.streetNumber, applicantInfo.streetName,
+                applicantInfo.streetType, applicantInfo.city, applicantInfo.postalCode);
 
-            this.inputAddress(applicantInfo.streetNumber, applicantInfo.streetName,
-                    applicantInfo.city, applicantInfo.postalCode);
-
-            utility.click(By.id("address-information-continue-button"));
-            if (utility.isElementPresent(By.id("address-review-title"))) {
-                if (utility.isElementPresent(By.id("acceptSuggestedBtn"))) {
-                    utility.click(By.id("acceptSuggestedBtn"));
-                }
+        utility.click(addressInformationBtn);
+        if (utility.isElementPresent(addressReviewTitle)) {
+            if (utility.isElementPresent(acceptSuggestionBtn)) {
+                utility.click(acceptSuggestionBtn);
             }
-            if (utility.isElementPresent(By.id("address-summary-title"))) {
-                utility.click(By.id("confirm-address-save-continue-button"));
-            }
+        }
+        if (utility.isElementPresent(addressSummaryTitle)) {
+            utility.click(confirmAddressSaveContBtn);
         }
 
     }

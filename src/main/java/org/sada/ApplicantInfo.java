@@ -30,9 +30,12 @@ public class ApplicantInfo {
     private String email = (firstName + lastName + "@yopmail.com");
 
     // Address Information
+    public String homeTypeValue = "Standard street address";
+    public String mobileTypeValue = "Mobile";
     public boolean isApartment = false;
     public String streetNumber = "330";
     public String streetName = "Main Street East";
+    public String streetType = "Street";
     public String city = "Hamilton";
     public String postalCode = "L8N 3T9";
 

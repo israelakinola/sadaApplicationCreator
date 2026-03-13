@@ -7,6 +7,15 @@ import org.sada.util.Logger;
 
 public class DeclarationPage extends BasePage{
     public final By pageTitle = By.id("consent.page.title");
+
+    public final By consentDeclarationCheckbox1Id = By.id("consent.declaration-checkbox-option1");
+    public final By consentDeclarationCheckbox1Label = By.cssSelector("label[for='consent.declaration-checkbox-option1']");
+    public final By eoReferralCheckbox1 = By.cssSelector("label[for='consent.EoReferral.consent-checkbox-checkbox-option1']");
+
+    //Button
+    public final By continueBtn = By.id("continue-button");
+
+
     public DeclarationPage(WebDriver driver) {
         super(driver);
     }
@@ -17,19 +26,19 @@ public class DeclarationPage extends BasePage{
     private void createDeclaration(ApplicantInfo applicantInfo){
         Logger.info("Creating ConsentForm");
         if(applicantInfo.isODSP() && !applicantInfo.isMultiProgram()){
-            utility.clickCheckbox(By.id("consent.declaration-checkbox-option1"), By.cssSelector("label[for='consent.declaration-checkbox-option1']"));
+            utility.clickCheckbox(consentDeclarationCheckbox1Id, consentDeclarationCheckbox1Label);
         }else{
-            utility.click(By.cssSelector("label[for='consent.EoReferral.consent-checkbox-checkbox-option1']"));
-            utility.click(By.cssSelector("label[for='consent.declaration-checkbox-option1']"));
+            utility.click(eoReferralCheckbox1);
+            utility.click(consentDeclarationCheckbox1Label);
         }
-        utility.click(By.id("continue-button"));
-        Logger.info("Created ConsentForm");
+        utility.click(continueBtn);
     }
 
     public void complete(ApplicantInfo applicantInfo){
         //Consent
-        if(utility.isElementPresent(By.id("consent.page.title"))) {
-            this.createDeclaration(applicantInfo);
+        if(!utility.isElementPresent(pageTitle)) {
+            return;
         }
+        this.createDeclaration(applicantInfo);
     }
 }
