@@ -6,23 +6,34 @@ import org.sada.ApplicantInfo;
 import org.sada.util.Logger;
 
 public class ProgramRecommedationPage extends BasePage{
+    private final By pageTitle = By.id("program-recommendation.page.title");
+    // Dialog
+    private final By dialogButton = By.id("dialog-button");
+
+    // Radio button option
+    private final By onwodsRadioButtonOptionLabel = By.id("onwods-radio-button-option-label");
+
+    // Save and continue
+    private final By programRecommendationSaveContinueBtn = By.id("program-recommendation-save-continue-button");
+
     public ProgramRecommedationPage(WebDriver driver) {super(driver);}
     public void complete(ApplicantInfo applicantInfo){
         //Program recommendation
-        if(utility.isElementPresent(By.id("program-recommendation.page.title"))) {
-            Logger.info("Creating program-recommendation");
-
-            //Click On the Multi Program when  Applicant is eligible
-            if(applicantInfo.isMultiProgram()){
-                utility.click(By.id("onwods-radio-button-option-label"));
-            }
-
-            //Click On the Single Recommended Program
-            utility.click(By.id("program-recommendation-save-continue-button"));
-
-            //Confirmation Button
-            utility.click(By.id("dialog-button"));
-
+        if(!utility.isElementPresent(pageTitle)) {
+            Logger.info("Skipping : " + pageTitle.toString());
+            return;
         }
+        Logger.info("Filling : " + pageTitle.toString());
+
+        //Click On the Multi Program when  Applicant is eligible
+        if(applicantInfo.isMultiProgram()){
+            utility.click(onwodsRadioButtonOptionLabel);
+        }
+
+        //Click On the Single Recommended Program
+        utility.click(programRecommendationSaveContinueBtn );
+
+        //Confirmation Button
+        utility.click(dialogButton);
     }
 }

@@ -203,4 +203,13 @@ public class Utility {
         return SCANNER.nextLine().trim();  // Read and Return user input
     }
 
+    // Helper method for yes/no questions
+    public static boolean askUserYesNo(Scanner scanner, String question) {
+        System.out.println("\n" + question);
+        System.out.println("1 - No");
+        System.out.println("2 - Yes");
+        System.out.print("Enter option: ");
+        int choice = scanner.nextInt();
+        return choice == 2;
+    }
 }

@@ -7,6 +7,8 @@ import org.sada.pages.*;
 import org.sada.util.Logger;
 import org.sada.util.Utility;
 
+import java.util.Scanner;
+
 public class Application {
     WebDriver driver;
     Utility utility;

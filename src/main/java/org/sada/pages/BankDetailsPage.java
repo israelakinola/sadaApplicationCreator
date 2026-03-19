@@ -7,6 +7,10 @@ import org.sada.util.Logger;
 
 public class BankDetailsPage extends BasePage {
 
+    // -----------------------------
+    // Locators
+    // -----------------------------
+
     //Page Title
     private final By pageTitle = By.id("bank-details.page.title");
     
@@ -15,16 +19,20 @@ public class BankDetailsPage extends BasePage {
 
     //Buttons
     private final By saveAndContinueBtn = By.id("bank-details-save-continue-button");
+    private final By rightDiaLogBtn = By.id("right-dialog-button");
 
     public BankDetailsPage(WebDriver driver) {super(driver);}
     public void complete(ApplicantInfo applicantInfo){
         //Direct deposit details
         //Would you like to provide your banking details?
         if(!utility.isElementPresent(pageTitle)) {
+            System.out.println("Skipping " + pageTitle.toString() );
             return;
         }
+        Logger.info("Filling : " + pageTitle.toString());
         utility.click(hasCheckingAccountNoRadio);
         utility.click(hasSavingsAccountNoRadio);
         utility.click(saveAndContinueBtn);
+        utility.click(rightDiaLogBtn);
     }
 }

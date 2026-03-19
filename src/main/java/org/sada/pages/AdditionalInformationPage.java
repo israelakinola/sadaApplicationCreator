@@ -3,9 +3,12 @@ package org.sada.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 
 public class AdditionalInformationPage extends BasePage {
-
+    // -----------------------------
+    // Constructor
+    // -----------------------------
     public AdditionalInformationPage(WebDriver driver) {
         super(driver);
     }
@@ -140,9 +143,11 @@ public class AdditionalInformationPage extends BasePage {
 
     public void complete(ApplicantInfo applicantInfo){
         if(!utility.isElementPresent(pageTitle)) {
+            Logger.info("Skipping : " + pageTitle.toString());
             return;
         }
 
+        Logger.info("Filling : " + pageTitle.toString());
         setCurrentlyResidingInInstitution(applicantInfo.currentlyResidingInInstitution);
         setAccommodationServices(applicantInfo.accommodationServices);
         setEmploymentServices(applicantInfo.employmentServices);
@@ -151,8 +156,6 @@ public class AdditionalInformationPage extends BasePage {
         setAdditionalNutritionalNeeds(applicantInfo.additionalNutritionalNeeds);
         setFullTimeStudent(applicantInfo.fullTimeStudent);
         setCaringForChild(applicantInfo.caringForChild);
-
-
 
         if (utility.isElementPresent(saveAndContinueBtn)) {
             utility.clickButton(saveAndContinueBtn);

@@ -5,10 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 
 public class HousingSituationPage extends BasePage {
 
-
+    private  final By pageTitle = By.id("housing-situation.page.title");
+    private  final By saveAndContinueBtn = By.id("housing-situation-save-continue-button");
     /* -----------------------------
        Locators (class properties)
      ----------------------------- */
@@ -29,10 +31,12 @@ public class HousingSituationPage extends BasePage {
     }
 
     public void complete(ApplicantInfo applicantInfo){
-        if(utility.isElementPresent( By.id("housing-situation.page.title"))) {
-            HousingSituationPage housingSituation = new HousingSituationPage(driver);
-            this.setCurrentHousingSituation(applicantInfo.getHousingSituation());
-            utility.click(By.id("housing-situation-save-continue-button"));
+        if(!utility.isElementPresent(pageTitle)) {
+            Logger.info("Skipping : " + pageTitle.toString());
+            return;
         }
+        Logger.info("Filling : " + pageTitle.toString());
+        this.setCurrentHousingSituation(applicantInfo.getHousingSituation());
+        utility.click(saveAndContinueBtn);
     }
 }

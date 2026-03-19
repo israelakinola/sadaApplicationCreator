@@ -7,7 +7,11 @@ import org.sada.util.Logger;
 
 public class EarnedIncomePage extends BasePage {
 
-    public By pageTitle =  By.id("earned-income.page.title");
+    private final By pageTitle =  By.id("earned-income.page.title");
+
+    //Button
+    private final By saveAndContinueBtn = By.id("earned-income-save-continue-button");
+
 
     /* -----------------------------
        Locators (class properties)
@@ -44,10 +48,13 @@ public class EarnedIncomePage extends BasePage {
     }
 
     public void complete(ApplicantInfo applicantInfo){
-        if(utility.isElementPresent(By.id("earned-income.page.title"))) {
-            this.setEarnedIncome(applicantInfo.isEarnedIncome());
-            utility.click(By.id("earned-income-save-continue-button"));
+        if(!utility.isElementPresent(pageTitle)) {
+            Logger.info("Skipping : " + pageTitle.toString());
+           return;
         }
+        Logger.info("Filling : " + pageTitle.toString());
+        this.setEarnedIncome(applicantInfo.isEarnedIncome());
+        utility.click(saveAndContinueBtn);
     }
 
 }

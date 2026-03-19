@@ -9,10 +9,12 @@ import org.sada.util.Logger;
 
 public class DemographicInformationPage extends BasePage{
 
+    private final By pageTitle = By.id("demographic-information.page.title");
+    //Button
+    private final By continueBtn = By.id("continue-button");
     /* -----------------------------
        Locators (class properties)
      ----------------------------- */
-    public final By pageTitle = By.cssSelector("h1[data-e2e='pageTitle']");
     //What is your current housing situation?
     private final By gender = By.id("select-demographic-information.genderIdentity");
 
@@ -55,19 +57,21 @@ public class DemographicInformationPage extends BasePage{
             WebElement selectElLanguage = utility.scrollIntoView(language);
             new Select(selectElLanguage).selectByVisibleText(inputLanguage);
 
-            utility.click(By.id("continue-button"));
-            utility.click(By.id("continue-button"));
+            utility.click(continueBtn);
+            utility.click(continueBtn);
         }
     }
 
     public void complete(ApplicantInfo applicantInfo){
         //Demographic
-        if(utility.isElementPresent10(By.id("demographic-information.page.title"))) {//Wait for 10second when checking element
-            utility.click(By.id("continue-button"));
-            this.setDemographicsInformation(applicantInfo.demograhicGender, applicantInfo.demograhicIndigenouse, applicantInfo.demograhicRace,
-                    applicantInfo.demograhicVisibleMinority,  applicantInfo.demograhicLanguage);
-
+        if(!utility.isElementPresent10(pageTitle)) {
+            Logger.info("Skipping : " + pageTitle.toString());
+           return;
         }
+        Logger.info("Filling : " + pageTitle.toString());
+        utility.click(continueBtn);
+        this.setDemographicsInformation(applicantInfo.demograhicGender, applicantInfo.demograhicIndigenouse, applicantInfo.demograhicRace,
+                applicantInfo.demograhicVisibleMinority,  applicantInfo.demograhicLanguage);
     }
 }
 

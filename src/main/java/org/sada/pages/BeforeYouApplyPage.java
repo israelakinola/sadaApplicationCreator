@@ -159,8 +159,10 @@ public class BeforeYouApplyPage extends BasePage {
 
     public void complete(ApplicantInfo applicantInfo){
         if(!utility.isElementPresent(this.pageTitle)) {
-          return;
+            Logger.info("Skipping : " + pageTitle.toString());
+            return;
         }
+        Logger.info("Filling : " + pageTitle.toString());
         this.setEmergency(applicantInfo.isEmergency);
         this.setGetiingMoney(applicantInfo.isGettingMoney);
         this.setMoneyForImmediateNeed(applicantInfo.isMoneyForImmediateNeed);

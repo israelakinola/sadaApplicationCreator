@@ -5,13 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 
 public class SpouceInformationPage extends BasePage {
-
+    // -----------------------------
+    // Constructor
+    // -----------------------------
     public SpouceInformationPage(WebDriver driver) {
       super(driver);
     }
 
+    private final By pageTitle = By.id("");
     // Text inputs
     private final By firstNameInput = By.id("input-spouse-information.spouseFirstName");
     private final By lastNameInput  = By.id("input-spouse-information.spouseLastName");
@@ -113,7 +117,12 @@ public class SpouceInformationPage extends BasePage {
         new Select(selectEl).selectByVisibleText(visibleText);
     }
 
-    public void createSpouceInformation(ApplicantInfo applicantInfo) {
+    public void complete(ApplicantInfo applicantInfo) {
+        if(!utility.isElementPresent(pageTitle)){
+            Logger.info("Skipping : " + pageTitle.toString());
+            return;
+        }
+        Logger.info("Filling : " + pageTitle.toString());
         this.setFirstName(applicantInfo.getFirstNameSpouce());
         this.setLastName(applicantInfo.getLastName());
 

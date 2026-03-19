@@ -7,10 +7,15 @@ import org.sada.ApplicantInfo;
 import org.sada.util.Logger;
 
 public class AdditionalFamilyInformationPage extends BasePage {
+    // -----------------------------
+    // Constructor
+    // -----------------------------
     public AdditionalFamilyInformationPage(WebDriver driver) {
         super(driver);
     }
-
+    // -----------------------------
+    // Locators
+    // -----------------------------
     private final By pageTitle = By.cssSelector("h1[data-e2e='pageTitle']");
     // Buttons
     private final By saveAndContinueBtn = By.id("additional-information-save-continue-button");
@@ -150,8 +155,10 @@ public class AdditionalFamilyInformationPage extends BasePage {
 
     public void complete(ApplicantInfo applicantInfo){
         if(!utility.isElementPresent(this.pageTitle)){
+            Logger.info("Skipping : " + pageTitle.toString());
             return;
         }
+        Logger.info("Filling : " + pageTitle.toString());
         this.setReceivedSocialAssistancePast(applicantInfo.receivedSocialAssistancePast);         // Has anyone received social assistance in the past?
         this.setResidingInInstitution(applicantInfo.residingInInstitution);               // Living in an institution?
         this.setCurrentlyIncarcerated(applicantInfo.currentlyIncarcerated);               // In jail/prison/detention?

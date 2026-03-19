@@ -3,6 +3,7 @@ package org.sada.pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.sada.ApplicantInfo;
+import org.sada.util.Logger;
 
 public class PersonalInformationPage extends BasePage {
 
@@ -14,7 +15,7 @@ public class PersonalInformationPage extends BasePage {
     }
 
     /* -----------------------------
-       Locators (class properties)
+       Locators
      ----------------------------- */
 
     // Text inputs
@@ -155,31 +156,33 @@ public class PersonalInformationPage extends BasePage {
 
 
     public void complete(ApplicantInfo applicantInfo) {
-        if(utility.isElementPresent(this.pageTitle)){
-            this.setFirstName(applicantInfo.getFirstName());
-            this.setLastName(applicantInfo.getLastName());
-
-            this.setDOBYear(applicantInfo.getDOBYear());
-            this.setDOBMonth(applicantInfo.getDOBMonth());
-            this.setDOBDay(applicantInfo.getDOBDay());
-
-            //Set at Birth
-            this.isGenderMale(applicantInfo.isGenderMale);
-
-            this.setMaritalStatus(applicantInfo.getMaritalStatus());
-            this.isChildren(applicantInfo.hasChildren);
-            this.setStatusInCanadaSelect(applicantInfo.getStatusinCanadaSelect());
-
-            this.setSIN(applicantInfo.getSIN());
-            this.setPhoneNumber(applicantInfo.getPhoneNumber());
-            this.setEmail(applicantInfo.getEmail());
-            this.setLangEnglish();
-            this.setNoLangHelp();
-            this.setHealthStatus(applicantInfo.getHealthStatus());
-
-            this.clickContinueButton();
+        if(!utility.isElementPresent(this.pageTitle)){
+            Logger.info("Skipping : " + pageTitle.toString());
+            return;
         }
+        Logger.info("Filling : " + pageTitle.toString());
+        this.setFirstName(applicantInfo.getFirstName());
+        this.setLastName(applicantInfo.getLastName());
 
+        this.setDOBYear(applicantInfo.getDOBYear());
+        this.setDOBMonth(applicantInfo.getDOBMonth());
+        this.setDOBDay(applicantInfo.getDOBDay());
+
+        //Set at Birth
+        this.isGenderMale(applicantInfo.isGenderMale);
+
+        this.setMaritalStatus(applicantInfo.getMaritalStatus());
+        this.isChildren(applicantInfo.hasChildren);
+        this.setStatusInCanadaSelect(applicantInfo.getStatusinCanadaSelect());
+
+        this.setSIN(applicantInfo.getSIN());
+        this.setPhoneNumber(applicantInfo.getPhoneNumber());
+        this.setEmail(applicantInfo.getEmail());
+        this.setLangEnglish();
+        this.setNoLangHelp();
+        this.setHealthStatus(applicantInfo.getHealthStatus());
+
+        this.clickContinueButton();
     }
 
 

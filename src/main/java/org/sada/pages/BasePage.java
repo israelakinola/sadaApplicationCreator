@@ -11,8 +11,7 @@ import java.time.Duration;
 public class BasePage {
     WebDriver driver;
     Utility utility;
-    protected ApplicantInfo applicantInfo;
-
+    private String pageTitle;
 
 
     /**

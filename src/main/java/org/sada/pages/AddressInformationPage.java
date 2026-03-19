@@ -10,10 +10,16 @@ import org.sada.util.Logger;
 
 
 public class AddressInformationPage extends BasePage {
+    // -----------------------------
+    // Constructor
+    // -----------------------------
     public AddressInformationPage(WebDriver driver) {
         super(driver);
     }
 
+    // -----------------------------
+    // Locators
+    // -----------------------------
     private final By pageTitle = By.id("address-information.page.title");
     private final By addressReviewTitle = By.id("address-review-title");
     private final By addressSummaryTitle = By.id("address-summary-title");
@@ -22,12 +28,6 @@ public class AddressInformationPage extends BasePage {
     private final By acceptSuggestionBtn = By.id("acceptSuggestedBtn");
     private final By addressInformationBtn = By.id("address-information-continue-button");
     private final By confirmAddressSaveContBtn = By.id("confirm-address-save-continue-button");
-
-
-
-    // -----------------------------
-    // Locators
-    // -----------------------------
 
 
     private final By apartmentYesLabel = By.cssSelector("label[for='home-apartment-radio-button-option-0']");
@@ -64,7 +64,7 @@ public class AddressInformationPage extends BasePage {
 
 
     // -----------------------------
-    // Actions (public API)
+    // Actions
     // -----------------------------
 
     public void setIsHomeApartment(boolean isApartment) {
@@ -104,11 +104,14 @@ public class AddressInformationPage extends BasePage {
 
 
     public void complete(ApplicantInfo applicantInfo) {
+
         if(!utility.isElementPresent(pageTitle)) {
+            Logger.info("Skipping : " + pageTitle.toString());
             return;
         }
-        this.setIsHomeApartment(applicantInfo.isApartment);
 
+        Logger.info("Filling : " + pageTitle.toString());
+        this.setIsHomeApartment(applicantInfo.isApartment);
 
         this.clickEnterAddressManually();
 
