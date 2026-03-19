@@ -6,8 +6,8 @@ public class ApplicantInfo {
 
     // Personal Information
     private String maritalStatus = "Single";
-    private String firstName = "Alsssdisw";
-    private String lastName = "Hsfsssba";
+    private String firstName = "diswwww";
+    private String lastName = "Zddaddsddsds";
     private String SIN = "275 736 544";
     private String phoneNumber = "647 422 2188";
     public boolean isGenderMale = true;
@@ -27,28 +27,6 @@ public class ApplicantInfo {
 
 
 
-    // Address Information
-    public String homeTypeValue = "Standard street address";
-    public String mobileTypeValue = "Mobile";
-    public boolean isApartment = false;
-    public String streetNumber = "330";
-    public String streetName = "Main Street East";
-    public String streetType = "Street";
-    public String city = "Hamilton";
-    public String postalCode = "L8N 3T9";
-
-    // Demographics Information
-    public String demograhicGender = "Prefer not to say";
-    public String demograhicIndigenouse = "Prefer not to say";
-    public String demograhicRace = "Prefer not to say";
-    public String demograhicVisibleMinority = "Prefer not to say";
-    public String demograhicLanguage = "English";
-
-    // Housing
-    private String housingSituation = "I am staying in an emergency hostel or shelter";
-
-    // Income
-    private boolean earnedIncome = false;
 
     // Spouse Information
     private String firstNameSpouce = "Wife".trim();
@@ -81,6 +59,30 @@ public class ApplicantInfo {
     public boolean pregnantOrBreastfeeding = false;
     public boolean additionalFamilyfullTimeStudent = false;
     public boolean additionalFamilyCaringForChild = false;
+
+    // Address Information
+    public String homeTypeValue = "Standard street address";
+    public String mobileTypeValue = "Mobile";
+    public boolean isApartment = false;
+    public String streetNumber = "330";
+    public String streetName = "Main Street East";
+    public String streetType = "Street";
+    public String city = "Hamilton";
+    public String postalCode = "L8N 3T9";
+
+    // Demographics Information
+    public String demograhicGender = "Prefer not to say";
+    public String demograhicIndigenouse = "Prefer not to say";
+    public String demograhicRace = "Prefer not to say";
+    public String demograhicVisibleMinority = "Prefer not to say";
+    public String demograhicLanguage = "English";
+
+    // Housing
+    private String housingSituation = "I am staying in an emergency hostel or shelter";
+
+    // Income
+    private boolean earnedIncome = false;
+
 
     // Other Info
     private String password = "Password1++";

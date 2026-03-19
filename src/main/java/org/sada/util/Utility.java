@@ -171,7 +171,7 @@ public class Utility {
     // -----------------------------
     // UI Based Utilities
     // -----------------------------
-    public static void copyToClipboard(String content) {
+    public static void copyToClipboard(String contentType, String content) {
         try {
 
             // 1. Get the system clipboard
@@ -190,7 +190,7 @@ public class Utility {
             // Set the content of the clipboard.
             clipboard.setContents(stringSelection, null);
 
-            Logger.info("Content successfully copied to clipboard: \"" + content + "\"");
+            System.out.println(contentType + " successfully copied to clipboard: \"" + content + "\"");
 
         } catch (Exception e) {
             Logger.error("Error copying to clipboard: " + e.getMessage());

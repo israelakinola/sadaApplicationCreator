@@ -9,6 +9,10 @@ public class Logger {
        log("INFO", message);
     }
 
+    public static void debug(String message){
+        log("DEBUG", message);
+    }
+
     public static void warn(String message){
         log("WARN", message);
     }

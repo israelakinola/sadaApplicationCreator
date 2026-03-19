@@ -105,26 +105,28 @@ public class AddressInformationPage extends BasePage {
 
     public void complete(ApplicantInfo applicantInfo) {
 
-        if(!utility.isElementPresent(pageTitle)) {
-            Logger.info("Skipping : " + pageTitle.toString());
-            return;
-        }
+        if(utility.isElementPresent(pageTitle)) {
+            Logger.info("Filling : " + pageTitle.toString());
+            this.setIsHomeApartment(applicantInfo.isApartment);
 
-        Logger.info("Filling : " + pageTitle.toString());
-        this.setIsHomeApartment(applicantInfo.isApartment);
+            this.clickEnterAddressManually();
 
-        this.clickEnterAddressManually();
+            this.inputAddress(applicantInfo.homeTypeValue, applicantInfo.streetNumber, applicantInfo.streetName,
+                    applicantInfo.streetType, applicantInfo.city, applicantInfo.postalCode);
 
-        this.inputAddress(applicantInfo.homeTypeValue, applicantInfo.streetNumber, applicantInfo.streetName,
-                applicantInfo.streetType, applicantInfo.city, applicantInfo.postalCode);
+            utility.click(addressInformationBtn);
 
-        utility.click(addressInformationBtn);
-        if (utility.isElementPresent(addressReviewTitle)) {
-            if (utility.isElementPresent(acceptSuggestionBtn)) {
-                utility.click(acceptSuggestionBtn);
+            if (utility.isElementPresent(addressReviewTitle)) {
+                if (utility.isElementPresent(acceptSuggestionBtn)) {
+                    utility.click(acceptSuggestionBtn);
+                }
             }
         }
+
+
+
         if (utility.isElementPresent(addressSummaryTitle)) {
+            Logger.info("Filling : " + addressSummaryTitle.toString());
             utility.click(confirmAddressSaveContBtn);
         }
 

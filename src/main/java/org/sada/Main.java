@@ -3,7 +3,6 @@ package org.sada;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.sada.applications.SingleApplicant;
-import org.sada.pages.Signature;
 import org.sada.util.Logger;
 import org.sada.util.Utility;
 
@@ -13,9 +12,6 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 
        setup();
 
@@ -35,19 +31,14 @@ public class Main {
 
         int envChoice = scanner.nextInt();
 
-        String environmentUrl;
-
-        switch (envChoice) {
-            case 1:
-                environmentUrl = "https://test.sada.az.mcss.gov.on.ca/intake/home-page";
-                break;
-            case 2:
-                environmentUrl = "https://test2.sada.az.mcss.gov.on.ca/intake/home-page";
-                break;
-            default:
+        String environmentUrl = switch (envChoice) {
+            case 1 -> "https://test.sada.az.mcss.gov.on.ca/intake/home-page";
+            case 2 -> "https://test2.sada.az.mcss.gov.on.ca/intake/home-page";
+            default -> {
                 System.out.println("Invalid option. Defaulting to SFT3.");
-                environmentUrl = "https://test.sada.az.mcss.gov.on.ca/intake/home-page";
-        }
+                yield "https://test.sada.az.mcss.gov.on.ca/intake/home-page";
+            }
+        };
 
         // -----------------------------
         // Ask user for application type

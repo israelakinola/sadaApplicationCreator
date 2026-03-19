@@ -47,17 +47,17 @@ public class MyBAccountPage extends BasePage {
 
         // Agree to MyB Terms
         utility.click(term);
-
+        Utility.copyToClipboard("Email Address", emailAddress);
         if (!asMyB) {
             createAnAccount(emailAddress, password);
         } else {
             signInToAnAccount(emailAddress, password);
         }
 
+
         // Prompt user to complete MyB verification
-        Logger.info("Done with MyB verification");
-        System.out.println("\nComplete the rest of MyB verification until you return to the application page.");
-        Utility.askForInput("Press 'Enter' to continue after MyB verification is completed: ");
+        System.out.println("\nComplete the rest of MyB verification " + emailAddress);
+        Utility.askForInput("Press 'Enter' to continue after MyB is completed and SADA Page is back: ");
 
         // Continue application
         if (utility.isElementPresent(saveContinueBtn)) {
@@ -83,14 +83,16 @@ public class MyBAccountPage extends BasePage {
     }
 
     public void complete(ApplicantInfo applicantInfo) {
-        Utility.copyToClipboard(applicantInfo.getEmail());
+
 
         if (!utility.isElementPresent(pageTitle)) {
             Logger.info("Skipping : " + pageTitle.toString());
             return;
         }
-        Logger.info("Filling : " + pageTitle.toString());
+
+
         createMyB(applicantInfo.isHasMyB(), applicantInfo.getEmail(), applicantInfo.getPassword());
+
 
     }
 }
