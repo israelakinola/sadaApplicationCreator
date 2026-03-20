@@ -107,6 +107,7 @@ public class AddressInformationPage extends BasePage {
 
         if(utility.isElementPresent(pageTitle)) {
             Logger.info("Filling : " + pageTitle.toString());
+            //Does your home address include an apartment, condo, or unit number
             this.setIsHomeApartment(applicantInfo.isApartment);
 
             this.clickEnterAddressManually();

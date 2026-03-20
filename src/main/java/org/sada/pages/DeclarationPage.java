@@ -27,7 +27,7 @@ public class DeclarationPage extends BasePage{
     // -----------------------------
     private void createDeclaration(ApplicantInfo applicantInfo){
         Logger.info("Creating ConsentForm");
-        if(applicantInfo.isODSP() && !applicantInfo.isMultiProgram()){
+        if(applicantInfo.hasDisability && !applicantInfo.multiProgram){
             utility.clickCheckbox(consentDeclarationCheckbox1Id, consentDeclarationCheckbox1Label);
         }else{
             utility.click(eoReferralCheckbox1);

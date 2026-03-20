@@ -148,13 +148,22 @@ public class AdditionalInformationPage extends BasePage {
         }
 
         Logger.info("Filling : " + pageTitle.toString());
+        //Are you living in an institution such as a hospital or long-term care facility or a
+        // residential school for vision or hearing impaired?(
         setCurrentlyResidingInInstitution(applicantInfo.currentlyResidingInInstitution);
+        //Do you need support accessing our services?
         setAccommodationServices(applicantInfo.accommodationServices);
+        //Are you getting support from a program or service to help you find a job?
         setEmploymentServices(applicantInfo.employmentServices);
+        //Do you need to follow a special diet because of a medical condition?
         setSpecialDietOrMedicalCondition(applicantInfo.specialDietOrMedicalCondition);
+        //Do you have a disability?(required)Being a person with a disability means:
         setPersonWithDisability(applicantInfo.personWithDisability);
+        //Do you have additional nutritional needs because you are pregnant or breastfeeding?
         setAdditionalNutritionalNeeds(applicantInfo.additionalNutritionalNeeds);
+        //Are you a full-time student enrolled in secondary school, college or university?
         setFullTimeStudent(applicantInfo.fullTimeStudent);
+        //Are you caring for anyone else's child temporarily, for example a child whose parent is staying in a hospital?
         setCaringForChild(applicantInfo.caringForChild);
 
         if (utility.isElementPresent(saveAndContinueBtn)) {

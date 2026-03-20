@@ -71,7 +71,8 @@ public class SingleApplicant extends Application {
 
         new SignaturePage(driver).complete(applicantInfo);
 
-        new Signature(driver).signApplication(applicantInfo.getFirstName());
+        new Signature(driver).signApplication(applicantInfo.firstName);
+        Logger.info("Application Created");
     }
 
 }

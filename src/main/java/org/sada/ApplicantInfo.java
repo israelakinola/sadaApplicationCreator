@@ -1,18 +1,25 @@
 package org.sada;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ApplicantInfo {
 
 
-
     // Personal Information
-    private String maritalStatus = "Single";
-    private String firstName = "diswwww";
-    private String lastName = "Zddaddsddsds";
-    private String SIN = "275 736 544";
-    private String phoneNumber = "647 422 2188";
+    public String maritalStatus = "Single";
+    public String firstName = "Abraham";
+    public String lastName = "Adams";
+    public String SIN = "102 012 762";
+    public String phoneNumber = "647 422 2181";
     public boolean isGenderMale = true;
     public boolean hasChildren = false;
-    private String email = firstName + lastName + "@yopmail.com";
+    public String email = firstName + lastName + "@yopmail.com";
+    public Boolean isLanguageEnglish = true;
+    public Boolean isNoLangHelp = true;
+    public String DOBYear = "1960";
+    public String DOBMonth = "01";
+    public String DOBDay = "01";
 
 
     // Before you apply
@@ -28,14 +35,15 @@ public class ApplicantInfo {
 
 
 
-    // Spouse Information
-    private String firstNameSpouce = "Wife".trim();
-    private String lastNameSpouce = this.lastName;
-    private String SINSpouce = "114 455 447";
-    private String emailSpouce = firstNameSpouce + lastNameSpouce + "@yopmail.com";
-    private String DOBYearSpouce = "1970";
-    private String DOBMonthSpouce = "01";
-    private String DOBDaySpouce = "01";
+    // Spouse Information - IF THERE IS A SPOUCE
+    public String firstNameSpouce = "Wife".trim();
+    public String lastNameSpouce = this.lastName;
+    public String SINSpouce = "114 455 447";
+    public String emailSpouce = firstNameSpouce + lastNameSpouce + "@yopmail.com";
+    public String DOBYearSpouce = "1970";
+    public String DOBMonthSpouce = "01";
+    public String DOBDaySpouce = "01";
+    public String healthStatusSpouce = "Excellent";
 
     // Additional Information
     public boolean currentlyResidingInInstitution = false;
@@ -77,134 +85,29 @@ public class ApplicantInfo {
     public String demograhicVisibleMinority = "Prefer not to say";
     public String demograhicLanguage = "English";
 
-    // Housing
-    private String housingSituation = "I am staying in an emergency hostel or shelter";
+    // Housing Situation
+    public String housingSituation = "I am staying in an emergency hostel or shelter";
 
-    // Income
-    private boolean earnedIncome = false;
+    // Earned Income
+    public boolean earnedIncome = false;
 
+    //Household Incomes
+    public List<String> houseHoldIncome = new ArrayList<>();
+
+    //Financial Assets
+    public List<String> assets = new ArrayList<>();
+    public boolean givenAwayAssets = false;
+
+    //Bank Details
+    public  boolean hasChecquingAcct = false;
+    public  boolean hasSavingsAcct = false;
 
     // Other Info
-    private String password = "Password1++";
-    private String DOBYear = "1960";
-    private String DOBMonth = "01";
-    private String DOBDay = "01";
+    public String password = "Password1++";
     public String statusinCanadaSelect = "Canadian citizen born in Canada";
-    private String healthStatus = "Excellent";
+    public String healthStatus = "Excellent";
 
-    // ===== Getters =====
 
-    public String getMaritalStatus() {
-        return maritalStatus;
-    }
-
-    public boolean isHasMyB() {
-        return hasMyB;
-    }
-
-    public boolean isODSP() {
-        return hasDisability;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getSIN() {
-        return SIN;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getFirstNameSpouce() {
-        return firstNameSpouce;
-    }
-
-    public String getLastNameSpouce() {
-        return lastNameSpouce;
-    }
-
-    public Boolean isMultiProgram() {
-        return multiProgram;
-    }
-
-    public String getSINSpouce() {
-        return SINSpouce;
-    }
-
-    public String getEmailSpouce() {
-        return emailSpouce;
-    }
-
-    public String getDOBYearSpouce() {
-        return DOBYearSpouce;
-    }
-
-    public String getDOBMonthSpouce() {
-        return DOBMonthSpouce;
-    }
-
-    public String getDOBDaySpouce() {
-        return DOBDaySpouce;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public String getDOBYear() {
-        return DOBYear;
-    }
-
-    public String getDOBMonth() {
-        return DOBMonth;
-    }
-
-    public String getDOBDay() {
-        return DOBDay;
-    }
-
-    public String getStatusinCanadaSelect() {
-        return statusinCanadaSelect;
-    }
-
-    public String getHealthStatus() {
-        return healthStatus;
-    }
-
-    public String getHousingSituation() {
-        return housingSituation;
-    }
-
-    public boolean isEarnedIncome() {
-        return earnedIncome;
-    }
 
     // Application Information - Don't Change Here
     public Boolean multiProgram = false;

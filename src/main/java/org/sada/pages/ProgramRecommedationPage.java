@@ -26,7 +26,7 @@ public class ProgramRecommedationPage extends BasePage{
         Logger.info("Filling : " + pageTitle.toString());
 
         //Click On the Multi Program when  Applicant is eligible
-        if(applicantInfo.isMultiProgram()){
+        if(applicantInfo.multiProgram){
             utility.click(onwodsRadioButtonOptionLabel);
         }
 

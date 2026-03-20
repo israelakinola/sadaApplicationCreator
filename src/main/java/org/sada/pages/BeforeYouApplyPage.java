@@ -163,15 +163,35 @@ public class BeforeYouApplyPage extends BasePage {
             return;
         }
         Logger.info("Filling : " + pageTitle.toString());
+
+        //Are you in an emergency or crisis and need help right away for any of the following reasons?
         this.setEmergency(applicantInfo.isEmergency);
+
+        //Are you currently getting money from Ontario Works or the Ontario Disability Support Program?
         this.setGetiingMoney(applicantInfo.isGettingMoney);
+
+        //Do you need money to pay for your immediate needs, including food and housing, for the next 6 months?
         this.setMoneyForImmediateNeed(applicantInfo.isMoneyForImmediateNeed);
+
+        //Have you received social assistance in Ontario in the past?
         this.setReceivedSocialAssistanceInPast(applicantInfo.isReceivedSocialAssistanceInPast);
+
+        //Do you have a disability?(required)
         this.setHasDisability(applicantInfo.hasDisability);
+
+        //What is your legal status in Canada?
         this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
+
+        //Are you in a jail, prison, or overnight detention centre?
         this.setReleasedFromInstitution(applicantInfo.releasedFromInstitution);
+
+        //Are you currently living in a First Nations' community?
         this.setLivingOnFirstNationsReserveLand(applicantInfo.livingOnFirstNationsReserveLand);
+
+        //Are you applying for yourself or for someone else?
         this.setApplyingForYourself(applicantInfo.applyingForYourself);
+
+        //Next Page
         this.clickContinueButton();
 
     }

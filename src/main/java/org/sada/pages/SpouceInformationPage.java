@@ -123,23 +123,23 @@ public class SpouceInformationPage extends BasePage {
             return;
         }
         Logger.info("Filling : " + pageTitle.toString());
-        this.setFirstName(applicantInfo.getFirstNameSpouce());
-        this.setLastName(applicantInfo.getLastName());
+        this.setFirstName(applicantInfo.firstNameSpouce);
+        this.setLastName(applicantInfo.lastNameSpouce);
 
-        this.setDOBYear(applicantInfo.getDOBYearSpouce());
-        this.setDOBMonth(applicantInfo.getDOBMonthSpouce());
-        this.setDOBDay(applicantInfo.getDOBDaySpouce());
+        this.setDOBYear(applicantInfo.DOBYearSpouce);
+        this.setDOBMonth(applicantInfo.DOBMonthSpouce);
+        this.setDOBDay(applicantInfo.DOBDaySpouce);
 
         //Sex at Birth
         this.setSexMale();
 
 
-        this.setStatusInCanadaSelect(applicantInfo.getStatusinCanadaSelect());
+        this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
 
-        this.setSIN(applicantInfo.getSINSpouce());
-        this.setEmail(applicantInfo.getEmailSpouce());
+        this.setSIN(applicantInfo.SINSpouce);
+        this.setEmail(applicantInfo.emailSpouce);
         this.setNoLangHelp();
-        this.setHealthStatus(applicantInfo.getHealthStatus());
+        this.setHealthStatus(applicantInfo.healthStatusSpouce);
 
         this.clickContinueButton();
 

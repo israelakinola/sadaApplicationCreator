@@ -42,18 +42,23 @@ public class DemographicInformationPage extends BasePage{
 
     public void  setDemographicsInformation(String inputGender, String inputIndigenous, String inputRace, String inputMinority, String inputLanguage){
         if(utility.isElementPresent(gender)){
+            //What gender do you identify as?
             WebElement selectElGender = utility.scrollIntoView(gender);
             new Select(selectElGender).selectByVisibleText(inputGender);
 
+            //Do you identify as Indigenous?
             WebElement selectElIndigenous = utility.scrollIntoView(indigenous);
             new Select(selectElIndigenous).selectByVisibleText(inputIndigenous);
 
+            //Which race category best describes you?
             WebElement selectElRace = utility.scrollIntoView(race);
             new Select(selectElRace).selectByVisibleText(inputRace);
 
+            //Do you identify as a visible minority?
             WebElement selectElMinority = utility.scrollIntoView(minority);
             new Select(selectElMinority).selectByVisibleText(inputMinority);
 
+            //What is your language of choice?
             WebElement selectElLanguage = utility.scrollIntoView(language);
             new Select(selectElLanguage).selectByVisibleText(inputLanguage);
 

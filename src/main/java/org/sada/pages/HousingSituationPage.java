@@ -36,7 +36,9 @@ public class HousingSituationPage extends BasePage {
             return;
         }
         Logger.info("Filling : " + pageTitle.toString());
-        this.setCurrentHousingSituation(applicantInfo.getHousingSituation());
+        //What is your current housing situation?
+        this.setCurrentHousingSituation(applicantInfo.housingSituation);
+
         utility.click(saveAndContinueBtn);
     }
 }

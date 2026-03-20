@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.sada.ApplicantInfo;
 import org.sada.util.Logger;
 
+import java.util.List;
+
 public class FinancialAssetsPage extends BasePage {
 
     // -----------------------------
@@ -41,7 +43,7 @@ public class FinancialAssetsPage extends BasePage {
     // -----------------------------
     // Actions
     // -----------------------------
-    public void setGivenAwayAssets(boolean givenAwayAssets) {
+    protected void setGivenAwayAssets(boolean givenAwayAssets) {
         if (givenAwayAssets) {
             utility.click(soldOrGivenAwayAssetsYesLabel);
         } else {
@@ -49,10 +51,14 @@ public class FinancialAssetsPage extends BasePage {
         }
     }
 
-    public void setNoneOfTheAboveCheckbox() {
-        utility.clickCheckbox(noneOfTheAboveCheckboxInput, noneOfTheAboveCheckboxLabel);
-    }
 
+
+    protected void setAssets(List<String> assets) {
+        if (assets == null || assets.isEmpty()) {
+            utility.clickCheckbox(noneOfTheAboveCheckboxInput, noneOfTheAboveCheckboxLabel);
+        }
+
+    }
     public void complete(ApplicantInfo applicantInfo) {
 
         if (!utility.isElementPresent(pageTitle)) {
@@ -60,8 +66,11 @@ public class FinancialAssetsPage extends BasePage {
             return;
         }
         Logger.info("Filling : " + pageTitle.toString());
-        setNoneOfTheAboveCheckbox();
-        setGivenAwayAssets(false);
+        //Does anyone included in the application, own items of value such as investments, a car or motorcycle?
+        setAssets(applicantInfo.assets);
+
+        //Has anyone included in the application sold or given away any assets or items of value in the last year?
+        setGivenAwayAssets(applicantInfo.givenAwayAssets);
         utility.click(saveAndContinueBtn);
     }
 }

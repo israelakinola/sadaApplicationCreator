@@ -5,14 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.sada.ApplicantInfo;
 import org.sada.util.Logger;
 
+import java.util.List;
+
 public class HouseholdIncomePage extends BasePage {
 
     public HouseholdIncomePage(WebDriver driver) {
         super(driver);
     }
 
-    public final By pageTitle = By.id("household-income.page.title");
+    private final By pageTitle = By.id("household-income.page.title");
 
+    private final By saveAndContinueBtn = By.id("household-income-save-continue-button");
 
     /* -----------------------------
        Locators (class properties)
@@ -122,9 +125,12 @@ public class HouseholdIncomePage extends BasePage {
     // Actions (public API)
     // -----------------------------
 
-    private void setHHIncome(){
-        utility.click(noneOfTheAboveCheckbox);
+    private void setHHIncome(List<String> householdIncome) {
+        if (householdIncome == null || householdIncome.isEmpty()) {
+            utility.click(noneOfTheAboveCheckbox);
+        }
     }
+
 
     public void complete(ApplicantInfo applicantInfo){
         if(!utility.isElementPresent(By.id("household-income.page.title"))) {
@@ -132,7 +138,8 @@ public class HouseholdIncomePage extends BasePage {
             return;
         }
         Logger.info("Filling : " + pageTitle.toString());
-        this.setHHIncome();
-        utility.click(By.id("household-income-save-continue-button"));
+        //Is anyone included in the application eligible for or getting money from anywhere else, like the government, or a pension or investments?
+        this.setHHIncome(applicantInfo.houseHoldIncome);
+        utility.click(saveAndContinueBtn);
     }
 }

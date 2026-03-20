@@ -137,12 +137,21 @@ public class PersonalInformationPage extends BasePage {
         utility.clearAndType(emailInput, email);
     }
 
-    private void setLangEnglish() {
-        utility.click(langEnglishRadio);
+    private void setLangEnglish(Boolean isEnglish) {
+        if(isEnglish){
+            utility.click(langEnglishRadio);
+        }else{
+            utility.click(langFrenchRadio);
+        }
     }
 
-    private void setNoLangHelp() {
-        utility.click(langHelpNoGoodRadio);
+    private void setNoLangHelp(Boolean isNoLangHelp) {
+        if(isNoLangHelp){
+            utility.click(langHelpNoGoodRadio);
+        }else{
+            utility.click(langHelpYesRadio);
+        }
+
     }
 
     private void setHealthStatus(String visibleText) {
@@ -161,27 +170,37 @@ public class PersonalInformationPage extends BasePage {
             return;
         }
         Logger.info("Filling : " + pageTitle.toString());
-        this.setFirstName(applicantInfo.getFirstName());
-        this.setLastName(applicantInfo.getLastName());
 
-        this.setDOBYear(applicantInfo.getDOBYear());
-        this.setDOBMonth(applicantInfo.getDOBMonth());
-        this.setDOBDay(applicantInfo.getDOBDay());
+        //First name
+        this.setFirstName(applicantInfo.firstName);
+        //Last Name
+        this.setLastName(applicantInfo.lastName);
+        //Date of birth
+        this.setDOBYear(applicantInfo.DOBYear);
+        this.setDOBMonth(applicantInfo.DOBMonth);
+        this.setDOBDay(applicantInfo.DOBDay);
 
         //Set at Birth
         this.isGenderMale(applicantInfo.isGenderMale);
-
-        this.setMaritalStatus(applicantInfo.getMaritalStatus());
+        ////What is your marital status?
+        this.setMaritalStatus(applicantInfo.maritalStatus);
+        //Do you have any children living with you?
         this.isChildren(applicantInfo.hasChildren);
-        this.setStatusInCanadaSelect(applicantInfo.getStatusinCanadaSelect());
-
-        this.setSIN(applicantInfo.getSIN());
-        this.setPhoneNumber(applicantInfo.getPhoneNumber());
-        this.setEmail(applicantInfo.getEmail());
-        this.setLangEnglish();
-        this.setNoLangHelp();
-        this.setHealthStatus(applicantInfo.getHealthStatus());
-
+        //What is your legal status in Canada?
+        this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
+        //Social Insurance Number
+        this.setSIN(applicantInfo.SIN);
+        //Email
+        this.setEmail(applicantInfo.email);
+        //Phone Number
+        this.setPhoneNumber(applicantInfo.phoneNumber);
+        //What language should we use to contact you
+        this.setLangEnglish(applicantInfo.isLanguageEnglish);
+        //Do you need help to improve your language skills to help you get or keep a job?
+        this.setNoLangHelp(applicantInfo.isNoLangHelp);
+        //In general, would you say your health is
+        this.setHealthStatus(applicantInfo.healthStatus);
+        //Next Page
         this.clickContinueButton();
     }
 

@@ -53,7 +53,9 @@ public class EarnedIncomePage extends BasePage {
            return;
         }
         Logger.info("Filling : " + pageTitle.toString());
-        this.setEarnedIncome(applicantInfo.isEarnedIncome());
+        //Will you receive income from a job, a training program, or self-employment in March 2026?
+        this.setEarnedIncome(applicantInfo.earnedIncome);
+
         utility.click(saveAndContinueBtn);
     }
 

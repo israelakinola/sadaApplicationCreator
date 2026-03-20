@@ -91,7 +91,7 @@ public class MyBAccountPage extends BasePage {
         }
 
 
-        createMyB(applicantInfo.isHasMyB(), applicantInfo.getEmail(), applicantInfo.getPassword());
+        createMyB(applicantInfo.hasMyB, applicantInfo.email, applicantInfo.password);
 
 
     }
