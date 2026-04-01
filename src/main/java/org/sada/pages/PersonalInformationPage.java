@@ -46,6 +46,7 @@ public class PersonalInformationPage extends BasePage {
     private final By noSinCheckbox = By.id("personal-information.status.noSin-checkbox-option1"); //
     private final By signExpiredNo = By.cssSelector("label[for='personal-information.status.isSinExpired-radio-button-option-1']");// not used here
 
+    private final By noHealthCard = By.cssSelector("label[for='personal-information.status.noHealthCardNumber-checkbox-option1']");
     // Phone input
     private final By phoneInput = By.id("input-personal-information.phone");
 
@@ -122,9 +123,9 @@ public class PersonalInformationPage extends BasePage {
     private void setSIN(String SIN) {
         String sin = System.getProperty("sin", SIN);
         utility.clearAndType(sinInput, sin);
-        if(utility.isElementPresent(signExpiredNo)){
-            utility.click(signExpiredNo);
-        }
+//        if(utility.isElementPresent(signExpiredNo)){
+//            utility.click(signExpiredNo);
+//        }
     }
 
 
@@ -188,6 +189,8 @@ public class PersonalInformationPage extends BasePage {
         this.isChildren(applicantInfo.hasChildren);
         //What is your legal status in Canada?
         this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
+        //Health Card Number
+        utility.click(noHealthCard);
         //Social Insurance Number
         this.setSIN(applicantInfo.SIN);
         //Email

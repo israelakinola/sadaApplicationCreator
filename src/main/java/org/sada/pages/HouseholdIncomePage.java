@@ -115,7 +115,7 @@ public class HouseholdIncomePage extends BasePage {
 
     // None of the above
     private final By noneOfTheAboveCheckbox =
-            By.cssSelector("label[for='NoneOfAbove0']");
+            By.cssSelector("#NoneOfAbove0");
 
 
 
@@ -124,10 +124,17 @@ public class HouseholdIncomePage extends BasePage {
     // -----------------------------
     // Actions (public API)
     // -----------------------------
-
+    private void selectIncomeOption(String income){
+        //
+    }
     private void setHHIncome(List<String> householdIncome) {
         if (householdIncome == null || householdIncome.isEmpty()) {
             utility.click(noneOfTheAboveCheckbox);
+            return;
+        }
+
+        for (String income : householdIncome) {
+            selectIncomeOption(income);
         }
     }
 

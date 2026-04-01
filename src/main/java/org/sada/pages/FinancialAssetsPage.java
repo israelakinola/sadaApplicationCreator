@@ -55,7 +55,7 @@ public class FinancialAssetsPage extends BasePage {
 
     protected void setAssets(List<String> assets) {
         if (assets == null || assets.isEmpty()) {
-            utility.clickCheckbox(noneOfTheAboveCheckboxInput, noneOfTheAboveCheckboxLabel);
+            utility.click(noneOfTheAboveCheckboxInput);
         }
 
     }

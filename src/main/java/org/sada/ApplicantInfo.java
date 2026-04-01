@@ -7,11 +7,11 @@ public class ApplicantInfo {
 
 
     // Personal Information
-    public String maritalStatus = "Single";
-    public String firstName = "Abraham";
-    public String lastName = "Adams";
-    public String SIN = "102 012 762";
-    public String phoneNumber = "647 422 2181";
+    public Boolean hasDisability = true;
+    public String firstName = "Betty";
+    public String lastName = "ha";
+    public String SIN = "575 250 832";
+    public String phoneNumber = "647 422 2251";
     public boolean isGenderMale = true;
     public boolean hasChildren = false;
     public String email = firstName + lastName + "@yopmail.com";
@@ -27,7 +27,6 @@ public class ApplicantInfo {
     public Boolean isGettingMoney = false;
     public Boolean isMoneyForImmediateNeed = false;
     public Boolean isReceivedSocialAssistanceInPast = false;
-    public Boolean hasDisability = false;
     public Boolean releasedFromInstitution = false;
     public Boolean livingOnFirstNationsReserveLand = false;
     public Boolean applyingForYourself = true;
@@ -114,4 +113,5 @@ public class ApplicantInfo {
 
     // MyB Information - Don't Change Here
     public boolean hasMyB = false;
+    public String maritalStatus = "Single";
 }
