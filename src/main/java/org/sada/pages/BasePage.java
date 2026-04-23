@@ -2,8 +2,6 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.sada.ApplicantInfo;
-import org.sada.util.Logger;
 import org.sada.util.Utility;
 
 import java.time.Duration;

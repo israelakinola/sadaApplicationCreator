@@ -2,55 +2,31 @@ package org.sada;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.sada.applications.SingleApplicant;
+import org.sada.data.ApplicantInfo;
 import org.sada.util.Logger;
-import org.sada.util.Utility;
 
-import java.time.Duration;
 import java.util.Scanner;
-
-import static org.sada.applications.SingleApplicant.runSingleApplicantOdsp;
 
 public class Main {
 
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            run(scanner);
-        }
+        run();
     }
 
-    private static void run(Scanner scanner) {
-        int applicantType = getApplicantType(scanner);
+    private static void run() {
         ApplicantInfo applicantInfo = new ApplicantInfo();
 
+        Logger.info("Setting Up Chrome Driver and Scripts...");
         WebDriver driver = new ChromeDriver();
-
-        System.out.println("Welcome to the Single Application!");
 
         try {
             openEnvironment(driver, applicantInfo.ENV);
-            executeFlow(driver, applicantType, applicantInfo);
+            executeFlow(driver, applicantInfo);
         } finally {
 //            driver.quit();
         }
     }
-
-    // -----------------------------
-    // Input Handlers
-    // -----------------------------
-    private static int getApplicantType(Scanner scanner) {
-        System.out.println("\nSelect Application Type:");
-        System.out.println("1 - Single Applicant - Ontario Works");
-        System.out.println("2 - Single Applicant - ODSP");
-        System.out.println("3 - Single Applicant - MultiProgram");
-        System.out.println("4 - Married Applicant (Not Available)");
-        System.out.println("5 - Family Applicant (Not Available)");
-        System.out.print("Enter option: ");
-
-        return scanner.nextInt();
-    }
-
 
 
 
@@ -62,14 +38,23 @@ public class Main {
     // -----------------------------
     // Flow Execution
     // -----------------------------
-    private static void executeFlow(WebDriver driver, int applicantType, ApplicantInfo info) {
-        switch (applicantType) {
-            case 1 -> SingleApplicant.runSingleApplicantOnw(driver, info);
-            case 2 -> SingleApplicant.runSingleApplicantOdsp(driver, info);
-            case 3 -> SingleApplicant.runSingleMultiProgram(driver, info);
-            case 4 -> Logger.info("Married Applicant flow not implemented yet.");
-            case 5 -> Logger.info("Family Applicant flow not implemented yet.");
-            default -> System.out.println("Invalid application type selected.");
+    private static void executeFlow(WebDriver driver, ApplicantInfo info) {
+        switch (info.applicationType) {
+            case 1 :
+                    Logger.info("Starting Single OW Application.");
+                    SingleApplicant.runSingleApplicantOnw(driver, info);
+            case 2 :
+                    Logger.info("Starting Single ODSP Application.");
+                    SingleApplicant.runSingleApplicantOdsp(driver, info);
+            case 3 :
+                    Logger.info("Starting Single MultiProgram Application.");
+                    SingleApplicant.runSingleMultiProgram(driver, info);
+            case 4 :
+                    Logger.info("Married Applicant flow not implemented yet.");
+            case 5 :
+                    Logger.info("Family Applicant flow not implemented yet.");
+            default :
+                    System.out.println("Invalid application type selected.");
         }
     }
 

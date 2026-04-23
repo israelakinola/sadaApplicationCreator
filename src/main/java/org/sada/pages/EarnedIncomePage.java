@@ -2,7 +2,7 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.sada.ApplicantInfo;
+import org.sada.data.ApplicantInfo;
 import org.sada.util.Logger;
 
 public class EarnedIncomePage extends BasePage {

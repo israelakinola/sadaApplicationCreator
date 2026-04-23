@@ -1,4 +1,4 @@
-package org.sada;
+package org.sada.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,16 @@ public class ApplicantInfo {
     public String SFT2 = "https://test2.sada.az.mcss.gov.on.ca/intake/home-page";
     public String ENV = SFT3;
 
+
+    //    1 - Single Applicant - Ontario Work
+    //    2 - Single Applicant - ODSP
+    //    3 - Single Applicant - MultiProgram
+    public int applicationType = 1;
+
+
+
+
     // Personal Information
-    public Boolean hasDisability = true;
     public String firstName = "Jogn";
     public String lastName = "Lemo";
     public String SIN = "928 076 983";
@@ -26,6 +34,7 @@ public class ApplicantInfo {
     public String DOBDay = "01";
 
 
+
     // Before you apply
     public Boolean isEmergency = false;
     public Boolean isGettingMoney = false;
@@ -34,6 +43,7 @@ public class ApplicantInfo {
     public Boolean releasedFromInstitution = false;
     public Boolean livingOnFirstNationsReserveLand = false;
     public Boolean applyingForYourself = true;
+    public Boolean hasDisability = true;
 
 
 

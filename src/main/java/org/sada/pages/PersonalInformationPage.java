@@ -2,7 +2,7 @@ package org.sada.pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
-import org.sada.ApplicantInfo;
+import org.sada.data.ApplicantInfo;
 import org.sada.util.Logger;
 
 public class PersonalInformationPage extends BasePage {

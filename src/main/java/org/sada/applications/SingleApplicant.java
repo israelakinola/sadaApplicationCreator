@@ -2,13 +2,9 @@ package org.sada.applications;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.sada.ApplicantInfo;
+import org.sada.data.ApplicantInfo;
 import org.sada.pages.*;
 import org.sada.util.Logger;
-import org.sada.util.Utility;
-
-import java.time.Duration;
 
 public class SingleApplicant extends Application {
 

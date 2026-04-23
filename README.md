@@ -18,7 +18,7 @@ main.java
 
 ## 🚀 How to Run
 
-1. Open `ApplicantInfo.java`.
+1. Open `data/ApplicantInfo.java`.
 2. Fill in the applicant information details:
    - **ENV section**
    - **Personal Information section** (most important)
