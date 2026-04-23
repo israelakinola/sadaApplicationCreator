@@ -45,7 +45,6 @@ public class PersonalInformationPage extends BasePage {
     private final By sinInput      = By.id("input-personal-information.status.sinNumber");
     private final By noSinCheckbox = By.id("personal-information.status.noSin-checkbox-option1"); //
     private final By signExpiredNo = By.cssSelector("label[for='personal-information.status.isSinExpired-radio-button-option-1']");// not used here
-
     private final By noHealthCard = By.cssSelector("label[for='personal-information.status.noHealthCardNumber-checkbox-option1']");
     // Phone input
     private final By phoneInput = By.id("input-personal-information.phone");
@@ -123,9 +122,6 @@ public class PersonalInformationPage extends BasePage {
     private void setSIN(String SIN) {
         String sin = System.getProperty("sin", SIN);
         utility.clearAndType(sinInput, sin);
-//        if(utility.isElementPresent(signExpiredNo)){
-//            utility.click(signExpiredNo);
-//        }
     }
 
 
@@ -159,6 +155,19 @@ public class PersonalInformationPage extends BasePage {
         WebElement selectEl = utility.scrollIntoView(healthStatusSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
     }
+
+    private void setSinExpired(Boolean isExpired){
+
+        if(utility.isElementPresent(signExpiredNo)){
+            if(isExpired){
+                //
+            }else{
+                utility.click(signExpiredNo);
+            }
+
+        }
+    }
+
 
     private void clickContinueButton() {
         utility.click(continueButton);
@@ -203,6 +212,10 @@ public class PersonalInformationPage extends BasePage {
         this.setNoLangHelp(applicantInfo.isNoLangHelp);
         //In general, would you say your health is
         this.setHealthStatus(applicantInfo.healthStatus);
+
+        //is SIN Expired
+        setSinExpired(false);
+
         //Next Page
         this.clickContinueButton();
     }

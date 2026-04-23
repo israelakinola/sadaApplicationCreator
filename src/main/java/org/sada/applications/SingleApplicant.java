@@ -75,4 +75,24 @@ public class SingleApplicant extends Application {
         Logger.info("Application Created");
     }
 
+    public static void runSingleApplicantOnw(WebDriver driver, ApplicantInfo info) {
+        Logger.info("Started Single Application");
+        info.maritalStatus = "Single";
+        info.hasDisability = false;
+        new SingleApplicant(driver).createApplication(info);
+    }
+    public static void runSingleApplicantOdsp(WebDriver driver, ApplicantInfo info) {
+        Logger.info("Started Single Application");
+        info.maritalStatus = "Single";
+        info.hasDisability = true;
+        new SingleApplicant(driver).createApplication(info);
+    }
+
+    public static void runSingleMultiProgram(WebDriver driver, ApplicantInfo info) {
+        Logger.info("Started Single Application");
+        info.maritalStatus = "Single";
+        info.multiProgram = true;
+        info.hasDisability = true;
+        new SingleApplicant(driver).createApplication(info);
+    }
 }

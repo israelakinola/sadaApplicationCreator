@@ -5,12 +5,16 @@ import java.util.List;
 
 public class ApplicantInfo {
 
+    //Env
+    public String SFT3 =  "https://test.sada.az.mcss.gov.on.ca/intake/home-page";
+    public String SFT2 = "https://test2.sada.az.mcss.gov.on.ca/intake/home-page";
+    public String ENV = SFT3;
 
     // Personal Information
     public Boolean hasDisability = true;
-    public String firstName = "Betty";
-    public String lastName = "ha";
-    public String SIN = "575 250 832";
+    public String firstName = "Jogn";
+    public String lastName = "Lemo";
+    public String SIN = "928 076 983";
     public String phoneNumber = "647 422 2251";
     public boolean isGenderMale = true;
     public boolean hasChildren = false;
