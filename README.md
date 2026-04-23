@@ -23,7 +23,7 @@ main.java
    - **ENV section**
    - **Personal Information section** (most important)
 3. Run `main.java`.
-4. Follow the instructions displayed in the terminal.
+4. Application Ref number will be in the /output.txt File after completion
 
 ⚙️ Prerequisites
 - Make sure the following are installed and configured:

@@ -1,5 +1,7 @@
 package org.sada.data;
 
+import org.sada.util.MailTmService;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,28 +12,33 @@ public class ApplicantInfo {
     public String SFT2 = "https://test2.sada.az.mcss.gov.on.ca/intake/home-page";
     public String ENV = SFT3;
 
-
     //    1 - Single Applicant - Ontario Work
     //    2 - Single Applicant - ODSP
     //    3 - Single Applicant - MultiProgram
     public int applicationType = 1;
 
-
-
-
-    // Personal Information
-    public String firstName = "Jogn";
-    public String lastName = "Lemo";
+    // Primary Applicant Information
+    public String firstName = "Joghsssn";
+    public String lastName = "Lemodsws";
     public String SIN = "928 076 983";
     public String phoneNumber = "647 422 2251";
     public boolean isGenderMale = true;
     public boolean hasChildren = false;
-    public String email = firstName + lastName + "@yopmail.com";
     public Boolean isLanguageEnglish = true;
     public Boolean isNoLangHelp = true;
     public String DOBYear = "1960";
     public String DOBMonth = "01";
     public String DOBDay = "01";
+
+    // Spouse Information - IF THERE IS A SPOUSE
+    public String firstNameSpouce = "Wife".trim();
+    public String lastNameSpouce = this.lastName;
+    public String SINSpouce = "114 455 447";
+    public String emailSpouce = firstNameSpouce + lastNameSpouce + "@yopmail.com";
+    public String DOBYearSpouce = "1970";
+    public String DOBMonthSpouce = "01";
+    public String DOBDaySpouce = "01";
+    public String healthStatusSpouce = "Excellent";
 
 
 
@@ -47,16 +54,6 @@ public class ApplicantInfo {
 
 
 
-
-    // Spouse Information - IF THERE IS A SPOUCE
-    public String firstNameSpouce = "Wife".trim();
-    public String lastNameSpouce = this.lastName;
-    public String SINSpouce = "114 455 447";
-    public String emailSpouce = firstNameSpouce + lastNameSpouce + "@yopmail.com";
-    public String DOBYearSpouce = "1970";
-    public String DOBMonthSpouce = "01";
-    public String DOBDaySpouce = "01";
-    public String healthStatusSpouce = "Excellent";
 
     // Additional Information
     public boolean currentlyResidingInInstitution = false;
@@ -119,6 +116,7 @@ public class ApplicantInfo {
     public String password = "Password1++";
     public String statusinCanadaSelect = "Canadian citizen born in Canada";
     public String healthStatus = "Excellent";
+    public Boolean isSinExpired = false;
 
 
 
@@ -126,6 +124,20 @@ public class ApplicantInfo {
     public Boolean multiProgram = false;
 
     // MyB Information - Don't Change Here
+    public MailTmService mailService = new MailTmService();
+    public String email = generateEmail(); //Don't Change, it will be generated
     public boolean hasMyB = false;
     public String maritalStatus = "Single";
+
+    private String generateEmail(){
+        //Generate Email Automatically
+        try {
+            String email = mailService.createInbox(this.password);
+            return email;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

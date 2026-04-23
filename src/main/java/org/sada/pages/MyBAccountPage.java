@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.sada.data.ApplicantInfo;
 import org.sada.util.Logger;
+import org.sada.util.MailTmService;
 import org.sada.util.Utility;
 
 public class MyBAccountPage extends BasePage {
@@ -27,6 +28,14 @@ public class MyBAccountPage extends BasePage {
     private final By createBtn = By.cssSelector("button[data-se='save']");
     private final By termEnroll = By.cssSelector("input[id='tos_checkbox']");
 
+    //Verification
+    private final By verifyInputBtn =
+            By.xpath("//button[normalize-space()='Enter a verification code']");
+    private final By verifyInput = By.id("credentials.passcode");
+    private final By verifyBtn = By.xpath("//button[normalize-space()='Verify']");
+    private final By skipEnteringEmailCode = By.xpath("//button[normalize-space()='Skip entering in the code']");
+
+
     // Sign In elements
     private final By signInToAnAccountBtn = By.cssSelector("button[data-e2e='signInBtn']");
     private final By emailInputSignin = By.cssSelector("input[data-se='identifier']");
@@ -43,26 +52,22 @@ public class MyBAccountPage extends BasePage {
     // -----------------------------
     // Actions
     // -----------------------------
-    private void createMyB(boolean asMyB, String emailAddress, String password) {
-
+    private void createMyB(ApplicantInfo applicantInfo) {
         // Agree to MyB Terms
         utility.click(term);
-        Utility.copyToClipboard("Email Address", emailAddress);
-        if (!asMyB) {
-            createAnAccount(emailAddress, password);
-        } else {
-            signInToAnAccount(emailAddress, password);
+
+
+        createAnAccount(applicantInfo.email, applicantInfo.password);
+
+        //Verfiy Email Automatically
+        try{
+            String otp = applicantInfo.mailService.getOtp(applicantInfo.email, applicantInfo.password);
+            inputVerificationCode(otp);
+        } catch (Exception e) {
+            Logger.error("OTP retrieval failed: " + e.getMessage());
+            throw new RuntimeException(e);
         }
 
-
-        // Prompt user to complete MyB verification
-        System.out.println("\nComplete the rest of MyB verification " + emailAddress);
-        Utility.askForInput("Press 'Enter' to continue after MyB is completed and SADA Page is back: ");
-
-        // Continue application
-        if (utility.isElementPresent(saveContinueBtn)) {
-            utility.clickButton(saveContinueBtn);
-        }
     }
 
     private void createAnAccount(String emailAddress, String password) {
@@ -74,6 +79,16 @@ public class MyBAccountPage extends BasePage {
         utility.click(createBtn);
     }
 
+    private void inputVerificationCode(String verificationCode){
+        utility.click(verifyInputBtn);
+        utility.clearAndType(verifyInput, verificationCode);
+        utility.click(verifyBtn);
+        if(utility.isElementPresent(skipEnteringEmailCode)){
+            utility.click(skipEnteringEmailCode);
+        }
+
+    }
+
     private void signInToAnAccount(String emailAddress, String password) {
         utility.click(signInToAnAccountBtn);
         utility.clearAndType(emailInputSignin, emailAddress);
@@ -83,16 +98,12 @@ public class MyBAccountPage extends BasePage {
     }
 
     public void complete(ApplicantInfo applicantInfo) {
-
-
         if (!utility.isElementPresent(pageTitle)) {
             Logger.info("Skipping : " + pageTitle.toString());
             return;
         }
-
-
-        createMyB(applicantInfo.hasMyB, applicantInfo.email, applicantInfo.password);
-
+        createMyB(applicantInfo);
+        utility.click(saveContinueBtn);
 
     }
 }

@@ -29,6 +29,6 @@ public class SignaturePage extends BasePage {
          return;
         }
         Logger.info("Filling : " + pageTitle.toString());
-        utility.click(continueBtn); // Take me to sign Application
+        utility.click(continueBtn); // Go to the signature Application
     }
 }

@@ -214,7 +214,7 @@ public class PersonalInformationPage extends BasePage {
         this.setHealthStatus(applicantInfo.healthStatus);
 
         //is SIN Expired
-        setSinExpired(false);
+        setSinExpired(applicantInfo.isSinExpired);
 
         //Next Page
         this.clickContinueButton();

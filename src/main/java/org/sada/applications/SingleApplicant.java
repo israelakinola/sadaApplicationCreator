@@ -32,7 +32,6 @@ public class SingleApplicant extends Application {
 
         new MyBAccountPage(driver).complete(applicantInfo);
 
-
         new AdditionalInformationPage(driver).complete(applicantInfo);
 
 
@@ -67,8 +66,12 @@ public class SingleApplicant extends Application {
 
         new SignaturePage(driver).complete(applicantInfo);
 
-//        new Signature(driver).signApplication(applicantInfo.firstName);
+        new Signature(driver).signApplication(applicantInfo.firstName);
+
         Logger.info("Application Created");
+        utility.writeToTextFile(applicantInfo.firstName + " " +
+                applicantInfo.lastName  + " - "  + new Confirmation(driver).getRefCode());
+
     }
 
     public static void runSingleApplicantOnw(WebDriver driver, ApplicantInfo info) {

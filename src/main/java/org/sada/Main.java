@@ -23,8 +23,9 @@ public class Main {
         try {
             openEnvironment(driver, applicantInfo.ENV);
             executeFlow(driver, applicantInfo);
+
         } finally {
-//            driver.quit();
+            Logger.info("Application Creation Done");
         }
     }
 
@@ -39,22 +40,42 @@ public class Main {
     // Flow Execution
     // -----------------------------
     private static void executeFlow(WebDriver driver, ApplicantInfo info) {
-        switch (info.applicationType) {
-            case 1 :
+
+        if (info == null) {
+            Logger.error("ApplicantInfo is null. Aborting execution.");
+            return;
+        }
+
+        try {
+
+            switch (info.applicationType) {
+
+                case 1 -> {
                     Logger.info("Starting Single OW Application.");
                     SingleApplicant.runSingleApplicantOnw(driver, info);
-            case 2 :
+                }
+
+                case 2 -> {
                     Logger.info("Starting Single ODSP Application.");
                     SingleApplicant.runSingleApplicantOdsp(driver, info);
-            case 3 :
+                }
+
+                case 3 -> {
                     Logger.info("Starting Single MultiProgram Application.");
                     SingleApplicant.runSingleMultiProgram(driver, info);
-            case 4 :
-                    Logger.info("Married Applicant flow not implemented yet.");
-            case 5 :
-                    Logger.info("Family Applicant flow not implemented yet.");
-            default :
-                    System.out.println("Invalid application type selected.");
+                }
+
+                case 4 -> Logger.info("Married Applicant flow not implemented yet.");
+
+                case 5 -> Logger.info("Family Applicant flow not implemented yet.");
+
+                default -> Logger.error("Invalid application type selected: " + info.applicationType);
+            }
+
+        } catch (Exception e) {
+            Logger.error("Flow execution failed for type: " + info.applicationType);
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.Scanner;
@@ -198,18 +200,12 @@ public class Utility {
         }
     }
 
-    public static String askForInput(String msg){
-        System.out.print(msg);
-        return SCANNER.nextLine().trim();  // Read and Return user input
-    }
+    public void writeToTextFile(String text) {
 
-    // Helper method for yes/no questions
-    public static boolean askUserYesNo(Scanner scanner, String question) {
-        System.out.println("\n" + question);
-        System.out.println("1 - No");
-        System.out.println("2 - Yes");
-        System.out.print("Enter option: ");
-        int choice = scanner.nextInt();
-        return choice == 2;
+        try (FileWriter writer = new FileWriter("output.txt", true)) {
+            writer.write(text + System.lineSeparator());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write to file", e);
+        }
     }
 }
