@@ -19,8 +19,8 @@ public class ApplicantInfo {
 
     // Primary Applicant Information
     public String firstName = "Joghsssn";
-    public String lastName = "Lemodsws";
-    public String SIN = "928 076 983";
+    public String lastName = "Lemodsggws";
+    public String SIN = "633 128 004";
     public String phoneNumber = "647 422 2251";
     public boolean isGenderMale = true;
     public boolean hasChildren = false;

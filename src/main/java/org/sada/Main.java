@@ -2,6 +2,7 @@ package org.sada;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.sada.applications.SingleApplicant;
 import org.sada.data.ApplicantInfo;
 import org.sada.util.Logger;
@@ -16,9 +17,14 @@ public class Main {
 
     private static void run() {
         ApplicantInfo applicantInfo = new ApplicantInfo();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
 
+        WebDriver driver = new ChromeDriver(options);
         Logger.info("Setting Up Chrome Driver and Scripts...");
-        WebDriver driver = new ChromeDriver();
+
 
         try {
             openEnvironment(driver, applicantInfo.ENV);
