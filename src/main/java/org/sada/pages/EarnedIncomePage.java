@@ -24,6 +24,11 @@ public class EarnedIncomePage extends BasePage {
     private final By receiveIncomeAnyOneNoneInput = By.id("earned-income.anyone.receive.income-checkbox-option3");
     private final By receiveIncomeAnyOneNoneLabel = By.cssSelector("label[for='earned-income.anyone.receive.income-checkbox-option3']");
 
+
+    private final By receiveIncomeAnyOneNoneInputFamily = By.id("earned-income.anyone.receive.income-checkbox-option4");
+    private final By receiveIncomeAnyOneNoneLabelFamily = By.cssSelector("label[for='earned-income.anyone.receive.income-checkbox-option4']");
+
+
     public EarnedIncomePage(WebDriver driver) {
         super(driver);
     }
@@ -37,12 +42,12 @@ public class EarnedIncomePage extends BasePage {
         }
     }
 
-    private void setEarnedIncomeFamily(boolean earnedIncome) {
-        if (earnedIncome) {
+    private void setEarnedIncomeFamily(boolean earnedIncomeFamily) {
+        if (earnedIncomeFamily) {
             //
         }else{
             Logger.info("Income Family None");
-            utility.clickCheckbox(receiveIncomeAnyOneNoneInput,receiveIncomeAnyOneNoneLabel);
+            utility.clickCheckbox(receiveIncomeAnyOneNoneInputFamily,receiveIncomeAnyOneNoneLabelFamily);
         }
 
     }
@@ -58,5 +63,19 @@ public class EarnedIncomePage extends BasePage {
 
         utility.click(saveAndContinueBtn);
     }
+
+    public void completeFamily(ApplicantInfo applicantInfo){
+        if(!utility.isElementPresent(pageTitle)) {
+            Logger.info("Skipping : " + pageTitle.toString());
+            return;
+        }
+        Logger.info("Filling : " + pageTitle.toString());
+        //Will you receive income from a job, a training program, or self-employment in March 2026?
+        this.setEarnedIncomeFamily(applicantInfo.earnedIncomeFamily);
+
+        utility.click(saveAndContinueBtn);
+    }
+
+
 
 }

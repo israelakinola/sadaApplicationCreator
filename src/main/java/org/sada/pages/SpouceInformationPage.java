@@ -15,7 +15,7 @@ public class SpouceInformationPage extends BasePage {
       super(driver);
     }
 
-    private final By pageTitle = By.id("");
+    private final By pageTitle = By.id("spouse-information.page.title");
     // Text inputs
     private final By firstNameInput = By.id("input-spouse-information.spouseFirstName");
     private final By lastNameInput  = By.id("input-spouse-information.spouseLastName");
@@ -30,16 +30,16 @@ public class SpouceInformationPage extends BasePage {
     private final By sexFemaleRadio = By.cssSelector("label[for='spouse-information.spouseSexAtBirth-radio-button-option-1']");
 
 
-
     // Status in Canada dropdown
     private final By statusInCanadaSelect = By.id("select-spouse-information.status.statusInCanada");
 
     // SIN input + helper checkbox (optional)
     private final By sinInput      = By.id("input-spouse-information.status.sinNumber");
 
-
+    private final By noHcnInput = By.id("spouse-information.status.noHealthCardNumber-checkbox-label1");
     //Email Input
     private final By emailInput = By.id("input-spouse-information.spouseEmail");
+
 
 
     // Language support radios (help improving language skills)
@@ -54,65 +54,68 @@ public class SpouceInformationPage extends BasePage {
     private final By continueButton = By.id("spouse-information-save-continue-button");
 
 
-
-    public void setFirstName(String s) {
-        utility.clearAndType(firstNameInput, s);
-    }
-
-    public void setLastName(String s) {
-        utility.clearAndType(lastNameInput, s);
-    }
-
-    public void setDOBYear(String number) {
-        utility.clearAndType(dobYearInput, number);
-    }
-
-    public void setDOBMonth(String number) {
-        utility.clearAndType(dobMonthInput, number);
-    }
-
-    public void setDOBDay(String number) {
-        utility.clearAndType(dobDayInput, number);
-    }
-
-    public void setSexMale() {
-        utility.click(sexMaleRadio);
-    }
-
-    public void setSexFemale() {
-        utility.click(sexFemaleRadio);
-    }
-
-
     // -----------------------------
     // Actions (public API)
     // -----------------------------
-    public void setStatusInCanadaSelect(String visibleText) {
+
+    private void setFirstName(String s) {
+        utility.clearAndType(firstNameInput, s);
+    }
+
+    private void setLastName(String s) {
+        utility.clearAndType(lastNameInput, s);
+    }
+
+    private void setDOBYear(String number) {
+        utility.clearAndType(dobYearInput, number);
+    }
+
+    private void setDOBMonth(String number) {
+        utility.clearAndType(dobMonthInput, number);
+    }
+
+    private void setDOBDay(String number) {
+        utility.clearAndType(dobDayInput, number);
+    }
+
+
+
+
+    private void setGender(boolean isPrimaryGenderMale) {
+        if(isPrimaryGenderMale){
+            utility.click(sexFemaleRadio);
+        }else{
+            utility.click(sexMaleRadio);
+        }
+    }
+
+
+    private void setStatusInCanadaSelect(String visibleText) {
         WebElement selectEl = utility.scrollIntoView(statusInCanadaSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
     }
 
 
-    public void setSIN(String SIN) {
-        if(utility.getValue(sinInput).equals("")){
+    private void setSIN(String SIN) {
             utility.clearAndType(sinInput, SIN);
-        }
     }
 
 
 
-    public void setEmail(String email) {
-        if(utility.getValue(emailInput).equals("")){
+    private void setEmail(String email) {
             utility.clearAndType(emailInput, email);
-        }
+    }
+
+    private void setHCN(){
+        utility.click(noHcnInput);
     }
 
 
-    public void setNoLangHelp() {
+    private void setNoLangHelp() {
         utility.click(langHelpNoGoodRadio);
     }
 
-    public void setHealthStatus(String visibleText) {
+    private void setHealthStatus(String visibleText) {
         WebElement selectEl = utility.scrollIntoView(healthStatusSelect);
         new Select(selectEl).selectByVisibleText(visibleText);
     }
@@ -123,22 +126,35 @@ public class SpouceInformationPage extends BasePage {
             return;
         }
         Logger.info("Filling : " + pageTitle.toString());
+
+        //Spouse Names
         this.setFirstName(applicantInfo.firstNameSpouce);
         this.setLastName(applicantInfo.lastNameSpouce);
 
+        //Spouse DPB
         this.setDOBYear(applicantInfo.DOBYearSpouce);
         this.setDOBMonth(applicantInfo.DOBMonthSpouce);
         this.setDOBDay(applicantInfo.DOBDaySpouce);
 
         //Sex at Birth
-        this.setSexMale();
+        this.setGender(applicantInfo.isGenderMale);
 
+        //Spouse Email Address
+        this.setEmail(applicantInfo.emailSpouce);
 
+        //Spouse Status
         this.setStatusInCanadaSelect(applicantInfo.statusinCanadaSelect);
 
+        //Spouse SIN
         this.setSIN(applicantInfo.SINSpouce);
-        this.setEmail(applicantInfo.emailSpouce);
+
+        //Spouse HCN
+        this.setHCN();
+
+        //Language Help
         this.setNoLangHelp();
+
+        //Spouce Health Status
         this.setHealthStatus(applicantInfo.healthStatusSpouce);
 
         this.clickContinueButton();

@@ -2,10 +2,14 @@ package org.sada.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sada.data.ApplicantInfo;
 import org.sada.util.Logger;
 import org.sada.util.MailTmService;
 import org.sada.util.Utility;
+
+import java.time.Duration;
 
 public class MyBAccountPage extends BasePage {
 
@@ -36,12 +40,6 @@ public class MyBAccountPage extends BasePage {
     private final By skipEnteringEmailCode = By.xpath("//button[normalize-space()='Skip entering in the code']");
 
 
-    // Sign In elements
-    private final By signInToAnAccountBtn = By.cssSelector("button[data-e2e='signInBtn']");
-    private final By emailInputSignin = By.cssSelector("input[data-se='identifier']");
-    private final By passwordInputSignin = By.cssSelector("input[data-se='credentials.passcode']");
-    private final By signInBtn = By.cssSelector("button[data-se='save']");
-
     // -----------------------------
     // Constructor
     // -----------------------------
@@ -56,17 +54,9 @@ public class MyBAccountPage extends BasePage {
         // Agree to MyB Terms
         utility.click(term);
 
-
         createAnAccount(applicantInfo.email, applicantInfo.password);
-
-        //Verfiy Email Automatically
-        try{
-            String otp = applicantInfo.mailService.getOtp(applicantInfo.email, applicantInfo.password);
-            inputVerificationCode(otp);
-        } catch (Exception e) {
-            Logger.error("OTP retrieval failed: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
+        Logger.info("Input the Code sent to the email (expires in 6min): " + applicantInfo.email);
+        askVerificationCode();
 
     }
 
@@ -79,22 +69,26 @@ public class MyBAccountPage extends BasePage {
         utility.click(createBtn);
     }
 
-    private void inputVerificationCode(String verificationCode){
+
+
+    private void askVerificationCode() {
         utility.click(verifyInputBtn);
-        utility.clearAndType(verifyInput, verificationCode);
-        utility.click(verifyBtn);
-        if(utility.isElementPresent(skipEnteringEmailCode)){
-            utility.click(skipEnteringEmailCode);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(360));
+
+        WebElement input = wait.until(driver -> {
+            WebElement el = driver.findElement(verifyInput);
+            String value = el.getAttribute("value");
+            return (value != null && !value.isEmpty()) ? el : null;
+        });
+
+        if (utility.isElementPresent(verifyBtn)) {
+            utility.click(verifyBtn);
         }
 
-    }
-
-    private void signInToAnAccount(String emailAddress, String password) {
-        utility.click(signInToAnAccountBtn);
-        utility.clearAndType(emailInputSignin, emailAddress);
-        utility.clearAndType(passwordInputSignin, password);
-        utility.click(signInBtn);
-        utility.click(sendConfirmationEmail);
+        if (utility.isElementPresent(skipEnteringEmailCode)) {
+            utility.click(skipEnteringEmailCode);
+        }
     }
 
     public void complete(ApplicantInfo applicantInfo) {

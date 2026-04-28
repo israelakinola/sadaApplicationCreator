@@ -14,6 +14,11 @@ public class DeclarationPage extends BasePage{
     public final By consentDeclarationCheckbox1Label = By.cssSelector("label[for='consent.declaration-checkbox-option1']");
     public final By eoReferralCheckbox1 = By.cssSelector("label[for='consent.EoReferral.consent-checkbox-checkbox-option1']");
 
+    public final By consentDeclarationCheckbox2Id = By.id("consent.declaration-checkbox-option2");
+    public final By consentDeclarationCheckbox2Label = By.cssSelector("label[for='consent.declaration-checkbox-option2']");
+    public final By eoReferralCheckbox2 = By.cssSelector("label[for='consent.EoReferral.consent-checkbox-checkbox-option2']");
+
+
     //Button
     public final By continueBtn = By.id("continue-button");
 
@@ -29,9 +34,15 @@ public class DeclarationPage extends BasePage{
         Logger.info("Creating ConsentForm");
         if(applicantInfo.hasDisability && !applicantInfo.multiProgram){
             utility.clickCheckbox(consentDeclarationCheckbox1Id, consentDeclarationCheckbox1Label);
+            if(utility.isElementPresent(consentDeclarationCheckbox2Label)){
+                utility.clickCheckbox(consentDeclarationCheckbox2Id, consentDeclarationCheckbox2Label);
+            }
         }else{
             utility.click(eoReferralCheckbox1);
             utility.click(consentDeclarationCheckbox1Label);
+            if(utility.isElementPresent(consentDeclarationCheckbox2Label)){
+                utility.click(consentDeclarationCheckbox2Label);
+            }
         }
         utility.click(continueBtn);
     }

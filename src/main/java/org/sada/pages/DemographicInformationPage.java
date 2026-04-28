@@ -75,8 +75,10 @@ public class DemographicInformationPage extends BasePage{
         }
         Logger.info("Filling : " + pageTitle.toString());
         utility.click(continueBtn);
-        this.setDemographicsInformation(applicantInfo.demograhicGender, applicantInfo.demograhicIndigenouse, applicantInfo.demograhicRace,
-                applicantInfo.demograhicVisibleMinority,  applicantInfo.demograhicLanguage);
+        for(int i = 0; i < applicantInfo.applicationType; i++){
+            this.setDemographicsInformation(applicantInfo.demograhicGender, applicantInfo.demograhicIndigenouse, applicantInfo.demograhicRace,
+                    applicantInfo.demograhicVisibleMinority,  applicantInfo.demograhicLanguage);
+        }
     }
 }
 

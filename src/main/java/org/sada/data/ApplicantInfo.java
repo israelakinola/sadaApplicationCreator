@@ -15,31 +15,40 @@ public class ApplicantInfo {
     //    1 - Single Applicant - Ontario Work
     //    2 - Single Applicant - ODSP
     //    3 - Single Applicant - MultiProgram
-    public int applicationType = 1;
+    //    4 - Family Applicant - Ontario Work
+    //    5 - Family Applicant - ODSP
+    //    6 - Family Applicant - MultiProgram
+
+    public int applicationType = 5;
 
     // Primary Applicant Information
-    public String firstName = "Joghsssn";
-    public String lastName = "Lemodsggws";
-    public String SIN = "633 128 004";
+    public String firstName = "Loui";
+    public String lastName = "Ramirez";
+    public String SIN = "616 103 388";
     public String phoneNumber = "647 422 2251";
     public boolean isGenderMale = true;
-    public boolean hasChildren = false;
-    public Boolean isLanguageEnglish = true;
-    public Boolean isNoLangHelp = true;
     public String DOBYear = "1960";
     public String DOBMonth = "01";
     public String DOBDay = "01";
+    public String email = firstName + lastName + "@yopmail.com";
 
     // Spouse Information - IF THERE IS A SPOUSE
     public String firstNameSpouce = "Wife".trim();
     public String lastNameSpouce = this.lastName;
-    public String SINSpouce = "114 455 447";
+    public String SINSpouce = "495 981 144";
     public String emailSpouce = firstNameSpouce + lastNameSpouce + "@yopmail.com";
     public String DOBYearSpouce = "1970";
     public String DOBMonthSpouce = "01";
     public String DOBDaySpouce = "01";
     public String healthStatusSpouce = "Excellent";
 
+    // Children Information - IF THERE IS A CHILD
+    public String firstNameChild1 = "Child".trim();
+    public String lastNameChild1  = this.lastName;
+    public String SINChild1 = "338 742 489";
+    public String DOBYearChild1  = "2026";
+    public String DOBMonthChild1  = "01";
+    public String DOBDayChild1  = "01";
 
 
     // Before you apply
@@ -50,7 +59,7 @@ public class ApplicantInfo {
     public Boolean releasedFromInstitution = false;
     public Boolean livingOnFirstNationsReserveLand = false;
     public Boolean applyingForYourself = true;
-    public Boolean hasDisability = true;
+    public Boolean hasDisability = false;
 
 
 
@@ -60,7 +69,6 @@ public class ApplicantInfo {
     public boolean accommodationServices = false;
     public boolean employmentServices = false;
     public boolean specialDietOrMedicalCondition = false;
-    public boolean personWithDisability;
     public boolean additionalNutritionalNeeds = false;
     public boolean fullTimeStudent = false;
     public boolean caringForChild = false;
@@ -72,7 +80,7 @@ public class ApplicantInfo {
     public boolean accommodationServicesNeeded = false;
     public boolean employmentServicesSupport = false;
     public boolean specialDietMedicalCondition = false;
-    public boolean disabilityInFamily = true;
+    public boolean acsd = false;
     public boolean immediateNeedMoney = false;
     public boolean pregnantOrBreastfeeding = false;
     public boolean additionalFamilyfullTimeStudent = false;
@@ -100,6 +108,7 @@ public class ApplicantInfo {
 
     // Earned Income
     public boolean earnedIncome = false;
+    public boolean earnedIncomeFamily = false;
 
     //Household Incomes
     public List<String> houseHoldIncome = new ArrayList<>();
@@ -124,20 +133,11 @@ public class ApplicantInfo {
     public Boolean multiProgram = false;
 
     // MyB Information - Don't Change Here
-    public MailTmService mailService = new MailTmService();
-    public String email = generateEmail(); //Don't Change, it will be generated
-    public boolean hasMyB = false;
     public String maritalStatus = "Single";
+    public boolean hasChildren = false;
+    public Boolean isLanguageEnglish = true;
+    public Boolean isNoLangHelp = true;
 
-    private String generateEmail(){
-        //Generate Email Automatically
-        try {
-            String email = mailService.createInbox(this.password);
-            return email;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
 }

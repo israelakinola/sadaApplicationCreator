@@ -3,6 +3,7 @@ package org.sada;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.sada.applications.FamilyApplicant;
 import org.sada.applications.SingleApplicant;
 import org.sada.data.ApplicantInfo;
 import org.sada.util.Logger;
@@ -18,9 +19,6 @@ public class Main {
     private static void run() {
         ApplicantInfo applicantInfo = new ApplicantInfo();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
 
         WebDriver driver = new ChromeDriver(options);
         Logger.info("Setting Up Chrome Driver and Scripts...");
@@ -71,9 +69,22 @@ public class Main {
                     SingleApplicant.runSingleMultiProgram(driver, info);
                 }
 
-                case 4 -> Logger.info("Married Applicant flow not implemented yet.");
+                case 4 -> {
+                    Logger.info("Starting Family OW Application.");
+                    FamilyApplicant.runFamilyApplicantOnw(driver, info);
+                }
 
-                case 5 -> Logger.info("Family Applicant flow not implemented yet.");
+                case 5 -> {
+                    Logger.info("Starting Family ODSP Application.");
+                    FamilyApplicant.runFamilyApplicantOdsp(driver, info);
+                }
+
+                case 6 -> {
+                    Logger.info("Starting Family MultiProgram Application.");
+                    FamilyApplicant.runFamilyApplicantMultiProgram(driver, info);
+                }
+
+
 
                 default -> Logger.error("Invalid application type selected: " + info.applicationType);
             }

@@ -52,12 +52,14 @@ public class AdditionalFamilyInformationPage extends BasePage {
     private final By specialDietNoLabel  = By.cssSelector("label[for='specialDietOrMedicalConditionInFamily-radio-button-option-1']");
 
     // Person with disability in family?
-
     private final By disabilityYesLabel = By.cssSelector("label[for='personWithDisabilityInFamily-radio-button-option-0']");
     private final By disabilityNoLabel  = By.cssSelector("label[for='personWithDisabilityInFamily-radio-button-option-1']");
 
-    // Need money for immediate needs?
+    //ACSD
+    private final By acsdYesLabel = By.cssSelector("label[for='receivingACSDFamily-radio-button-option-0']");
+    private final By acsdNoLabel = By.cssSelector("label[for='receivingACSDFamily-radio-button-option-1']");
 
+    // Need money for immediate needs?
     private final By immediateNeedMoneyYesLabel = By.cssSelector("label[for='moneyForImmediateNeedInFamily-radio-button-option-0']");
     private final By immediateNeedMoneyNoLabel  = By.cssSelector("label[for='moneyForImmediateNeedInFamily-radio-button-option-1']");
 
@@ -71,7 +73,6 @@ public class AdditionalFamilyInformationPage extends BasePage {
     private final By fullTimeStudentNoLabel  = By.cssSelector("label[for='fullTimeStudentInFamily-radio-button-option-1']");
 
     // Caring for someone else’s child temporarily? (optional)
-
     private final By caringForChildYesLabel = By.cssSelector("label[for='caringForChild-radio-button-option-0']");
     private final By caringForChildNoLabel  = By.cssSelector("label[for='caringForChild-radio-button-option-1']");
 
@@ -126,7 +127,9 @@ public class AdditionalFamilyInformationPage extends BasePage {
 
 
     }
-
+    public void setACSD(boolean yes){
+        selectYesNo(yes, acsdYesLabel, acsdNoLabel);
+    }
     public void setImmediateNeedMoney(boolean yes) {
         selectYesNo(yes, immediateNeedMoneyYesLabel, immediateNeedMoneyNoLabel);
     }
@@ -159,17 +162,19 @@ public class AdditionalFamilyInformationPage extends BasePage {
             return;
         }
         Logger.info("Filling : " + pageTitle.toString());
-        this.setReceivedSocialAssistancePast(applicantInfo.receivedSocialAssistancePast);         // Has anyone received social assistance in the past?
-        this.setResidingInInstitution(applicantInfo.residingInInstitution);               // Living in an institution?
+
+        this.setReceivedSocialAssistancePast(applicantInfo.receivedSocialAssistancePast);   // Has anyone received social assistance in the past?
+        this.setResidingInInstitution(applicantInfo.residingInInstitution);  // Living in an institution?
         this.setCurrentlyIncarcerated(applicantInfo.currentlyIncarcerated);               // In jail/prison/detention?
-        this.setAccommodationServicesNeeded(applicantInfo.accommodationServicesNeeded);         // Need support accessing services?
-        this.setEmploymentServicesSupport(applicantInfo.employmentServicesSupport);           // Getting job-program/service support?
-        this.setSpecialDietMedicalCondition(applicantInfo.specialDietMedicalCondition);         // Need special diet due to medical condition?
-        this.setDisabilityInFamily(applicantInfo.disabilityInFamily);                  // Person with disability in family?
-        this.setImmediateNeedMoney(applicantInfo.immediateNeedMoney);                  // Need money for immediate needs?
-        this.setPregnantOrBreastfeeding(applicantInfo.pregnantOrBreastfeeding);             // Pregnant or breastfeeding?
-        this.setFullTimeStudent(applicantInfo.additionalFamilyfullTimeStudent);                     // Full-time student?
-        this.setCaringForChild(applicantInfo.additionalFamilyCaringForChild);                      // Caring for someone else’s child?
+        this.setAccommodationServicesNeeded(applicantInfo.accommodationServicesNeeded);    // Need support accessing services?
+        this.setEmploymentServicesSupport(applicantInfo.employmentServicesSupport);   // Getting job-program/service support?
+        this.setSpecialDietMedicalCondition(applicantInfo.specialDietMedicalCondition);    // Need special diet due to medical condition?
+        this.setACSD(applicantInfo.acsd);   //Assistance for Children with Severe Disabilities program (ACSD)?
+        this.setDisabilityInFamily(applicantInfo.hasDisability);    // Person with disability in family?
+        this.setImmediateNeedMoney(applicantInfo.immediateNeedMoney);     // Need money for immediate needs?
+        this.setPregnantOrBreastfeeding(applicantInfo.pregnantOrBreastfeeding);   // Pregnant or breastfeeding?
+        this.setFullTimeStudent(applicantInfo.additionalFamilyfullTimeStudent);  // Full-time student?
+        this.setCaringForChild(applicantInfo.additionalFamilyCaringForChild);   // Caring for someone else’s child?
 
         // Save and Continue
         clickSaveAndContinue();

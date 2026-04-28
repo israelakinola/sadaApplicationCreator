@@ -119,7 +119,7 @@ public class AdditionalInformationPage extends BasePage {
         utility.click(disabilityGroup);
         if(yes) {
             utility.click(disabilityYesLabel);
-            utility.click(disabilityDsoNoLabel);
+
         }else{
             utility.click(disabilityNoLabel);
         }
@@ -141,13 +141,27 @@ public class AdditionalInformationPage extends BasePage {
         selectYesNo(yes,caringForChildYesLabel, caringForChildNoLabel );
     }
 
+    private void extraDisabilityInformation(int appType){
+        if(appType <= 3){
+            utility.click(disabilityDsoNoLabel);
+        }else{
+            By priApplicantDisableLabel = By.id("disabilityPanel_personWithDisabilityInFamilyCheckbox00");
+            By priApplicantDSONoLabel =
+                    By.cssSelector("label[for='personWithDisabilityInFamilyCheckboxPanelApplicant_developmentServicesOntario0-radio-button-option-2']");
+            utility.click(priApplicantDisableLabel);
+            utility.click(priApplicantDSONoLabel);
+
+
+        }
+    }
+
     public void complete(ApplicantInfo applicantInfo){
         if(!utility.isElementPresent(pageTitle)) {
-            Logger.info("Skipping : " + pageTitle.toString());
+            Logger.info("Skipping : " + driver.findElement(pageTitle).getText());
             return;
         }
 
-        Logger.info("Filling : " + pageTitle.toString());
+        Logger.info("Filling : " + driver.findElement(pageTitle).getText());
         //Are you living in an institution such as a hospital or long-term care facility or a
         // residential school for vision or hearing impaired?(
         setCurrentlyResidingInInstitution(applicantInfo.currentlyResidingInInstitution);
@@ -158,13 +172,16 @@ public class AdditionalInformationPage extends BasePage {
         //Do you need to follow a special diet because of a medical condition?
         setSpecialDietOrMedicalCondition(applicantInfo.specialDietOrMedicalCondition);
         //Do you have a disability?(required)Being a person with a disability means:
-        setPersonWithDisability(applicantInfo.personWithDisability);
+        setPersonWithDisability(applicantInfo.hasDisability);
         //Do you have additional nutritional needs because you are pregnant or breastfeeding?
         setAdditionalNutritionalNeeds(applicantInfo.additionalNutritionalNeeds);
         //Are you a full-time student enrolled in secondary school, college or university?
         setFullTimeStudent(applicantInfo.fullTimeStudent);
         //Are you caring for anyone else's child temporarily, for example a child whose parent is staying in a hospital?
         setCaringForChild(applicantInfo.caringForChild);
+
+        //Extra Disability Information when Yes is selected for Disability
+        extraDisabilityInformation(applicantInfo.applicationType);
 
         if (utility.isElementPresent(saveAndContinueBtn)) {
             utility.clickButton(saveAndContinueBtn);

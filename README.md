@@ -23,7 +23,9 @@ main.java
    - **ENV section**
    - **Personal Information section** (most important)
 3. Run `main.java`.
-4. Application Ref number will be in the /output.txt File after completion
+4. Just type in/paste the emailVerification Code in the input field for MYB verfication, 
+the script will take care of the rest 
+5. Application Ref number will be in the /output.txt File after completion
 
 ⚙️ Prerequisites
 - Make sure the following are installed and configured:

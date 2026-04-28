@@ -115,7 +115,7 @@ public class MailTmService {
         HttpResponse<String> response =
                 client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println("Auth response: " + response.body());
+
 
         JSONObject obj = new JSONObject(response.body());
 
@@ -146,7 +146,7 @@ public class MailTmService {
 
             if (messages.length() > 0) {
                 String messageId = messages.getJSONObject(0).getString("id");
-                System.out.println("Email received. Message ID: " + messageId);
+
                 return messageId;
             }
 
@@ -171,7 +171,6 @@ public class MailTmService {
 
         String text = new JSONObject(response.body()).getString("text");
 
-        System.out.println("Email body: " + text);
 
         Pattern pattern = Pattern.compile("\\b\\d{4,8}\\b");
         Matcher matcher = pattern.matcher(text);

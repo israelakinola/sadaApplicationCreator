@@ -24,7 +24,7 @@ public class SingleApplicant extends Application {
 
 
         startNewApplication();
-
+        applicantInfo.maritalStatus = "Single";
         new BeforeYouApplyPage(driver).complete(applicantInfo);
 
 
@@ -76,22 +76,22 @@ public class SingleApplicant extends Application {
 
     public static void runSingleApplicantOnw(WebDriver driver, ApplicantInfo info) {
         Logger.info("Started Single Application");
-        info.maritalStatus = "Single";
         info.hasDisability = false;
         new SingleApplicant(driver).createApplication(info);
     }
     public static void runSingleApplicantOdsp(WebDriver driver, ApplicantInfo info) {
         Logger.info("Started Single Application");
-        info.maritalStatus = "Single";
         info.hasDisability = true;
         new SingleApplicant(driver).createApplication(info);
     }
 
     public static void runSingleMultiProgram(WebDriver driver, ApplicantInfo info) {
         Logger.info("Started Single Application");
-        info.maritalStatus = "Single";
         info.multiProgram = true;
         info.hasDisability = true;
         new SingleApplicant(driver).createApplication(info);
     }
 }
+
+
+
